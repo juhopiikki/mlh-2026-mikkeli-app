@@ -270,6 +270,27 @@ Deliver a hilarious, witty, laugh-out-loud roast of whatever is in the image —
   }
 });
 
+let sharedElevenLabsApiKey = process.env.ELEVENLABS_API_KEY || '';
+
+// API: Check ElevenLabs status (returns whether server has a key configured)
+app.get('/api/elevenlabs/config', (_req, res) => {
+  res.json({
+    hasKey: Boolean(sharedElevenLabsApiKey)
+  });
+});
+
+// API: Sync ElevenLabs key so all visitors/friends on shared URL can hear the voices
+app.post('/api/elevenlabs/sync-key', (req, res) => {
+  const { apiKey } = req.body;
+  if (apiKey && typeof apiKey === 'string' && apiKey.trim().length > 5) {
+    sharedElevenLabsApiKey = apiKey.trim();
+  }
+  res.json({
+    success: true,
+    hasKey: Boolean(sharedElevenLabsApiKey)
+  });
+});
+
 // API: ElevenLabs Text-to-Speech Proxy (Supports Multilingual v2 for Finnish & English)
 app.post('/api/elevenlabs/tts', async (req, res) => {
   try {
@@ -287,7 +308,12 @@ app.post('/api/elevenlabs/tts', async (req, res) => {
       return res.status(400).json({ error: 'Text is required for TTS' });
     }
 
-    const apiKey = customApiKey || process.env.ELEVENLABS_API_KEY;
+    // Auto-update shared key if provided by user
+    if (customApiKey && typeof customApiKey === 'string' && customApiKey.trim().length > 5) {
+      sharedElevenLabsApiKey = customApiKey.trim();
+    }
+
+    const apiKey = customApiKey || sharedElevenLabsApiKey || process.env.ELEVENLABS_API_KEY;
 
     if (!apiKey) {
       return res.status(400).json({

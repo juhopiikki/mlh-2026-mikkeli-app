@@ -165,8 +165,7 @@ const SAMPLE_PRESETS = [
     nameFi: 'Aamukahvi & Korvapuusti',
     category: 'Food & Life',
     description: 'Fresh steaming mug of dark roast filter coffee and warm cinnamon pastry.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23271c19"/><rect x="0" y="240" width="600" height="160" fill="%23452216"/><circle cx="200" cy="220" r="80" fill="%23f5ebe0"/><circle cx="200" cy="220" r="66" fill="%232c1810"/><path d="M265,200 C295,200 295,240 265,240" fill="none" stroke="%23f5ebe0" stroke-width="12" stroke-linecap="round"/><path d="M190,130 Q180,100 200,70 M210,130 Q220,95 205,65" fill="none" stroke="%23ffffff" stroke-width="3" opacity="0.4" stroke-linecap="round"/><ellipse cx="390" cy="225" rx="85" ry="65" fill="%23c27838"/><ellipse cx="390" cy="225" rx="70" ry="50" fill="%23d98e48"/><path d="M330,215 Q390,175 450,215 Q390,265 330,235" fill="none" stroke="%238a4413" stroke-width="8"/><circle cx="360" cy="205" r="3" fill="%23ffffff"/><circle cx="400" cy="235" r="3" fill="%23ffffff"/><circle cx="420" cy="210" r="3.5" fill="%23ffffff"/><circle cx="380" cy="200" r="2.5" fill="%23ffffff"/><text x="300" y="370" text-anchor="middle" fill="%23d6a27e" font-family="sans-serif" font-size="15">NORDIC MORNING • FRESH COFFEE &amp; KORVAPUUSTI</text></svg>'
+    imageUrl: '/presets/coffee.jpg'
   },
   {
     id: 'dog',
@@ -174,8 +173,7 @@ const SAMPLE_PRESETS = [
     nameFi: 'Kultainennoutaja puutarhassa',
     category: 'Pets & Animals',
     description: 'Happy puppy sitting on a sunny lawn with blooming garden flowers.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%2338bdf8"/><rect x="0" y="220" width="600" height="180" fill="%2322c55e"/><circle cx="100" cy="80" r="45" fill="%23fde047"/><circle cx="80" cy="290" r="14" fill="%23ec4899"/><circle cx="500" cy="280" r="16" fill="%23eab308"/><circle cx="530" cy="300" r="12" fill="%23f43f5e"/><ellipse cx="300" cy="240" rx="95" ry="85" fill="%23eab308"/><ellipse cx="230" cy="210" rx="30" ry="50" fill="%23ca8a04"/><ellipse cx="370" cy="210" rx="30" ry="50" fill="%23ca8a04"/><circle cx="265" cy="215" r="10" fill="%231e293b"/><circle cx="335" cy="215" r="10" fill="%231e293b"/><circle cx="268" cy="212" r="3" fill="%23ffffff"/><circle cx="338" cy="212" r="3" fill="%23ffffff"/><ellipse cx="300" cy="255" rx="22" ry="16" fill="%231e293b"/><path d="M290,265 Q300,285 310,265" fill="%23f43f5e"/><text x="300" y="370" text-anchor="middle" fill="%23ffffff" font-family="sans-serif" font-size="15" font-weight="bold">SPRING GARDEN • HAPPY GOLDEN RETRIEVER</text></svg>'
+    imageUrl: '/presets/dog.jpg'
   },
   {
     id: 'saimaa',
@@ -183,8 +181,7 @@ const SAMPLE_PRESETS = [
     nameFi: 'Laituri & Syysjärvi',
     category: 'Nature & Scenery',
     description: 'Tranquil wooden pier extending into calm lake water under a colorful Nordic sky.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="%23ea580c"/><stop offset="50%" stop-color="%23f97316"/><stop offset="100%" stop-color="%2338bdf8"/></linearGradient></defs><rect width="600" height="400" fill="url(%23g1)"/><circle cx="300" cy="190" r="50" fill="%23fed7aa"/><rect x="0" y="220" width="600" height="180" fill="%230369a1"/><polygon points="40,220 80,140 120,220" fill="%230f172a"/><polygon points="90,220 130,130 170,220" fill="%230f172a"/><polygon points="460,220 500,120 540,220" fill="%230f172a"/><polygon points="510,220 545,145 580,220" fill="%230f172a"/><polygon points="260,400 340,400 320,230 280,230" fill="%2378350f"/><line x1="260" y1="260" x2="340" y2="260" stroke="%23451a03" stroke-width="4"/><line x1="260" y1="310" x2="340" y2="310" stroke="%23451a03" stroke-width="5"/><line x1="260" y1="360" x2="340" y2="360" stroke="%23451a03" stroke-width="6"/><text x="300" y="385" text-anchor="middle" fill="%23bae6fd" font-family="sans-serif" font-size="14">LAKE SAIMAA • SERENE WOODEN PIER AT SUNSET</text></svg>'
+    imageUrl: '/presets/saimaa.jpg'
   },
   {
     id: 'room',
@@ -192,8 +189,7 @@ const SAMPLE_PRESETS = [
     nameFi: 'Skandinaavinen olohuone',
     category: 'Design & Living',
     description: 'Minimalist living room with green armchair, monstera plant, and ambient lamp.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23f1f5f9"/><rect x="0" y="270" width="600" height="130" fill="%23cbd5e1"/><rect x="180" y="60" width="120" height="150" fill="%23ffffff" stroke="%23334155" stroke-width="4"/><circle cx="240" cy="135" r="35" fill="%23f97316"/><line x1="480" y1="90" x2="480" y2="320" stroke="%23334155" stroke-width="6"/><polygon points="450,110 510,110 495,80 465,80" fill="%23fde047"/><rect x="300" y="190" width="130" height="100" rx="16" fill="%230d9488"/><rect x="285" y="240" width="160" height="50" rx="10" fill="%23115e59"/><circle cx="100" cy="270" r="40" fill="%2315803d"/><circle cx="80" cy="240" r="30" fill="%2316a34a"/><rect x="85" y="280" width="30" height="50" fill="%23ea580c"/><text x="300" y="380" text-anchor="middle" fill="%23475569" font-family="sans-serif" font-size="14">NORDIC INTERIOR • MODERN SCANDINAVIAN LIVING ROOM</text></svg>'
+    imageUrl: '/presets/room.jpg'
   },
   {
     id: 'breadboard',
@@ -201,8 +197,7 @@ const SAMPLE_PRESETS = [
     nameFi: 'Hacklab-prototyyppi & kolvi',
     category: 'Workshop & Maker',
     description: 'Tangled jumper wires, NE555 timer chip, LEDs and prototype electronics.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%230f172a"/><rect x="110" y="70" width="380" height="250" rx="8" fill="%23f8fafc"/><rect x="250" y="145" width="100" height="40" rx="4" fill="%231e293b"/><text x="300" y="170" text-anchor="middle" fill="%23ffffff" font-family="monospace" font-size="12">NE555P</text><path d="M150,95 C150,225 220,155 250,155" fill="none" stroke="%23ef4444" stroke-width="6"/><path d="M200,285 C280,225 300,285 340,165" fill="none" stroke="%233b82f6" stroke-width="6"/><path d="M350,155 C420,125 400,265 450,265" fill="none" stroke="%2310b981" stroke-width="6"/><circle cx="430" cy="115" r="8" fill="%23eab308"/><text x="300" y="365" text-anchor="middle" fill="%23cbd5e1" font-family="sans-serif" font-size="15">HACKLAB MIKKELI BENCH • ELECTRONICS PROTOTYPE</text></svg>'
+    imageUrl: '/presets/breadboard.jpg'
   },
   {
     id: 'fashion',
@@ -210,8 +205,7 @@ const SAMPLE_PRESETS = [
     nameFi: 'Syystakki & Katutyyli',
     category: 'Fashion & People',
     description: 'Warm mustard wool coat, red knitted scarf, and takeaway coffee on a city walk.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%231e293b"/><circle cx="120" cy="100" r="50" fill="%23f59e0b" opacity="0.3"/><circle cx="480" cy="140" r="70" fill="%2306b6d4" opacity="0.2"/><ellipse cx="300" cy="100" rx="40" ry="45" fill="%23fcd34d"/><path d="M260,110 Q300,135 340,110 L350,150 Q300,165 250,150 Z" fill="%23b91c1c"/><path d="M240,150 L210,320 L390,320 L360,150 Z" fill="%23d97706"/><rect x="285" y="170" width="30" height="150" fill="%23b45309"/><rect x="360" y="240" width="22" height="35" rx="4" fill="%23ffffff"/><polygon points="360,240 382,240 378,245 364,245" fill="%231e293b"/><text x="300" y="370" text-anchor="middle" fill="%23f1f5f9" font-family="sans-serif" font-size="14">AUTUMN STREETWEAR • COAT &amp; SCARF URBAN STYLE</text></svg>'
+    imageUrl: '/presets/fashion.jpg'
   }
 ];
 
@@ -254,12 +248,80 @@ export default function App() {
   const [elevenLabsApiKey, setElevenLabsApiKey] = useState(() => {
     return localStorage.getItem('elevenlabs_api_key') || '';
   });
+  const [serverHasKey, setServerHasKey] = useState(false);
+  const [isAudioUnlocked, setIsAudioUnlocked] = useState(false);
+  const audioUnlockedRef = useRef(false);
+
   const [voiceSource, setVoiceSource] = useState<'elevenlabs' | 'browser'>('browser');
   const [showVoiceModal, setShowVoiceModal] = useState(false);
   const [copiedPitch, setCopiedPitch] = useState(false);
   const [voiceStability, setVoiceStability] = useState(0.5);
   const [voiceClarity, setVoiceClarity] = useState(0.8);
   const [testVoiceStatus, setTestVoiceStatus] = useState<string | null>(null);
+
+  // Global mobile audio unlock on first user gesture
+  const unlockAudioContext = () => {
+    if (audioUnlockedRef.current) return;
+    try {
+      // 1-sample silent WAV to unlock HTML5 Audio on iOS/Android
+      const silent = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
+      silent.volume = 0.01;
+      const playPromise = silent.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            audioUnlockedRef.current = true;
+            setIsAudioUnlocked(true);
+          })
+          .catch(() => {});
+      }
+    } catch {}
+
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.resume();
+      } catch {}
+    }
+  };
+
+  useEffect(() => {
+    const handleFirstGesture = () => {
+      unlockAudioContext();
+    };
+
+    window.addEventListener('touchstart', handleFirstGesture, { capture: true, passive: true });
+    window.addEventListener('touchend', handleFirstGesture, { capture: true, passive: true });
+    window.addEventListener('click', handleFirstGesture, { capture: true, passive: true });
+    return () => {
+      window.removeEventListener('touchstart', handleFirstGesture, { capture: true });
+      window.removeEventListener('touchend', handleFirstGesture, { capture: true });
+      window.removeEventListener('click', handleFirstGesture, { capture: true });
+    };
+  }, []);
+
+  // Sync ElevenLabs key with server on mount so friends on shared link also hear audio
+  useEffect(() => {
+    const localKey = localStorage.getItem('elevenlabs_api_key') || '';
+    if (localKey.trim()) {
+      fetch('/api/elevenlabs/sync-key', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: localKey.trim() })
+      })
+        .then((res) => res.json())
+        .then((d) => {
+          if (d.hasKey) setServerHasKey(true);
+        })
+        .catch(() => {});
+    } else {
+      fetch('/api/elevenlabs/config')
+        .then((res) => res.json())
+        .then((d) => {
+          if (d.hasKey) setServerHasKey(true);
+        })
+        .catch(() => {});
+    }
+  }, []);
 
   // Webcam State
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
@@ -278,6 +340,30 @@ export default function App() {
     return () => document.removeEventListener('fullscreenchange', handleFsChange);
   }, []);
 
+  // Guard against unhandled media/playback interruptions, canvas errors, and speech issues
+  useEffect(() => {
+    const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
+      // Prevent unhandled rejections from bubbling up to AI Studio mobile host frame
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation?.();
+    };
+
+    const handleError = (event: Event) => {
+      // Prevent media, canvas SecurityError, or speech events from bubbling to AI Studio
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation?.();
+    };
+
+    window.addEventListener('unhandledrejection', handleUnhandledRejection, true);
+    window.addEventListener('error', handleError, true);
+    return () => {
+      window.removeEventListener('unhandledrejection', handleUnhandledRejection, true);
+      window.removeEventListener('error', handleError, true);
+    };
+  }, []);
+
   const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
@@ -286,54 +372,76 @@ export default function App() {
     }
   };
 
-  // Persist ElevenLabs API Key
+  // Persist ElevenLabs API Key and sync to server for friends
   const handleSaveApiKey = (key: string) => {
     setElevenLabsApiKey(key);
     localStorage.setItem('elevenlabs_api_key', key);
+    if (key.trim()) {
+      fetch('/api/elevenlabs/sync-key', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: key.trim() })
+      })
+        .then((res) => res.json())
+        .then((d) => {
+          if (d.hasKey) setServerHasKey(true);
+        })
+        .catch(() => {});
+    }
   };
 
-  // Convert any image or SVG to clean JPEG base64 data (resizing if oversized)
+  // Convert any image or SVG to clean JPEG base64 data (resizing if oversized, fully guarded)
   const getJpegBase64 = (imageSrc: string): Promise<string> => {
     return new Promise((resolve) => {
-      // If already a compact base64 JPEG/PNG, use directly
-      if (
-        (imageSrc.startsWith('data:image/jpeg;base64,') || imageSrc.startsWith('data:image/png;base64,')) &&
-        imageSrc.length < 500000
-      ) {
-        resolve(imageSrc);
-        return;
-      }
-
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        const maxDim = 1200;
-        let w = img.naturalWidth || 600;
-        let h = img.naturalHeight || 400;
-        if (w > maxDim || h > maxDim) {
-          if (w > h) {
-            h = Math.round((h * maxDim) / w);
-            w = maxDim;
-          } else {
-            w = Math.round((w * maxDim) / h);
-            h = maxDim;
-          }
-        }
-        const canvas = document.createElement('canvas');
-        canvas.width = w;
-        canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.fillStyle = '#0f172a';
-          ctx.fillRect(0, 0, w, h);
-          ctx.drawImage(img, 0, 0, w, h);
-          resolve(canvas.toDataURL('image/jpeg', 0.85));
+      try {
+        // If already a compact base64 JPEG/PNG, use directly
+        if (
+          (imageSrc.startsWith('data:image/jpeg;base64,') || imageSrc.startsWith('data:image/png;base64,')) &&
+          imageSrc.length < 500000
+        ) {
+          resolve(imageSrc);
           return;
         }
+
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+          try {
+            const maxDim = 1200;
+            let w = img.naturalWidth || 600;
+            let h = img.naturalHeight || 400;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) {
+                h = Math.round((h * maxDim) / w);
+                w = maxDim;
+              } else {
+                w = Math.round((w * maxDim) / h);
+                h = maxDim;
+              }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w;
+            canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            if (ctx) {
+              ctx.fillStyle = '#0f172a';
+              ctx.fillRect(0, 0, w, h);
+              ctx.drawImage(img, 0, 0, w, h);
+              const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+              resolve(dataUrl);
+              return;
+            }
+          } catch (canvasErr) {
+            console.warn('Canvas conversion guarded safely:', canvasErr);
+          }
+          resolve(imageSrc);
+        };
+        img.onerror = () => resolve(imageSrc);
+        img.src = imageSrc;
+      } catch (outerErr) {
+        console.warn('getJpegBase64 guarded safely:', outerErr);
         resolve(imageSrc);
-      };
-      img.onerror = () => resolve(imageSrc);
-      img.src = imageSrc;
+      }
     });
   };
 
@@ -344,26 +452,41 @@ export default function App() {
 
     // Abort prior in-flight ElevenLabs network request
     if (ttsAbortControllerRef.current) {
-      ttsAbortControllerRef.current.abort();
+      try {
+        ttsAbortControllerRef.current.abort();
+      } catch {}
     }
     const ttsController = new AbortController();
     ttsAbortControllerRef.current = ttsController;
 
     if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
     }
     if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = '';
+      try {
+        const audio = audioRef.current;
+        audio.onended = null;
+        audio.onerror = null;
+        audio.pause();
+        audio.currentTime = 0;
+        audio.removeAttribute('src');
+      } catch {}
     }
+
+    // Make sure audio is unlocked on user interaction
+    unlockAudioContext();
 
     setIsSpeaking(true);
     const activeChar = selectedCharacterRef.current || selectedCharacter;
     const targetVoiceId = overrideVoiceId || selectedVoiceIdRef.current || selectedVoiceId || activeChar.defaultVoiceId;
     const targetLanguage = languageRef.current || language;
 
-    // Check if ElevenLabs key is available
-    if (elevenLabsApiKey.trim()) {
+    const canUseElevenLabs = Boolean(elevenLabsApiKey.trim() || serverHasKey);
+
+    // Check if ElevenLabs key is available (either entered locally or shared by server)
+    if (canUseElevenLabs) {
       try {
         const res = await fetch('/api/elevenlabs/tts', {
           method: 'POST',
@@ -393,80 +516,127 @@ export default function App() {
           audioRef.current = audio;
 
           audio.onended = () => {
+            URL.revokeObjectURL(audioUrl);
             if (thisSpeechId === currentSpeechIdRef.current) {
               setIsSpeaking(false);
             }
           };
-          audio.onerror = () => {
+          audio.onerror = (e: Event | string) => {
+            if (e && typeof e !== 'string') {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+            URL.revokeObjectURL(audioUrl);
             if (thisSpeechId === currentSpeechIdRef.current) {
-              fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
+              setIsSpeaking(false);
             }
           };
 
           setVoiceSource('elevenlabs');
-          await audio.play();
+          try {
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+              playPromise
+                .then(() => {
+                  setIsAudioUnlocked(true);
+                })
+                .catch((playErr) => {
+                  console.debug('Audio play request blocked or cancelled:', playErr);
+                  if (thisSpeechId === currentSpeechIdRef.current) {
+                    setIsSpeaking(false);
+                  }
+                });
+            }
+          } catch (playErr) {
+            console.debug('Audio play request blocked or cancelled:', playErr);
+            if (thisSpeechId === currentSpeechIdRef.current) {
+              setIsSpeaking(false);
+            }
+          }
+          return;
+        } else {
+          console.warn('ElevenLabs API returned non-OK status:', res.status);
+          setIsSpeaking(false);
           return;
         }
       } catch (err: any) {
         if (err.name === 'AbortError') return;
-        console.warn('ElevenLabs API request failed, falling back to browser speech:', err);
+        console.warn('ElevenLabs API request handled:', err);
+        setIsSpeaking(false);
+        return;
       }
     }
 
-    // Fallback: Browser Native Web Speech API
-    if (thisSpeechId === currentSpeechIdRef.current) {
+    // Fallback: Browser Native Web Speech API only if no ElevenLabs key is configured
+    if (!canUseElevenLabs && thisSpeechId === currentSpeechIdRef.current) {
       fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
     }
   };
 
   const fallbackBrowserSpeech = (text: string, speechId?: number, _voiceId?: string) => {
-    if (!('speechSynthesis' in window)) {
+    try {
+      if (!('speechSynthesis' in window)) {
+        setIsSpeaking(false);
+        return;
+      }
+
+      setVoiceSource('browser');
+      const utterance = new SpeechSynthesisUtterance(text);
+      const activeChar = selectedCharacterRef.current || selectedCharacter;
+      const targetLang = languageRef.current || language;
+      utterance.pitch = activeChar.defaultPitch;
+      utterance.rate = activeChar.defaultRate;
+      utterance.lang = targetLang === 'fi' ? 'fi-FI' : 'en-US';
+
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoice =
+        voices.find((v) => (targetLang === 'fi' ? v.lang.startsWith('fi') : v.lang.startsWith('en'))) ||
+        voices[0];
+      if (preferredVoice) {
+        utterance.voice = preferredVoice;
+      }
+
+      utterance.onend = () => {
+        if (!speechId || speechId === currentSpeechIdRef.current) {
+          setIsSpeaking(false);
+        }
+      };
+      utterance.onerror = (e) => {
+        console.debug('Browser speech synthesis error ignored:', e);
+        if (!speechId || speechId === currentSpeechIdRef.current) {
+          setIsSpeaking(false);
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    } catch (synthErr) {
+      console.debug('Browser speech synthesis error:', synthErr);
       setIsSpeaking(false);
-      return;
     }
-
-    setVoiceSource('browser');
-    const utterance = new SpeechSynthesisUtterance(text);
-    const activeChar = selectedCharacterRef.current || selectedCharacter;
-    const targetLang = languageRef.current || language;
-    utterance.pitch = activeChar.defaultPitch;
-    utterance.rate = activeChar.defaultRate;
-    utterance.lang = targetLang === 'fi' ? 'fi-FI' : 'en-US';
-
-    const voices = window.speechSynthesis.getVoices();
-    const preferredVoice =
-      voices.find((v) => (targetLang === 'fi' ? v.lang.startsWith('fi') : v.lang.startsWith('en'))) ||
-      voices[0];
-    if (preferredVoice) {
-      utterance.voice = preferredVoice;
-    }
-
-    utterance.onend = () => {
-      if (!speechId || speechId === currentSpeechIdRef.current) {
-        setIsSpeaking(false);
-      }
-    };
-    utterance.onerror = () => {
-      if (!speechId || speechId === currentSpeechIdRef.current) {
-        setIsSpeaking(false);
-      }
-    };
-
-    window.speechSynthesis.speak(utterance);
   };
 
   const stopSpeaking = () => {
     // Invalidate any in-flight audio downloads
     currentSpeechIdRef.current++;
     if (ttsAbortControllerRef.current) {
-      ttsAbortControllerRef.current.abort();
+      try {
+        ttsAbortControllerRef.current.abort();
+      } catch {}
     }
     if (window.speechSynthesis) {
-      window.speechSynthesis.cancel();
+      try {
+        window.speechSynthesis.cancel();
+      } catch {}
     }
     if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = '';
+      try {
+        const audio = audioRef.current;
+        audio.onended = null;
+        audio.onerror = null;
+        audio.pause();
+        audio.currentTime = 0;
+        audio.removeAttribute('src');
+      } catch {}
     }
     setIsSpeaking(false);
   };
@@ -553,7 +723,7 @@ export default function App() {
         // Normal cancellation when user switched selection
         return;
       }
-      console.error('Vision analysis error:', err);
+      console.warn('Vision analysis warning (handled gracefully):', err);
     } finally {
       setIsAnalyzing(false);
       setActiveFocusTag(null);
@@ -713,26 +883,24 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950 w-full max-w-[100vw] overflow-x-hidden">
       {/* Top Hacktoberfest Header Banner */}
-      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-amber-700 text-white text-xs py-1.5 px-4 shadow-inner">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center space-x-2 font-medium">
-            <span className="bg-slate-950 text-amber-300 font-bold px-2 py-0.5 rounded text-[10px] tracking-wide">
+      <div className="bg-gradient-to-r from-orange-600 via-amber-600 to-amber-700 text-white text-xs py-1 px-3 sm:px-4 shadow-inner w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 min-w-0">
+          <div className="flex items-center space-x-1.5 font-medium min-w-0 truncate">
+            <span className="bg-slate-950 text-amber-300 font-bold px-1.5 py-0.5 rounded text-[10px] tracking-wide shrink-0">
               MLH HACK DAY
             </span>
-            <span>Hacktoberfest Hack Day Mikkeli × Hacklab Mikkeli ry</span>
-            <span className="hidden sm:inline-block bg-orange-950/60 px-2 py-0.5 rounded text-[10px] text-amber-200 border border-orange-400/30">
-              Gemma + ElevenLabs
-            </span>
+            <span className="truncate text-[11px] sm:text-xs">Hacktoberfest Mikkeli × Hacklab ry</span>
           </div>
 
-          <div className="flex items-center space-x-3 text-amber-100 text-[11px]">
+          <div className="flex items-center space-x-2 text-amber-100 text-[11px] shrink-0">
             {/* Suomi / English Toggle */}
-            <div className="flex items-center space-x-1 bg-slate-950/60 rounded-lg p-0.5 border border-amber-300/30">
+            <div className="flex items-center space-x-0.5 bg-slate-950/60 rounded-lg p-0.5 border border-amber-300/30">
               <button
+                type="button"
                 onClick={() => handleToggleLanguage('fi')}
-                className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center space-x-1 ${
+                className={`px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-bold transition flex items-center space-x-1 ${
                   language === 'fi' ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:text-white'
                 }`}
               >
@@ -740,13 +908,14 @@ export default function App() {
                 <span>Suomi</span>
               </button>
               <button
+                type="button"
                 onClick={() => handleToggleLanguage('en')}
-                className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center space-x-1 ${
+                className={`px-2 py-0.5 rounded text-[10px] sm:text-[11px] font-bold transition flex items-center space-x-1 ${
                   language === 'en' ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:text-white'
                 }`}
               >
                 <span>🇬🇧</span>
-                <span>English</span>
+                <span>EN</span>
               </button>
             </div>
 
@@ -756,56 +925,61 @@ export default function App() {
       </div>
 
       {/* Main Navigation Bar */}
-      <header className="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-slate-950 font-extrabold shadow-lg shadow-orange-950">
-              <Bot className="w-5 h-5 text-slate-950" />
+      <header className="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40 w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 h-14 sm:h-16 flex items-center justify-between gap-2">
+          <div className="flex items-center space-x-2 min-w-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-slate-950 font-extrabold shadow-lg shadow-orange-950 shrink-0">
+              <Bot className="w-4 h-4 sm:w-5 sm:h-5 text-slate-950" />
             </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-extrabold text-base tracking-tight text-white">Pikseli Voiced Vision</span>
-                <span className={`text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded-full border ${
-                  elevenLabsApiKey ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1.5">
+                <span className="font-extrabold text-sm sm:text-base tracking-tight text-white truncate">Pikseli</span>
+                <span className={`text-[9px] sm:text-[10px] font-semibold tracking-wider px-1.5 sm:px-2 py-0.5 rounded-full border shrink-0 ${
+                  elevenLabsApiKey || serverHasKey ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
                 }`}>
-                  {elevenLabsApiKey ? 'ElevenLabs Active' : 'Browser Audio'}
+                  {elevenLabsApiKey || serverHasKey ? 'ElevenLabs' : 'Audio'}
                 </span>
               </div>
-              <p className="text-xs text-slate-400 hidden sm:block">
+              <p className="text-xs text-slate-400 hidden sm:block truncate">
                 {language === 'fi' ? 'Osoita esinettä tai lataa kuva — hahmo kertoo ääneen mitä näkee!' : 'Hold up an object or upload a photo — your AI companion speaks what it sees!'}
               </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-1 sm:space-x-2 shrink-0">
             {/* Voice & ElevenLabs Settings Button */}
             <button
+              type="button"
               onClick={() => setShowVoiceModal(true)}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition text-xs flex items-center space-x-1.5"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition text-xs flex items-center space-x-1"
+              title={language === 'fi' ? 'Ääni & Key' : 'Voice & Key'}
             >
-              <Mic className="w-3.5 h-3.5 text-amber-400" />
-              <span>{language === 'fi' ? 'Ääni & Key' : 'Voice & Key'}</span>
+              <Mic className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+              <span className="hidden sm:inline">{language === 'fi' ? 'Ääni' : 'Voice'}</span>
             </button>
 
-            <button
-              onClick={handleCopyPitchDeck}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 hover:text-white transition text-xs flex items-center space-x-1"
-              title="Copy Pitch Deck Outline"
+            {/* Standalone clean view link (Hides AI Studio Chat bar entirely on mobile) */}
+            <a
+              href="https://ais-pre-edsgiijkdgu5c27t3pmpsh-631589137191.europe-west2.run.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-900 border border-cyan-500/30 hover:border-cyan-500 text-cyan-300 hover:text-cyan-200 transition text-xs flex items-center space-x-1"
+              title={language === 'fi' ? 'Avaa puhelimessa ilman chattiä (koko näyttö)' : 'Open clean app without chat bar (fullscreen)'}
             >
-              {copiedPitch ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <FileText className="w-3.5 h-3.5" />}
-              <span className="hidden sm:inline">Pitch Script</span>
-            </button>
+              <ExternalLink className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
+              <span className="text-[10px] sm:text-[11px] font-bold text-cyan-400 whitespace-nowrap">
+                {language === 'fi' ? 'Ei chattiä ↗' : 'Clean ↗'}
+              </span>
+            </a>
 
             {/* In-app Fullscreen Toggle */}
             <button
+              type="button"
               onClick={toggleFullscreen}
-              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition text-xs flex items-center space-x-1.5"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition text-xs flex items-center space-x-1"
               title={isFullscreen ? (language === 'fi' ? 'Poistu koko ruudusta (Esc)' : 'Exit Fullscreen (Esc)') : (language === 'fi' ? 'Koko ruutu' : 'Fullscreen')}
             >
-              {isFullscreen ? <Minimize className="w-3.5 h-3.5 text-cyan-400" /> : <Maximize className="w-3.5 h-3.5 text-slate-400" />}
-              <span className="hidden sm:inline">
-                {isFullscreen ? (language === 'fi' ? 'Pikkuruutu' : 'Exit') : (language === 'fi' ? 'Koko näyttö' : 'Full Screen')}
-              </span>
+              {isFullscreen ? <Minimize className="w-3.5 h-3.5 text-cyan-400 shrink-0" /> : <Maximize className="w-3.5 h-3.5 text-slate-400 shrink-0" />}
             </button>
           </div>
         </div>
@@ -824,20 +998,25 @@ export default function App() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full min-w-0">
             {CHARACTERS.map((char) => {
               const isSelected = selectedCharacter.id === char.id;
               return (
                 <button
+                  type="button"
                   key={char.id}
-                  onClick={() => handleSelectCharacter(char)}
-                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between relative group ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    handleSelectCharacter(char);
+                  }}
+                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between relative group min-w-0 overflow-hidden active:scale-[0.98] select-none ${
                     isSelected
                       ? `bg-slate-900 ${char.colorTheme.border} ring-1 ring-amber-500/40 shadow-lg ${char.colorTheme.glow}`
                       : 'bg-slate-900/40 border-slate-800/80 hover:bg-slate-900/80 hover:border-slate-700'
                   }`}
                 >
-                  <div className="space-y-2">
+                  <div className="space-y-2 min-w-0">
                     <div className="flex items-center justify-between">
                       <span className="text-2xl">{char.avatarEmoji}</span>
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${char.colorTheme.badge}`}>
@@ -845,11 +1024,11 @@ export default function App() {
                       </span>
                     </div>
 
-                    <div>
-                      <h4 className="font-bold text-sm text-white">
+                    <div className="min-w-0">
+                      <h4 className="font-bold text-sm text-white truncate">
                         {language === 'fi' ? char.nameFi : char.name}
                       </h4>
-                      <p className="text-[11px] text-slate-400 font-medium">
+                      <p className="text-[11px] text-slate-400 font-medium truncate">
                         {language === 'fi' ? char.titleFi : char.title}
                       </p>
                       <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
@@ -883,6 +1062,7 @@ export default function App() {
                 <div className="relative w-full h-full flex flex-col items-center justify-center">
                   <video ref={videoRef} autoPlay playsInline className="w-full h-full object-cover rounded-xl" />
                   <button
+                    type="button"
                     onClick={captureWebcamSnapshot}
                     className="absolute bottom-3 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center space-x-2 shadow-lg"
                   >
@@ -925,6 +1105,7 @@ export default function App() {
                   <span>{cameraError}</span>
                 </div>
                 <button
+                  type="button"
                   onClick={() => setCameraError(null)}
                   className="text-amber-400 hover:text-white text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 border border-amber-800"
                 >
@@ -934,11 +1115,11 @@ export default function App() {
             )}
 
             {/* Input Action Controls */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 w-full min-w-0">
               {/* Native Mobile Camera Snap (100% reliable on phones) */}
-              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-2 group">
-                <Camera className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition" />
-                <span>{language === 'fi' ? 'Ota kamerakuva' : 'Snap Photo'}</span>
+              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-1.5 group min-w-0 active:scale-95">
+                <Camera className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition shrink-0" />
+                <span className="truncate">{language === 'fi' ? 'Ota kamerakuva' : 'Snap Photo'}</span>
                 <input
                   type="file"
                   accept="image/*"
@@ -949,15 +1130,18 @@ export default function App() {
               </label>
 
               {/* File upload from gallery/files */}
-              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-2 group">
-                <Upload className="w-4 h-4 text-amber-400 group-hover:scale-110 transition" />
-                <span>{language === 'fi' ? 'Lataa tiedosto' : 'Choose File'}</span>
+              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-1.5 group min-w-0 active:scale-95">
+                <Upload className="w-4 h-4 text-amber-400 group-hover:scale-110 transition shrink-0" />
+                <span className="truncate">{language === 'fi' ? 'Lataa tiedosto' : 'Choose File'}</span>
                 <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
               </label>
 
               {/* Webcam Live Stream (for desktop or when supported) */}
               <button
-                onClick={() => {
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
                   if (isWebcamOpen) {
                     const stream = videoRef.current?.srcObject as MediaStream;
                     stream?.getTracks().forEach((track) => track.stop());
@@ -966,43 +1150,60 @@ export default function App() {
                     startWebcam();
                   }
                 }}
-                className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition text-xs flex items-center justify-center space-x-2"
+                className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition text-xs flex items-center justify-center space-x-1.5 min-w-0 active:scale-95"
               >
-                <Radio className={`w-4 h-4 ${isWebcamOpen ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`} />
-                <span>{isWebcamOpen ? (language === 'fi' ? 'Sulje kamera' : 'Close Video') : (language === 'fi' ? 'Live Webkamera' : 'Live Stream')}</span>
+                <Radio className={`w-4 h-4 shrink-0 ${isWebcamOpen ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`} />
+                <span className="truncate">{isWebcamOpen ? (language === 'fi' ? 'Sulje kamera' : 'Close Video') : (language === 'fi' ? 'Live Webkamera' : 'Live Stream')}</span>
               </button>
 
-              {/* Re-Analyze Button */}
+              {/* Re-Analyze Button (Guarded to prevent iframe blur & event bubbling to parent) */}
               <button
-                onClick={() => analyzeCurrentImage()}
-                disabled={isAnalyzing}
-                className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-xs flex items-center justify-center space-x-1.5 shadow-md shadow-amber-950/40"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (isAnalyzing) return;
+                  analyzeCurrentImage();
+                }}
+                className={`p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-xs flex items-center justify-center space-x-1.5 shadow-md shadow-amber-950/40 select-none min-w-0 ${
+                  isAnalyzing ? 'opacity-70 cursor-wait' : 'cursor-pointer active:scale-95'
+                }`}
               >
-                <Sparkles className="w-4 h-4 text-slate-950" />
-                <span>{isAnalyzing ? (language === 'fi' ? 'Tutkitaan...' : 'Inspecting...') : (language === 'fi' ? 'Tarkasta kuva' : 'Inspect Now')}</span>
+                <Sparkles className={`w-4 h-4 text-slate-950 shrink-0 ${isAnalyzing ? 'animate-spin' : ''}`} />
+                <span className="truncate font-extrabold">{isAnalyzing ? (language === 'fi' ? 'Tutkitaan...' : 'Inspecting...') : (language === 'fi' ? 'Tarkasta kuva' : 'Inspect Now')}</span>
               </button>
             </div>
 
             {/* Custom Question / Focus Input */}
-            <div className="flex items-center space-x-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 focus-within:border-amber-500/60 transition">
+            <div className="flex items-center space-x-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 focus-within:border-amber-500/60 transition w-full min-w-0">
               <input
                 type="text"
                 value={customPrompt}
                 onChange={(e) => setCustomPrompt(e.target.value)}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter') analyzeCurrentImage();
+                  if (e.key === 'Enter') {
+                    e.preventDefault();
+                    if (!isAnalyzing) analyzeCurrentImage();
+                  }
                 }}
                 placeholder={
                   language === 'fi'
-                    ? `Kysy ${selectedCharacter.nameFi}ltä mitä tahansa kuvasta (esim. 'Mitä tässä tapahtuu?')...`
-                    : `Ask ${selectedCharacter.name} anything about this image (e.g. 'What is happening here?')...`
+                    ? `Kysy ${selectedCharacter.nameFi}ltä mitä tahansa kuvasta...`
+                    : `Ask ${selectedCharacter.name} anything about this image...`
                 }
-                className="w-full bg-transparent text-xs text-slate-200 placeholder-slate-500 px-2 py-1 focus:outline-none"
+                className="w-full min-w-0 bg-transparent text-xs text-slate-200 placeholder-slate-500 px-2 py-1 focus:outline-none"
               />
               <button
-                onClick={() => analyzeCurrentImage()}
-                disabled={isAnalyzing}
-                className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs shrink-0 transition"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  if (isAnalyzing) return;
+                  analyzeCurrentImage();
+                }}
+                className={`px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs shrink-0 transition active:scale-95 ${
+                  isAnalyzing ? 'opacity-70' : ''
+                }`}
               >
                 {language === 'fi' ? 'Kysy' : 'Ask'}
               </button>
@@ -1013,17 +1214,32 @@ export default function App() {
               <span className="text-[11px] text-slate-400 font-medium">
                 {language === 'fi' ? 'Tai kokeile valmiilla esimerkkikuvilla:' : 'Or test with diverse sample images:'}
               </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full min-w-0">
                 {SAMPLE_PRESETS.map((preset) => (
                   <button
+                    type="button"
                     key={preset.id}
-                    onClick={() => handleSelectPreset(preset)}
-                    className="p-2 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-left transition text-[11px] text-slate-300 hover:text-white group flex flex-col justify-between"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleSelectPreset(preset);
+                    }}
+                    className={`p-2 rounded-xl bg-slate-950/80 border transition text-left group flex flex-col justify-between min-w-0 overflow-hidden active:scale-95 select-none ${
+                      currentImage === preset.imageUrl ? 'border-amber-500 ring-1 ring-amber-500/30 shadow-md shadow-amber-950/30' : 'border-slate-800 hover:border-slate-700'
+                    }`}
                   >
-                    <span className="font-medium text-slate-200 group-hover:text-amber-300 truncate">
+                    <div className="w-full h-14 rounded-lg overflow-hidden mb-1.5 bg-slate-900 border border-slate-800/80 relative">
+                      <img
+                        src={preset.imageUrl}
+                        alt={preset.name}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                    <span className="font-medium text-slate-200 group-hover:text-amber-300 truncate w-full text-[11px]">
                       {language === 'fi' ? preset.nameFi : preset.name}
                     </span>
-                    <span className="text-[9px] text-slate-500 font-mono mt-0.5 truncate">
+                    <span className="text-[9px] text-slate-500 font-mono mt-0.5 truncate w-full">
                       {preset.category}
                     </span>
                   </button>
@@ -1046,8 +1262,8 @@ export default function App() {
                     </span>
                   </h4>
                   <p className="text-[11px] text-slate-400 flex items-center space-x-1.5">
-                    <span className={elevenLabsApiKey ? 'text-emerald-400 font-semibold' : 'text-slate-400'}>
-                      {elevenLabsApiKey ? '🎙️ ElevenLabs Multilingual' : '🔊 Browser Speech'}
+                    <span className={elevenLabsApiKey || serverHasKey ? 'text-emerald-400 font-semibold' : 'text-slate-400'}>
+                      {elevenLabsApiKey || serverHasKey ? '🎙️ ElevenLabs Multilingual' : '🔊 Browser Speech'}
                     </span>
                     <span>•</span>
                     <span className="text-emerald-400 font-mono text-[10px]">{lastModelSource}</span>
@@ -1058,7 +1274,10 @@ export default function App() {
               {/* Speech Toggle Button */}
               <div className="flex items-center space-x-2">
                 <button
+                  type="button"
                   onClick={() => {
+                    unlockAudioContext();
+                    setIsAudioUnlocked(true);
                     if (isSpeaking) {
                       stopSpeaking();
                     } else {
@@ -1076,6 +1295,36 @@ export default function App() {
                 </button>
               </div>
             </div>
+
+            {/* Audio Unlock Banner for mobile if audio context is not yet unlocked */}
+            {!isAudioUnlocked && (
+              <button
+                type="button"
+                onClick={() => {
+                  unlockAudioContext();
+                  setIsAudioUnlocked(true);
+                  speakDialogue(spokenText);
+                }}
+                className="p-3 rounded-2xl bg-amber-500/15 border border-amber-500/40 text-amber-300 text-xs flex items-center justify-between w-full hover:bg-amber-500/25 transition active:scale-[0.99] shadow-md shadow-amber-950/30 group"
+              >
+                <div className="flex items-center space-x-2.5">
+                  <span className="w-7 h-7 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
+                    <Volume2 className="w-4 h-4 text-amber-400 animate-bounce" />
+                  </span>
+                  <div className="text-left">
+                    <p className="font-bold text-xs text-white">
+                      {language === 'fi' ? 'Napauta tästä kytkeäksesi puhelinäänet päälle' : 'Tap here to enable phone speaker audio'}
+                    </p>
+                    <p className="text-[10px] text-amber-200/80">
+                      {language === 'fi' ? 'Mobiiliselaimet vaativat yhden kosketuksen äänten avaamiseksi' : 'Mobile browsers require one touch to activate speaker playback'}
+                    </p>
+                  </div>
+                </div>
+                <span className="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-extrabold text-[11px] shrink-0 shadow">
+                  {language === 'fi' ? 'Avaa äänet 🔊' : 'Enable 🔊'}
+                </span>
+              </button>
+            )}
 
             {/* Speaking Mouth / Waveform Visualizer */}
             <div className="h-10 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center space-x-1 px-4 overflow-hidden">
@@ -1108,6 +1357,7 @@ export default function App() {
                   "{verdict}"
                 </span>
                 <button
+                  type="button"
                   onClick={() => speakDialogue(spokenText)}
                   className="text-amber-400 hover:underline flex items-center space-x-1 shrink-0 ml-3"
                 >
@@ -1136,18 +1386,21 @@ export default function App() {
                 )}
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full min-w-0">
                 {detectedTags.map((tag, idx) => {
                   const isActive = activeFocusTag === tag.label;
                   return (
                     <button
+                      type="button"
                       key={idx}
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         // Prevent spamming clicks on the exact element that is already being analyzed
                         if (isActive && isAnalyzing) return;
                         analyzeCurrentImage(tag.label);
                       }}
-                      className={`p-2.5 rounded-xl border text-left transition relative overflow-hidden group ${
+                      className={`p-2.5 rounded-xl border text-left transition relative overflow-hidden group min-w-0 active:scale-[0.98] select-none ${
                         isActive
                           ? 'bg-amber-950/50 border-amber-500 ring-2 ring-amber-500/50 shadow-lg shadow-amber-950/60'
                           : isAnalyzing
@@ -1183,32 +1436,6 @@ export default function App() {
           </div>
         </div>
 
-        {/* Dual Hackathon Track Highlights */}
-        <div className="p-5 rounded-3xl border border-slate-800 bg-slate-900/60 backdrop-blur grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-2">
-            <h4 className="font-bold text-sm text-white flex items-center space-x-2">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>Track 1: Best Use of Gemma (Google Multimodal Vision)</span>
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              {language === 'fi'
-                ? 'Gemma Vision tarkastaa kamerakuvan tai ladatun kuvan todelliset pikselit. Se tunnistaa arkiesineet, lemmikit, ruoka-annokset, luontokohteet, asukokonaisuudet sekä Hacklabin verstasviritelmät ilman valmiita tekstipohjia.'
-                : 'Processes the raw pixels of your camera feed or uploaded photo. Unlike standard text bots, it visually identifies everyday objects, pets, food dishes, nature scenes, fashion, and physical workshop prototypes.'}
-            </p>
-          </div>
-
-          <div className="space-y-2">
-            <h4 className="font-bold text-sm text-white flex items-center space-x-2">
-              <Radio className="w-4 h-4 text-cyan-400" />
-              <span>Track 2: Best Use of ElevenLabs (Multilingual v2 Voice AI)</span>
-            </h4>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              {language === 'fi'
-                ? 'ElevenLabs Multilingual v2 herättää hahmot eloon aidolla suomen ja englannin kielellä. Kuuntele Sofian rauhallista opastusta, Ainon tarinoita, RoastBotin komediapaahtoa tai Matin nikkarointineuvoja kädet vapaina!'
-                : 'Brings each persona alive with natural voice delivery in Finnish and English. Listen to Sofia\'s clear visual guidance, Aino\'s stories, RoastBot\'s comedy roasts, or Matti\'s maker advice completely hands-free!'}
-            </p>
-          </div>
-        </div>
       </main>
 
       {/* Voice Selection & Settings Modal */}
@@ -1230,6 +1457,7 @@ export default function App() {
                 </div>
               </div>
               <button
+                type="button"
                 onClick={() => setShowVoiceModal(false)}
                 className="text-slate-400 hover:text-white text-xs px-2.5 py-1 rounded-lg bg-slate-800"
               >
@@ -1293,6 +1521,7 @@ export default function App() {
 
                       <div className="mt-3 pt-2 border-t border-slate-900 flex items-center justify-between">
                         <button
+                          type="button"
                           onClick={() => setSelectedVoiceId(v.id)}
                           className={`text-[11px] font-semibold px-2.5 py-1 rounded-lg transition ${
                             isSelected
@@ -1304,6 +1533,7 @@ export default function App() {
                         </button>
 
                         <button
+                          type="button"
                           onClick={() => handleTestVoice(v.id)}
                           className="text-[11px] text-slate-400 hover:text-white flex items-center space-x-1"
                         >
@@ -1331,6 +1561,7 @@ export default function App() {
                   className="w-full p-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 font-mono"
                 />
                 <button
+                  type="button"
                   onClick={() => handleTestVoice(selectedVoiceId)}
                   className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs shrink-0"
                 >
@@ -1380,6 +1611,7 @@ export default function App() {
 
             <div className="pt-2 flex justify-end">
               <button
+                type="button"
                 onClick={() => setShowVoiceModal(false)}
                 className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-950/40"
               >

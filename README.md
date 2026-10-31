@@ -87,7 +87,7 @@ ElevenLabs is a core part of how the app works: every analysis is spoken aloud, 
 └──────────────┼────────────────────────────┼──────────────┘
                ▼                            ▼
       Google Gemini API            ElevenLabs Voice API
-     (gemini-3.5-flash)           (eleven_multilingual_v2)
+     (gemma-4-26b-a4b-it)           (eleven_multilingual_v2)
 ```
 
 ### 1. Multimodal Vision Pipeline

@@ -315,7 +315,7 @@ export default function App() {
   const [verdict, setVerdict] = useState<string>('Visuaalinen havainto: Tasapainoinen sommittelu ja houkutteleva arkinen aamuhetki.');
   const [emotion, setEmotion] = useState<string>('cheerful');
   const [customPrompt, setCustomPrompt] = useState<string>('');
-  const [lastModelSource, setLastModelSource] = useState<string>('Gemma Vision (gemini-3.5-flash)');
+  const [lastModelSource, setLastModelSource] = useState<string>('Gemma Vision (gemma-4-26b-a4b-it)');
   const [activeFocusTag, setActiveFocusTag] = useState<string | null>(null);
   const [presetFilter, setPresetFilter] = useState<'all' | 'art' | 'hacklab' | 'general'>('all');
 

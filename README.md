@@ -15,36 +15,41 @@
 
 ---
 
-## 🏆 Hackathon Context & Story
+## 🎃 Hackathon Context & Story
 
-Born out of **Hacklab Mikkeli** (Pietarinkatu 23, Finland) maker culture, **Pikseli Vision** bridges the gap between physical workshops, art spaces, and cutting-edge artificial intelligence.
+Built for **Hacktoberfest Hack Day Mikkeli x Hacklab Mikkeli ry** (31 October 2026, Hacklab Mikkeli, Pietarinkatu 23, Finland), a day of building with open-source AI tools and open-weight models, sponsored by ElevenLabs.
 
-In a real-world workshop or maker lab, your hands are frequently occupied — holding a soldering iron, adjusting a 3D printer bed, running a laser cutter, or inspecting circuit board traces. Constantly switching between tools and a computer screen breaks flow. Furthermore, for visually impaired users or art gallery visitors, static visual captions fail to capture emotional nuance, artistic theory, or pragmatic craftsman advice.
+In a real-world workshop or maker lab, your hands are frequently occupied: holding a soldering iron, adjusting a 3D printer bed, running a laser cutter, or inspecting circuit board traces. Constantly switching between tools and a computer screen breaks flow. Furthermore, for visually impaired users or art gallery visitors, static visual captions fail to capture emotional nuance, artistic theory, or pragmatic craftsman advice.
 
-**Pikseli Vision** combines **Gemini 3.5 Multimodal Vision** with **ElevenLabs Voice AI** to create a hands-free, multilingual spoken companion that doesn't just describe an image — it interprets it with rich character personality, emotional depth, and targeted interactive Q&A.
+**Pikseli Vision** combines the open-weight **Gemma 4** multimodal model with **ElevenLabs Voice AI** to create a hands-free, multilingual spoken companion that doesn't just describe an image. It interprets it with rich character personality, emotional depth, and targeted interactive Q&A.
 
 ---
 
 ## 🎯 Hackathon Tracks & Alignment
 
-### Track 1: Best Multimodal / Computer Vision Project
-* **Google Gemini 3.5 Flash & Flash Lite Fallback**: Processes high-resolution camera feeds, mobile photo uploads, and workshop macro captures in real-time.
-* **Targeted Visual Object Extraction**: Automatically isolates 3–4 visual elements (e.g. solder joints, layer heights, optical glare, brushwork techniques) and displays interactive tag chips.
-* **Contextual "Kysy kuvalta" (Visual Q&A)**: Users can ask specific questions about detected details ("Why is this corner warping?", "Is this circuit safe?", "Analyze the chiaroscuro"), and the vision model answers in character without repetitive generic boilerplate.
-* **Bounding HUD Overlays**: Real-time canvas targeting brackets and crosshairs pinpointing focal points on screen.
+## 🎯 Hackathon Categories & Alignment
 
-### Track 2: Best Audio / Speech / ElevenLabs Integration
-* **ElevenLabs `eleven_multilingual_v2` Engine**: Native, accent-accurate speech synthesis across Finnish (Suomi) and English.
-* **Persona Voice Mapping**: Each of the 6 AI characters is paired with an expressive ElevenLabs voice ID tailored to their personality (e.g., Arnold for rugged Finnish baritone craftsman, Rachel for crisp technical guide, Adam for sarcastic comedian, Freya for breathless fine-art fanatic).
-* **Zero-Interruption Audio Pipeline**: Custom backend proxy (`/api/elevenlabs/tts`) handles token security, streaming audio buffer conversion, and dynamic stability/clarity tuning.
-* **Mobile-Hardened Web Speech Fallback**: If an ElevenLabs API key is absent or network connectivity drops, the system seamlessly cascades to native browser `SpeechSynthesis` without leaving the user in silence.
-* **Shared Room Key Sync (`/api/elevenlabs/sync-key`)**: When a user configures their key, it syncs server-side so friends and judges opening the shared link immediately hear premium ElevenLabs voices.
+We are entering three prize categories.
 
-### Track 3: Best UX / Accessibility & Real-World Utility
-* **Hands-Free Workshop Utility**: Automatic speech on inspection allows makers to inspect physical prototypes without touching the device once activated.
-* **Mobile-First Responsive Layout**: Optimized for single-handed smartphone use at the workbench, complete with portrait camera view, swipeable persona pills, and lockable fullscreen mode.
-* **Bilingual Dual-Language Architecture**: Instant 1-tap switching between Finnish (FI) and English (EN) across all persona prompts, UI labels, tags, and speech engines.
-* **Accessible Spoken Feedback**: Visual descriptions, verdicts, and summaries are spoken aloud, supporting visually impaired individuals and non-technical museum visitors.
+### 1. Best Use of Gemma 4
+Gemma 4 packs multimodal intelligence into an open-weights model, accessed here through the Gemini API. It is the vision brain of the whole app.
+
+* **Multimodal experience**: Gemma 4 processes camera frames, mobile photo uploads, and workshop macro captures together with text (persona, language, focus tags, and the user's question) to build an assistant that understands more of what users share.
+* **Focused AI tool**: A focused companion for makers, hacklab visitors, and art lovers, with six distinct personas, each steering the model through its own prompt constraints.
+* **Structured visual extraction**: Isolates 3–4 visual elements (e.g. solder joints, layer heights, optical glare, brushwork techniques) and returns a strictly typed JSON schema (`speechText`, `emotion`, `tags`, `verdict`) that drives interactive tag chips.
+* **"Kysy kuvalta" (Visual Q&A)**: Users ask specific questions about what the camera sees ("Why is this corner warping?", "Is this circuit safe?", "Analyze the chiaroscuro") and the model answers in character.
+* **Bounding HUD overlays**: Canvas targeting brackets and crosshairs pinpoint focal points on screen.
+* **Rapid prototyping**: The Gemini API let us go from idea to a working, deployed prototype within a single hack day.
+
+### 2. Best Project Built with ElevenLabs
+ElevenLabs is a core part of how the app works: every analysis is spoken aloud, and voice is the primary output.
+
+* **`eleven_multilingual_v2` engine**: Native, accent-accurate speech synthesis in Finnish (Suomi) and English.
+* **Persona voice mapping**: Each of the 6 AI characters is paired with an ElevenLabs voice tailored to their personality (e.g. Arnold for the rugged Finnish baritone craftsman, Rachel for the crisp technical guide, Adam for the sarcastic comedian, Freya for the breathless fine-art fanatic).
+* **Backend TTS proxy** (`/api/elevenlabs/tts`): Keeps credentials server-side, converts the streamed audio buffer, and tunes stability/clarity dynamically.
+* **Resilient audio pipeline**: If no ElevenLabs key is available or the network drops, the app cascades to native browser `SpeechSynthesis` so the user is never left in silence.
+* **Hands-free by design**: Automatic speech on inspection lets makers examine physical prototypes without touching the device.
+* **Open source**: All of our own code is published in this public GitHub repository under the **Apache-2.0** license, as the category requires.
 
 ---
 

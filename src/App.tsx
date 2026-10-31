@@ -69,14 +69,14 @@ interface VoiceOption {
 
 const VOICE_OPTIONS: VoiceOption[] = [
   { id: 'VR6AewLTigWG4xSOukaG', name: 'Arnold (Deep Grumpy / Matti)', gender: 'male', tone: 'Deep, rugged baritone', recommendedFor: 'Matti the Maker' },
-  { id: 'JBFqnCBsd6RMkjVDRZzb', name: 'George (Raspy / Finnish Craftsman)', gender: 'male', tone: 'Raspy, authentic older maker', recommendedFor: 'Matti / Jari' },
-  { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel (Clear Tech / Dr. Gemma)', gender: 'female', tone: 'Analytical, calm, articulate', recommendedFor: 'Dr. Gemma' },
-  { id: 'XB0fDUnXU5powFXDhCwa', name: 'Charlotte (Nordic Expressive / Aino)', gender: 'female', tone: 'Soft Scandinavian warmth', recommendedFor: 'Aino / Nordic Guide' },
-  { id: 'IKne3meq5aSn9XLyUdCD', name: 'Charlie (Natural Friendly / Norppa)', gender: 'male', tone: 'Casual, friendly, youthful', recommendedFor: 'Norppa the Seal' },
-  { id: 'jsCqWAovK2LkecY7zXl4', name: 'Freya (Energetic / Mimmi)', gender: 'female', tone: 'Expressive and playful', recommendedFor: 'Playful Nature' },
-  { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (Sarcastic Narrator / RoastBot)', gender: 'male', tone: 'Crisp, dramatic comedic delivery', recommendedFor: 'RoastBot 9000' },
-  { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (Deep Sage / Ukko)', gender: 'male', tone: 'Epic, authoritative resonance', recommendedFor: 'Väinämöinen / Ukko' },
-  { id: 'D38z5RcWu1voky8WS1ja', name: 'Fin (Punchy Android / Kone)', gender: 'male', tone: 'Upbeat and sharp', recommendedFor: 'Cyberpunk Drone' }
+  { id: 'JBFqnCBsd6RMkjVDRZzb', name: 'George (Raspy / Craftsman)', gender: 'male', tone: 'Raspy, authentic maker', recommendedFor: 'Matti Nikkari' },
+  { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel (Clear Tech / Sofia)', gender: 'female', tone: 'Analytical, calm, articulate', recommendedFor: 'Sofia the Guide' },
+  { id: 'XB0fDUnXU5powFXDhCwa', name: 'Charlotte (Nordic Expressive / Aino)', gender: 'female', tone: 'Soft Scandinavian warmth', recommendedFor: 'Aino the Storyteller' },
+  { id: 'jsCqWAovK2LkecY7zXl4', name: 'Freya (Energetic / Helmi)', gender: 'female', tone: 'Expressive, super hyped and breathless', recommendedFor: 'Helmi the Art Lover' },
+  { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (Deep Pompous / Julian)', gender: 'male', tone: 'Authoritative, haughty resonance', recommendedFor: 'Julian the Art Critic' },
+  { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (Sarcastic Narrator / RoastBot)', gender: 'male', tone: 'Crisp, dramatic comedic delivery', recommendedFor: 'RoastBot 3000' },
+  { id: 'IKne3meq5aSn9XLyUdCD', name: 'Charlie (Natural Friendly)', gender: 'male', tone: 'Casual, friendly, youthful', recommendedFor: 'Friendly Companion' },
+  { id: 'D38z5RcWu1voky8WS1ja', name: 'Fin (Punchy Android)', gender: 'male', tone: 'Upbeat and sharp', recommendedFor: 'Cyberpunk Drone' }
 ];
 
 const CHARACTERS: Character[] = [
@@ -141,19 +141,57 @@ const CHARACTERS: Character[] = [
     id: 'roast_bot',
     name: 'RoastBot 3000',
     nameFi: 'RoastBot 3000',
-    title: 'Witty Comedy Roaster',
-    titleFi: 'Teräväkielinen Kuvakriitikko',
+    title: 'Savage Comedy Roaster',
+    titleFi: 'Armoton Komediapaahtaja',
     avatarEmoji: '🔥',
-    tagline: 'Unfiltered comedy roast of questionable outfits, room clutter, amateur cooking, and everyday awkwardness.',
-    taglineFi: 'Armoton ja nokkela komediapaahde asuvalinnoista, huoneen sotkusta, lemmikeistä ja ruoka-annoksista.',
+    tagline: 'Aggressive, brutal roasts with zero mercy: incinerates awful aesthetics, bad wiring, messy rooms, and tragic life choices.',
+    taglineFi: 'Häikäilemätön, brutaali ja armoton paahde: grillaa tyylirikokset, verstassotkut, pieleen menneet printit ja elämänvalinnat maan rakoon.',
     defaultVoiceId: 'pNInz6obpgDQGcFmaJgB',
     defaultPitch: 0.95,
-    defaultRate: 1.1,
+    defaultRate: 1.12,
     colorTheme: {
       badge: 'bg-rose-500/10 text-rose-400 border-rose-500/20',
       border: 'border-rose-500/40',
       glow: 'shadow-rose-950/40',
       accent: 'text-rose-400'
+    }
+  },
+  {
+    id: 'art_critic',
+    name: 'Julian the Art Critic',
+    nameFi: 'Valtteri Taidekriitikko',
+    title: 'Merciless & Savage Art Critic',
+    titleFi: 'Armoton & Murskaava Taidekriitikko',
+    avatarEmoji: '🧐',
+    tagline: 'Bashes and eviscerates everything he sees! Condemns amateurism, lighting, and composition with ruthless intellectual cruelty.',
+    taglineFi: 'Haukkuu ja teilaa kaiken näkemänsä maan rakoon! Eviskeroi teokset, tekniikan ja porvarillisen kitschin musertavalla ylimielisyydellä.',
+    defaultVoiceId: 'onwK4e9ZLuTAKqWW03F9',
+    defaultPitch: 0.92,
+    defaultRate: 0.95,
+    colorTheme: {
+      badge: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
+      border: 'border-purple-500/40',
+      glow: 'shadow-purple-950/40',
+      accent: 'text-purple-400'
+    }
+  },
+  {
+    id: 'art_lover',
+    name: 'Helmi the Art Lover',
+    nameFi: 'Helmi Taidefiilistelijä',
+    title: 'Hyper-Enthusiastic Fine Art Fanatic',
+    titleFi: 'Ekstaattinen Taiteen & Kauneuden Hehkuttaja',
+    avatarEmoji: '✨',
+    tagline: 'SUPER HYPED about all art! Finds transcendent cosmic genius and spiritual tears in every stroke and laser cut.',
+    taglineFi: 'AIVAN LIEKEISSÄ KAIKESTA TAITEESTA! Kokee kosmista henkistä liikutusta ja neroutta jokaisessa maalauksessa ja laserleikkauksessa.',
+    defaultVoiceId: 'jsCqWAovK2LkecY7zXl4',
+    defaultPitch: 1.15,
+    defaultRate: 1.05,
+    colorTheme: {
+      badge: 'bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20',
+      border: 'border-fuchsia-500/40',
+      glow: 'shadow-fuchsia-950/40',
+      accent: 'text-fuchsia-400'
     }
   }
 ];
@@ -206,6 +244,54 @@ const SAMPLE_PRESETS = [
     category: 'Fashion & People',
     description: 'Warm mustard wool coat, red knitted scarf, and takeaway coffee on a city walk.',
     imageUrl: '/presets/fashion.jpg'
+  },
+  {
+    id: 'gallery_oil',
+    name: 'Gilded Gallery Oil Painting',
+    nameFi: 'Öljyvärimaalaus kultakehyksissä',
+    category: 'Fine Art & Gallery',
+    description: 'Masterwork oil painting in ornate gilded gold frame exhibited on museum wall.',
+    imageUrl: '/presets/gallery_oil.jpg'
+  },
+  {
+    id: 'abstract_modern',
+    name: 'Modern Abstract Gallery Canvas',
+    nameFi: 'Moderni abstrakti taidegalleria',
+    category: 'Fine Art & Gallery',
+    description: 'Vibrant expressive abstract canvas with rich textures hung in a white gallery.',
+    imageUrl: '/presets/abstract_modern.jpg'
+  },
+  {
+    id: 'sculpture_marble',
+    name: 'Classical Museum Marble Sculpture',
+    nameFi: 'Klassinen marmoriveistos',
+    category: 'Fine Art & Gallery',
+    description: 'Detailed classical marble statue under dramatic gallery exhibition spotlighting.',
+    imageUrl: '/presets/sculpture_marble.jpg'
+  },
+  {
+    id: 'print_3d',
+    name: '3D Printer Hotend & Layering',
+    nameFi: '3D-tulostin & suuttimen kerrostus',
+    category: 'Workshop & Maker',
+    description: 'Hotend extruding molten filament layer by layer on heated bed in makerspace.',
+    imageUrl: '/presets/print_3d.jpg'
+  },
+  {
+    id: 'laser_cutter',
+    name: 'FabLab Laser Cutter Engraving',
+    nameFi: 'Laserleikkuri työn touhussa',
+    category: 'Workshop & Maker',
+    description: 'CO2 laser cutting and engraving precision vector lines into birch plywood.',
+    imageUrl: '/presets/laser_cutter.jpg'
+  },
+  {
+    id: 'cnc_electronics',
+    name: 'SMD Soldering & Inspection Bench',
+    nameFi: 'Pintaliitostyöpiste & mikroskooppi',
+    category: 'Workshop & Maker',
+    description: 'SMD soldering bench with stereo microscope, precision tweezers, and flux.',
+    imageUrl: '/presets/cnc_electronics.jpg'
   }
 ];
 
@@ -231,6 +317,7 @@ export default function App() {
   const [customPrompt, setCustomPrompt] = useState<string>('');
   const [lastModelSource, setLastModelSource] = useState<string>('Gemma Vision (gemini-3.5-flash)');
   const [activeFocusTag, setActiveFocusTag] = useState<string | null>(null);
+  const [presetFilter, setPresetFilter] = useState<'all' | 'art' | 'hacklab' | 'general'>('all');
 
   // References for cancellation and audio synchronization
   const abortControllerRef = useRef<AbortController | null>(null);
@@ -259,24 +346,18 @@ export default function App() {
   const [voiceClarity, setVoiceClarity] = useState(0.8);
   const [testVoiceStatus, setTestVoiceStatus] = useState<string | null>(null);
 
-  // Global mobile audio unlock on first user gesture
-  const unlockAudioContext = () => {
-    if (audioUnlockedRef.current) return;
-    try {
-      // 1-sample silent WAV to unlock HTML5 Audio on iOS/Android
-      const silent = new Audio('data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA');
-      silent.volume = 0.01;
-      const playPromise = silent.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            audioUnlockedRef.current = true;
-            setIsAudioUnlocked(true);
-          })
-          .catch(() => {});
-      }
-    } catch {}
+  const spokenTextRef = useRef(spokenText);
+  spokenTextRef.current = spokenText;
+  const hasInitialSpokenRef = useRef(false);
 
+  // Persistent references to prevent Garbage Collection issues
+  const currentUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const speechKeepAliveRef = useRef<any>(null);
+
+  // Global audio unlock on user gesture
+  const unlockAudioOnce = () => {
+    setIsAudioUnlocked(true);
+    audioUnlockedRef.current = true;
     if ('speechSynthesis' in window) {
       try {
         window.speechSynthesis.resume();
@@ -284,17 +365,26 @@ export default function App() {
     }
   };
 
+  const unlockAudioContext = unlockAudioOnce;
+
   useEffect(() => {
-    const handleFirstGesture = () => {
-      unlockAudioContext();
+    const handleFirstGesture = (e: Event) => {
+      unlockAudioOnce();
+
+      // Check if user clicked an interactive control (button, input, preset card)
+      const target = e.target as HTMLElement | null;
+      const isInteractive = target?.closest('button, input, textarea, select, [role="button"]');
+
+      if (!hasInitialSpokenRef.current && !isInteractive) {
+        hasInitialSpokenRef.current = true;
+        speakDialogue(spokenTextRef.current);
+      }
     };
 
     window.addEventListener('touchstart', handleFirstGesture, { capture: true, passive: true });
-    window.addEventListener('touchend', handleFirstGesture, { capture: true, passive: true });
     window.addEventListener('click', handleFirstGesture, { capture: true, passive: true });
     return () => {
       window.removeEventListener('touchstart', handleFirstGesture, { capture: true });
-      window.removeEventListener('touchend', handleFirstGesture, { capture: true });
       window.removeEventListener('click', handleFirstGesture, { capture: true });
     };
   }, []);
@@ -459,24 +549,29 @@ export default function App() {
     const ttsController = new AbortController();
     ttsAbortControllerRef.current = ttsController;
 
+    // Clear prior speech synthesis heartbeat and cancel
+    if (speechKeepAliveRef.current) {
+      clearInterval(speechKeepAliveRef.current);
+      speechKeepAliveRef.current = null;
+    }
+    currentUtteranceRef.current = null;
+    (window as any).__pikseliActiveUtterance = null;
+
     if (window.speechSynthesis) {
       try {
         window.speechSynthesis.cancel();
       } catch {}
     }
+
     if (audioRef.current) {
       try {
-        const audio = audioRef.current;
-        audio.onended = null;
-        audio.onerror = null;
-        audio.pause();
-        audio.currentTime = 0;
-        audio.removeAttribute('src');
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
       } catch {}
+      audioRef.current = null;
     }
 
-    // Make sure audio is unlocked on user interaction
-    unlockAudioContext();
+    unlockAudioOnce();
 
     setIsSpeaking(true);
     const activeChar = selectedCharacterRef.current || selectedCharacter;
@@ -513,6 +608,7 @@ export default function App() {
 
           const audioUrl = URL.createObjectURL(blob);
           const audio = new Audio(audioUrl);
+          audio.volume = 1.0;
           audioRef.current = audio;
 
           audio.onended = () => {
@@ -528,11 +624,12 @@ export default function App() {
             }
             URL.revokeObjectURL(audioUrl);
             if (thisSpeechId === currentSpeechIdRef.current) {
-              setIsSpeaking(false);
+              fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
             }
           };
 
           setVoiceSource('elevenlabs');
+
           try {
             const playPromise = audio.play();
             if (playPromise !== undefined) {
@@ -541,34 +638,36 @@ export default function App() {
                   setIsAudioUnlocked(true);
                 })
                 .catch((playErr) => {
-                  console.debug('Audio play request blocked or cancelled:', playErr);
+                  console.warn('ElevenLabs audio playback failed, falling back to browser speech:', playErr);
+                  URL.revokeObjectURL(audioUrl);
                   if (thisSpeechId === currentSpeechIdRef.current) {
-                    setIsSpeaking(false);
+                    fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
                   }
                 });
             }
           } catch (playErr) {
-            console.debug('Audio play request blocked or cancelled:', playErr);
+            console.warn('ElevenLabs play error, falling back to browser speech:', playErr);
+            URL.revokeObjectURL(audioUrl);
             if (thisSpeechId === currentSpeechIdRef.current) {
-              setIsSpeaking(false);
+              fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
             }
           }
           return;
         } else {
-          console.warn('ElevenLabs API returned non-OK status:', res.status);
-          setIsSpeaking(false);
+          console.warn('ElevenLabs API returned non-OK status, falling back to browser speech:', res.status);
+          fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
           return;
         }
       } catch (err: any) {
         if (err.name === 'AbortError') return;
-        console.warn('ElevenLabs API request handled:', err);
-        setIsSpeaking(false);
+        console.warn('ElevenLabs API request handled, falling back to browser speech:', err);
+        fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
         return;
       }
     }
 
-    // Fallback: Browser Native Web Speech API only if no ElevenLabs key is configured
-    if (!canUseElevenLabs && thisSpeechId === currentSpeechIdRef.current) {
+    // Fallback: Browser Native Web Speech API whenever ElevenLabs is not configured
+    if (thisSpeechId === currentSpeechIdRef.current) {
       fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
     }
   };
@@ -580,12 +679,30 @@ export default function App() {
         return;
       }
 
+      // Clear any prior keep-alive interval
+      if (speechKeepAliveRef.current) {
+        clearInterval(speechKeepAliveRef.current);
+        speechKeepAliveRef.current = null;
+      }
+
       setVoiceSource('browser');
+      setIsSpeaking(true);
+
+      try {
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.resume();
+      } catch {}
+
       const utterance = new SpeechSynthesisUtterance(text);
+      // Retain strong reference so GC does not collect utterance mid-sentence
+      currentUtteranceRef.current = utterance;
+      (window as any).__pikseliActiveUtterance = utterance;
+
       const activeChar = selectedCharacterRef.current || selectedCharacter;
       const targetLang = languageRef.current || language;
-      utterance.pitch = activeChar.defaultPitch;
-      utterance.rate = activeChar.defaultRate;
+      utterance.volume = 1.0;
+      utterance.pitch = activeChar.defaultPitch || 1.0;
+      utterance.rate = activeChar.defaultRate || 1.0;
       utterance.lang = targetLang === 'fi' ? 'fi-FI' : 'en-US';
 
       const voices = window.speechSynthesis.getVoices();
@@ -596,19 +713,37 @@ export default function App() {
         utterance.voice = preferredVoice;
       }
 
-      utterance.onend = () => {
-        if (!speechId || speechId === currentSpeechIdRef.current) {
-          setIsSpeaking(false);
+      const cleanup = () => {
+        if (speechKeepAliveRef.current) {
+          clearInterval(speechKeepAliveRef.current);
+          speechKeepAliveRef.current = null;
         }
-      };
-      utterance.onerror = (e) => {
-        console.debug('Browser speech synthesis error ignored:', e);
+        currentUtteranceRef.current = null;
+        (window as any).__pikseliActiveUtterance = null;
         if (!speechId || speechId === currentSpeechIdRef.current) {
           setIsSpeaking(false);
         }
       };
 
+      utterance.onend = cleanup;
+      utterance.onerror = (e) => {
+        console.debug('Browser speech synthesis error ignored:', e);
+        cleanup();
+      };
+
       window.speechSynthesis.speak(utterance);
+
+      // Safe keep-alive: NEVER pause speech! Only call resume() if paused!
+      speechKeepAliveRef.current = setInterval(() => {
+        if (window.speechSynthesis.speaking) {
+          if (window.speechSynthesis.paused) {
+            window.speechSynthesis.resume();
+          }
+        } else {
+          cleanup();
+        }
+      }, 1000);
+
     } catch (synthErr) {
       console.debug('Browser speech synthesis error:', synthErr);
       setIsSpeaking(false);
@@ -623,6 +758,13 @@ export default function App() {
         ttsAbortControllerRef.current.abort();
       } catch {}
     }
+    if (speechKeepAliveRef.current) {
+      clearInterval(speechKeepAliveRef.current);
+      speechKeepAliveRef.current = null;
+    }
+    currentUtteranceRef.current = null;
+    (window as any).__pikseliActiveUtterance = null;
+
     if (window.speechSynthesis) {
       try {
         window.speechSynthesis.cancel();
@@ -630,13 +772,12 @@ export default function App() {
     }
     if (audioRef.current) {
       try {
-        const audio = audioRef.current;
-        audio.onended = null;
-        audio.onerror = null;
-        audio.pause();
-        audio.currentTime = 0;
-        audio.removeAttribute('src');
+        audioRef.current.onended = null;
+        audioRef.current.onerror = null;
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
       } catch {}
+      audioRef.current = null;
     }
     setIsSpeaking(false);
   };
@@ -658,7 +799,8 @@ export default function App() {
     overrideImage?: string,
     overrideCharacter?: Character,
     overrideVoiceId?: string,
-    overrideLanguage?: 'fi' | 'en'
+    overrideLanguage?: 'fi' | 'en',
+    overrideQuestion?: string
   ) => {
     // Cancel any previous in-flight request
     if (abortControllerRef.current) {
@@ -669,6 +811,7 @@ export default function App() {
 
     // Immediately stop previous speech and invalidate pending audio
     stopSpeaking();
+    unlockAudioContext();
 
     const targetImage = overrideImage || currentImageRef.current || currentImage;
     const targetChar = overrideCharacter || selectedCharacterRef.current || selectedCharacter;
@@ -676,9 +819,16 @@ export default function App() {
       overrideVoiceId ||
       (overrideCharacter ? overrideCharacter.defaultVoiceId : selectedVoiceIdRef.current || targetChar.defaultVoiceId);
     const targetLang = overrideLanguage || languageRef.current || language;
-    const targetFocus = focusItem || customPrompt.trim();
+    const targetQuestion = overrideQuestion !== undefined ? overrideQuestion.trim() : '';
 
-    if (focusItem) {
+    if (targetQuestion) {
+      setActiveFocusTag(null);
+      setSpokenText(
+        targetLang === 'fi'
+          ? `${targetChar.nameFi} miettii vastausta kysymykseesi: "${targetQuestion}"...`
+          : `${targetChar.name} is answering your question: "${targetQuestion}"...`
+      );
+    } else if (focusItem) {
       setActiveFocusTag(focusItem);
       setSpokenText(
         targetLang === 'fi'
@@ -687,6 +837,11 @@ export default function App() {
       );
     } else {
       setActiveFocusTag(null);
+      setSpokenText(
+        targetLang === 'fi'
+          ? `${targetChar.nameFi} tutkii kuvaa ja valmistelee puhetta...`
+          : `${targetChar.name} is inspecting the photo and preparing speech...`
+      );
     }
 
     setIsAnalyzing(true);
@@ -701,7 +856,8 @@ export default function App() {
         body: JSON.stringify({
           imageBase64: validJpegBase64,
           character: targetChar.id,
-          focusArea: targetFocus,
+          question: targetQuestion,
+          focusArea: focusItem || '',
           language: targetLang,
           mimeType: 'image/jpeg'
         })
@@ -715,7 +871,7 @@ export default function App() {
         if (data.verdict || data.hacklabVerdict) setVerdict(data.verdict || data.hacklabVerdict);
         if (data.modelUsed) setLastModelSource(`Live: ${data.modelUsed} (${data.durationMs}ms)`);
 
-        // Speak aloud the fresh response with the active character's voice!
+        // Speak aloud the fresh response automatically by default!
         speakDialogue(data.speechText, targetVoiceId);
       }
     } catch (err: any) {
@@ -728,6 +884,17 @@ export default function App() {
       setIsAnalyzing(false);
       setActiveFocusTag(null);
     }
+  };
+
+  // Dedicated handler for asking custom questions
+  const handleAskQuestion = (questionOverride?: string) => {
+    const q = (questionOverride !== undefined ? questionOverride : customPrompt).trim();
+    if (!q || isAnalyzing) return;
+    unlockAudioContext();
+    if (questionOverride !== undefined) {
+      setCustomPrompt(questionOverride);
+    }
+    analyzeCurrentImage(undefined, undefined, undefined, undefined, undefined, q);
   };
 
   // Character Selection handler with immediate sync
@@ -998,9 +1165,24 @@ export default function App() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 w-full min-w-0">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5 w-full min-w-0">
             {CHARACTERS.map((char) => {
               const isSelected = selectedCharacter.id === char.id;
+              const badgeLabel =
+                char.id === 'matti'
+                  ? (language === 'fi' ? 'Hacklab Nikkari' : 'Makerspace')
+                  : char.id === 'sofia'
+                  ? (language === 'fi' ? 'Kuvaopas' : 'Vision Guide')
+                  : char.id === 'aino'
+                  ? (language === 'fi' ? 'Tarinankertoja' : 'Storyteller')
+                  : char.id === 'roast_bot'
+                  ? (language === 'fi' ? 'Armoton Roasti' : 'Savage Roast')
+                  : char.id === 'art_critic'
+                  ? (language === 'fi' ? 'Taidekriitikko' : 'Art Critic')
+                  : char.id === 'art_lover'
+                  ? (language === 'fi' ? 'Taidefiilistelijä' : 'Art Lover')
+                  : 'AI';
+
               return (
                 <button
                   type="button"
@@ -1010,28 +1192,28 @@ export default function App() {
                     e.stopPropagation();
                     handleSelectCharacter(char);
                   }}
-                  className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between relative group min-w-0 overflow-hidden active:scale-[0.98] select-none ${
+                  className={`p-3 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between relative group min-w-0 overflow-hidden active:scale-[0.98] select-none ${
                     isSelected
                       ? `bg-slate-900 ${char.colorTheme.border} ring-1 ring-amber-500/40 shadow-lg ${char.colorTheme.glow}`
                       : 'bg-slate-900/40 border-slate-800/80 hover:bg-slate-900/80 hover:border-slate-700'
                   }`}
                 >
-                  <div className="space-y-2 min-w-0">
+                  <div className="space-y-1.5 min-w-0">
                     <div className="flex items-center justify-between">
                       <span className="text-2xl">{char.avatarEmoji}</span>
-                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${char.colorTheme.badge}`}>
-                        {char.id === 'matti' ? (language === 'fi' ? 'Hacklab Nikkari' : 'Makerspace') : char.id === 'sofia' ? (language === 'fi' ? 'Kuvaopas' : 'Vision Guide') : char.id === 'aino' ? (language === 'fi' ? 'Tarinankertoja' : 'Storyteller') : (language === 'fi' ? 'Komedia' : 'Comedy')}
+                      <span className={`text-[9px] font-semibold px-2 py-0.5 rounded-full border truncate max-w-[95px] ${char.colorTheme.badge}`}>
+                        {badgeLabel}
                       </span>
                     </div>
 
                     <div className="min-w-0">
-                      <h4 className="font-bold text-sm text-white truncate">
+                      <h4 className="font-bold text-xs sm:text-sm text-white truncate">
                         {language === 'fi' ? char.nameFi : char.name}
                       </h4>
-                      <p className="text-[11px] text-slate-400 font-medium truncate">
+                      <p className="text-[10px] text-slate-400 font-medium truncate">
                         {language === 'fi' ? char.titleFi : char.title}
                       </p>
-                      <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                      <p className="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-tight">
                         {language === 'fi' ? char.taglineFi : char.tagline}
                       </p>
                     </div>
@@ -1175,47 +1357,110 @@ export default function App() {
             </div>
 
             {/* Custom Question / Focus Input */}
-            <div className="flex items-center space-x-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 focus-within:border-amber-500/60 transition w-full min-w-0">
-              <input
-                type="text"
-                value={customPrompt}
-                onChange={(e) => setCustomPrompt(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                    if (!isAnalyzing) analyzeCurrentImage();
-                  }
-                }}
-                placeholder={
-                  language === 'fi'
-                    ? `Kysy ${selectedCharacter.nameFi}ltä mitä tahansa kuvasta...`
-                    : `Ask ${selectedCharacter.name} anything about this image...`
-                }
-                className="w-full min-w-0 bg-transparent text-xs text-slate-200 placeholder-slate-500 px-2 py-1 focus:outline-none"
-              />
-              <button
-                type="button"
-                onClick={(e) => {
+            <div className="space-y-1.5 w-full min-w-0">
+              <form
+                onSubmit={(e) => {
                   e.preventDefault();
-                  e.stopPropagation();
-                  if (isAnalyzing) return;
-                  analyzeCurrentImage();
+                  handleAskQuestion();
                 }}
-                className={`px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs shrink-0 transition active:scale-95 ${
-                  isAnalyzing ? 'opacity-70' : ''
-                }`}
+                className="flex items-center space-x-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 focus-within:border-amber-500/60 transition w-full min-w-0"
               >
-                {language === 'fi' ? 'Kysy' : 'Ask'}
-              </button>
+                <input
+                  type="text"
+                  value={customPrompt}
+                  onChange={(e) => setCustomPrompt(e.target.value)}
+                  placeholder={
+                    language === 'fi'
+                      ? `Kysy ${selectedCharacter.nameFi}ltä mitä tahansa kuvasta...`
+                      : `Ask ${selectedCharacter.name} anything about this image...`
+                  }
+                  className="w-full min-w-0 bg-transparent text-xs text-slate-200 placeholder-slate-500 px-2 py-1 focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  disabled={!customPrompt.trim() || isAnalyzing}
+                  className={`px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shrink-0 transition active:scale-95 shadow ${
+                    isAnalyzing || !customPrompt.trim() ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer'
+                  }`}
+                >
+                  {isAnalyzing ? (language === 'fi' ? 'Vastataan...' : 'Thinking...') : (language === 'fi' ? 'Kysy 💬' : 'Ask 💬')}
+                </button>
+              </form>
+
+              {/* Quick Inspiration Question Chips */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+                <span className="text-[10px] text-slate-500 font-mono">
+                  {language === 'fi' ? 'Pikakysymys:' : 'Quick prompt:'}
+                </span>
+                {(language === 'fi'
+                  ? selectedCharacter.id === 'art_critic'
+                    ? ['Miksi tämä on niin huono?', 'Arvostele värit ja valo', 'Mitä mieltä olet tekijän taidoista?']
+                    : selectedCharacter.id === 'art_lover'
+                    ? ['Mikä tekee tästä niin maagista?', 'Miten tulkitset tämän sielun?', 'Kuvaile tätä kosmista neroutta!']
+                    : selectedCharacter.id === 'roast_bot'
+                    ? ['Paahda tämä kuva armottomasti', 'Mikä tässä on pahin moka?', 'Paljonko antaisit arvosanaksi?']
+                    : selectedCharacter.id === 'matti'
+                    ? ['Mitä korjaisit tässä ensin?', 'Onko tämä hyvä prototyyppi?', 'Kestääkö tämä käyttöä?']
+                    : ['Mitä kuvassa tapahtuu?', 'Mitä yksityiskohtia huomaat?', 'Kerro kuvan tunnelmasta']
+                  : selectedCharacter.id === 'art_critic'
+                  ? ['Why is this so atrocious?', 'Critique the composition', 'Is this real art or trash?']
+                  : selectedCharacter.id === 'art_lover'
+                  ? ['Why is this pure genius?', 'What is the soul of this piece?', 'How does this move you?']
+                  : selectedCharacter.id === 'roast_bot'
+                  ? ['Roast this brutally', 'What is the biggest crime here?', 'Rate this out of 10']
+                  : selectedCharacter.id === 'matti'
+                  ? ['What should I fix first?', 'Is this solid work?', 'Any hacklab tips?']
+                  : ['What is happening here?', 'What key details do you see?', 'Tell me the story']
+                ).map((promptSuggestion, idx) => (
+                  <button
+                    type="button"
+                    key={idx}
+                    onClick={() => handleAskQuestion(promptSuggestion)}
+                    className="text-[10px] px-2 py-0.5 rounded-lg bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-amber-300 transition text-left truncate max-w-[200px]"
+                  >
+                    "{promptSuggestion}"
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Preset Samples */}
-            <div className="space-y-1.5 pt-1">
-              <span className="text-[11px] text-slate-400 font-medium">
-                {language === 'fi' ? 'Tai kokeile valmiilla esimerkkikuvilla:' : 'Or test with diverse sample images:'}
-              </span>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full min-w-0">
-                {SAMPLE_PRESETS.map((preset) => (
+            <div className="space-y-2 pt-1">
+              <div className="flex flex-wrap items-center justify-between gap-1.5">
+                <span className="text-[11px] text-slate-300 font-semibold">
+                  {language === 'fi' ? 'Valitse esimerkkikuva (12 kpl):' : 'Select Sample Photo (12 photos):'}
+                </span>
+                {/* Category Filter Chips */}
+                <div className="flex items-center space-x-1">
+                  {[
+                    { id: 'all', labelFi: 'Kaikki', labelEn: 'All' },
+                    { id: 'art', labelFi: '🎨 Taide & Galleria', labelEn: '🎨 Art' },
+                    { id: 'hacklab', labelFi: '🛠️ Hacklab & 3D', labelEn: '🛠️ Maker' },
+                    { id: 'general', labelFi: '🌿 Arki & Luonto', labelEn: '🌿 Life' }
+                  ].map((filterTab) => (
+                    <button
+                      type="button"
+                      key={filterTab.id}
+                      onClick={() => setPresetFilter(filterTab.id as any)}
+                      className={`px-2 py-0.5 rounded-lg text-[10px] font-mono transition ${
+                        presetFilter === filterTab.id
+                          ? 'bg-amber-500 text-slate-950 font-bold'
+                          : 'bg-slate-950 text-slate-400 hover:text-white border border-slate-800'
+                      }`}
+                    >
+                      {language === 'fi' ? filterTab.labelFi : filterTab.labelEn}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 w-full min-w-0 max-h-[380px] overflow-y-auto pr-1">
+                {SAMPLE_PRESETS.filter((preset) => {
+                  if (presetFilter === 'art') return preset.category.includes('Art') || preset.category.includes('Gallery');
+                  if (presetFilter === 'hacklab') return preset.category.includes('Workshop') || preset.category.includes('Maker');
+                  if (presetFilter === 'general') return !preset.category.includes('Art') && !preset.category.includes('Workshop') && !preset.category.includes('Maker');
+                  return true;
+                }).map((preset) => (
                   <button
                     type="button"
                     key={preset.id}
@@ -1228,7 +1473,7 @@ export default function App() {
                       currentImage === preset.imageUrl ? 'border-amber-500 ring-1 ring-amber-500/30 shadow-md shadow-amber-950/30' : 'border-slate-800 hover:border-slate-700'
                     }`}
                   >
-                    <div className="w-full h-14 rounded-lg overflow-hidden mb-1.5 bg-slate-900 border border-slate-800/80 relative">
+                    <div className="w-full h-16 rounded-lg overflow-hidden mb-1.5 bg-slate-900 border border-slate-800/80 relative">
                       <img
                         src={preset.imageUrl}
                         alt={preset.name}
@@ -1261,12 +1506,17 @@ export default function App() {
                       {emotion}
                     </span>
                   </h4>
-                  <p className="text-[11px] text-slate-400 flex items-center space-x-1.5">
+                  <p className="text-[11px] text-slate-400 flex items-center space-x-1.5 flex-wrap">
                     <span className={elevenLabsApiKey || serverHasKey ? 'text-emerald-400 font-semibold' : 'text-slate-400'}>
                       {elevenLabsApiKey || serverHasKey ? '🎙️ ElevenLabs Multilingual' : '🔊 Browser Speech'}
                     </span>
                     <span>•</span>
-                    <span className="text-emerald-400 font-mono text-[10px]">{lastModelSource}</span>
+                    <span className="text-emerald-400 font-mono text-[10px] flex items-center space-x-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping inline-block" />
+                      <span>{language === 'fi' ? 'Automaattipuhe oletuksena' : 'Auto-speech on'}</span>
+                    </span>
+                    <span>•</span>
+                    <span className="text-slate-400 font-mono text-[10px]">{lastModelSource}</span>
                   </p>
                 </div>
               </div>
@@ -1290,8 +1540,8 @@ export default function App() {
                       : 'bg-slate-950 border-slate-800 text-slate-300 hover:text-white'
                   }`}
                 >
-                  {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-                  <span>{isSpeaking ? (language === 'fi' ? 'Pysäytä ääni' : 'Stop Voice') : language === 'fi' ? 'Puhu ääneen' : 'Speak Out Loud'}</span>
+                  {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5 text-amber-400" />}
+                  <span>{isSpeaking ? (language === 'fi' ? 'Pysäytä puhe' : 'Stop Voice') : language === 'fi' ? 'Toista uudelleen 🔊' : 'Replay Voice 🔊'}</span>
                 </button>
               </div>
             </div>

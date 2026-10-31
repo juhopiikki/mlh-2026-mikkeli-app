@@ -1,0 +1,348 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="100%" height="100%" style="background:#090d16; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="50%" stop-color="#0b1120"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="amberGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="cyanGlow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#06b6d4"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="800" fill="url(#bgGrad)"/>
+  <rect x="0" y="0" width="1280" height="64" fill="#0b1329" opacity="0.9" border-bottom="1px solid #1e293b"/>
+  <line x1="0" y1="64" x2="1280" y2="64" stroke="#1e293b" stroke-width="1"/>
+
+  <!-- Top App Navigation -->
+  <g transform="translate(24, 14)">
+    <!-- Logo Icon -->
+    <rect x="0" y="0" width="36" height="36" rx="10" fill="#f59e0b" opacity="0.15" stroke="#f59e0b" stroke-width="1.5"/>
+    <circle cx="18" cy="18" r="8" fill="#f59e0b"/>
+    <circle cx="18" cy="18" r="3" fill="#090d16"/>
+    <text x="46" y="24" fill="#f8fafc" font-size="18" font-weight="700" letter-spacing="-0.02em">Pikseli Vision</text>
+    <text x="162" y="24" fill="#94a3b8" font-size="14" font-weight="500">×</text>
+    <text x="176" y="24" fill="#f59e0b" font-size="14" font-weight="600">ElevenLabs</text>
+
+    <!-- Hacklab Mikkeli Badge -->
+    <rect x="270" y="4" width="168" height="26" rx="13" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="282" y="21" fill="#cbd5e1" font-size="11" font-weight="600">📍 Hacklab Mikkeli Demo</text>
+
+    <!-- Status Badges -->
+    <g transform="translate(710, 4)">
+      <rect x="0" y="0" width="170" height="26" rx="13" fill="#042f2e" stroke="#14b8a6" stroke-width="1" opacity="0.9"/>
+      <circle cx="14" cy="13" r="4" fill="#10b981"/>
+      <text x="26" y="17" fill="#5eead4" font-size="11" font-weight="600">ElevenLabs Multilingual v2</text>
+    </g>
+    <g transform="translate(890, 4)">
+      <rect x="0" y="0" width="160" height="26" rx="13" fill="#082f49" stroke="#0284c7" stroke-width="1" opacity="0.9"/>
+      <circle cx="14" cy="13" r="4" fill="#38bdf8"/>
+      <text x="26" y="17" fill="#7dd3fc" font-size="11" font-weight="600">Gemini 3.5 Flash Vision</text>
+    </g>
+
+    <!-- Language & Settings -->
+    <g transform="translate(1065, 4)">
+      <rect x="0" y="0" width="70" height="26" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <rect x="2" y="2" width="32" height="22" rx="6" fill="#f59e0b"/>
+      <text x="11" y="17" fill="#090d16" font-size="11" font-weight="700">FI</text>
+      <text x="43" y="17" fill="#94a3b8" font-size="11" font-weight="600">EN</text>
+    </g>
+    <g transform="translate(1145, 4)">
+      <rect x="0" y="0" width="85" height="26" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="12" y="17" fill="#cbd5e1" font-size="11" font-weight="500">⚙️ Asetukset</text>
+    </g>
+  </g>
+
+  <!-- Persona Cards Ribbon (6 Characters) -->
+  <g transform="translate(24, 78)">
+    <!-- Sofia -->
+    <rect x="0" y="0" width="198" height="68" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="12" y="26" font-size="18">👁️</text>
+    <text x="38" y="24" fill="#93c5fd" font-size="13" font-weight="700">Sofia Opas</text>
+    <text x="38" y="40" fill="#64748b" font-size="10">Kuva-analyytikko</text>
+    <text x="12" y="58" fill="#475569" font-size="9">Rauhallinen &amp; tarkka</text>
+
+    <!-- Matti (ACTIVE) -->
+    <rect x="206" y="0" width="198" height="68" rx="12" fill="#1e180a" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+    <rect x="206" y="0" width="198" height="68" rx="12" fill="none" stroke="#f59e0b" stroke-width="1" opacity="0.4"/>
+    <text x="218" y="26" font-size="18">🧔‍♂️</text>
+    <text x="246" y="24" fill="#fbbf24" font-size="13" font-weight="700">Matti Nikkari</text>
+    <rect x="338" y="12" width="56" height="16" rx="8" fill="#f59e0b" opacity="0.2"/>
+    <text x="345" y="24" fill="#f59e0b" font-size="8" font-weight="700">AKTIIVINEN</text>
+    <text x="246" y="40" fill="#cbd5e1" font-size="10">Hacklab Mikkeli veteraani</text>
+    <text x="218" y="58" fill="#f59e0b" font-size="9" font-weight="500">Kahvi, tina &amp; savolainen kuiva huumori</text>
+
+    <!-- Aino -->
+    <rect x="412" y="0" width="198" height="68" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="424" y="26" font-size="18">🌿</text>
+    <text x="452" y="24" fill="#6ee7b7" font-size="13" font-weight="700">Aino Tarinoija</text>
+    <text x="452" y="40" fill="#64748b" font-size="10">Runollinen havaitsija</text>
+    <text x="424" y="58" fill="#475569" font-size="9">Luonto, lemmikit &amp; arki</text>
+
+    <!-- RoastBot -->
+    <rect x="618" y="0" width="198" height="68" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="630" y="26" font-size="18">🔥</text>
+    <text x="658" y="24" fill="#f87171" font-size="13" font-weight="700">RoastBot 3000</text>
+    <text x="658" y="40" fill="#64748b" font-size="10">Armoton paahtaja</text>
+    <text x="630" y="58" fill="#475569" font-size="9">Grillaa virheet armotta</text>
+
+    <!-- Valtteri (Art Critic) -->
+    <rect x="824" y="0" width="198" height="68" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="836" y="26" font-size="18">🧐</text>
+    <text x="864" y="24" fill="#c084fc" font-size="13" font-weight="700">Valtteri Kriitikko</text>
+    <text x="864" y="40" fill="#64748b" font-size="10">Taiteen ylipappi</text>
+    <text x="836" y="58" fill="#475569" font-size="9">Haukkuu kitschin maan rakoon</text>
+
+    <!-- Helmi (Art Lover) -->
+    <rect x="1030" y="0" width="202" height="68" rx="12" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="1042" y="26" font-size="18">✨</text>
+    <text x="1070" y="24" fill="#f472b6" font-size="13" font-weight="700">Helmi Fiilistelijä</text>
+    <text x="1070" y="40" fill="#64748b" font-size="10">Ekstaattinen hehkuttaja</text>
+    <text x="1042" y="58" fill="#475569" font-size="9">Kosmista neroutta kaikessa!</text>
+  </g>
+
+  <!-- Main Grid: Left Viewport (680px), Right Dialogue Panel (530px) -->
+  <g transform="translate(24, 160)">
+    <!-- LEFT: Image / Camera Inspection Canvas -->
+    <rect x="0" y="0" width="680" height="470" rx="16" fill="#0f172a" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
+
+    <!-- Inner viewport simulation (Maker 3D printer) -->
+    <rect x="12" y="12" width="656" height="390" rx="12" fill="#050811"/>
+    <!-- Simulated 3D printer graphic in inspection -->
+    <g transform="translate(12, 12)">
+      <!-- Gradient overlay -->
+      <rect width="656" height="390" rx="12" fill="#111827"/>
+      <!-- Grid lines -->
+      <path d="M 0 195 L 656 195 M 328 0 L 328 390" stroke="#1e293b" stroke-width="1" stroke-dasharray="4,4"/>
+      <!-- 3D Printer Frame -->
+      <rect x="140" y="60" width="376" height="260" rx="6" fill="#1e293b" stroke="#475569" stroke-width="3"/>
+      <!-- Build Plate -->
+      <rect x="180" y="240" width="296" height="18" rx="3" fill="#334155" stroke="#f59e0b" stroke-width="1.5"/>
+      <rect x="250" y="140" width="156" height="100" rx="4" fill="#f59e0b" opacity="0.8"/>
+      <!-- Extruder assembly -->
+      <rect x="310" y="80" width="36" height="60" fill="#64748b"/>
+      <polygon points="323,140 333,140 328,150" fill="#e2e8f0"/>
+      <!-- Glowing hot end -->
+      <circle cx="328" cy="148" r="8" fill="#ef4444" opacity="0.6"/>
+      <circle cx="328" cy="148" r="3" fill="#fbbf24"/>
+
+      <!-- Vision Bounding Box Overlay -->
+      <rect x="240" y="130" width="176" height="120" rx="4" fill="#f59e0b" fill-opacity="0.1" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,3"/>
+      <!-- Crosshair / Corner brackets -->
+      <path d="M 235 145 L 235 125 L 255 125" stroke="#fbbf24" stroke-width="3" fill="none"/>
+      <path d="M 421 145 L 421 125 L 401 125" stroke="#fbbf24" stroke-width="3" fill="none"/>
+      <path d="M 235 235 L 235 255 L 255 255" stroke="#fbbf24" stroke-width="3" fill="none"/>
+      <path d="M 421 235 L 421 255 L 401 255" stroke="#fbbf24" stroke-width="3" fill="none"/>
+
+      <!-- Detection Tag Label on Image -->
+      <rect x="240" y="104" width="150" height="22" rx="4" fill="#f59e0b"/>
+      <text x="248" y="119" fill="#090d16" font-size="11" font-weight="700">🎯 3D-tulostin &amp; kerrosjälki</text>
+
+      <!-- Viewport HUD Badges -->
+      <g transform="translate(16, 16)">
+        <rect width="118" height="24" rx="12" fill="#020617" opacity="0.85" stroke="#ef4444" stroke-width="1"/>
+        <circle cx="12" cy="12" r="4" fill="#ef4444"/>
+        <text x="24" y="16" fill="#fca5a5" font-size="10" font-weight="700">LIVE VISION HD</text>
+      </g>
+      <g transform="translate(540, 16)">
+        <rect width="100" height="24" rx="12" fill="#020617" opacity="0.85" stroke="#475569" stroke-width="1"/>
+        <text x="12" y="16" fill="#cbd5e1" font-size="10" font-weight="600">📷 1920 × 1080</text>
+      </g>
+    </g>
+
+    <!-- Bottom Controls in Viewport Card -->
+    <g transform="translate(20, 416)">
+      <!-- Camera Button -->
+      <rect x="0" y="0" width="140" height="40" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="18" y="25" fill="#f8fafc" font-size="12" font-weight="600">📹 Live Kamera</text>
+
+      <!-- Upload Button -->
+      <rect x="150" y="0" width="120" height="40" rx="10" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="170" y="25" fill="#cbd5e1" font-size="12" font-weight="500">📁 Lataa kuva</text>
+
+      <!-- Primary Action: Inspect Now -->
+      <rect x="470" y="0" width="170" height="40" rx="10" fill="url(#amberGlow)" filter="url(#shadow)"/>
+      <text x="500" y="25" fill="#090d16" font-size="13" font-weight="700">⚡ Tarkasta nyt</text>
+    </g>
+  </g>
+
+  <!-- RIGHT: Speech Dialogue & Audio Card -->
+  <g transform="translate(724, 160)">
+    <rect x="0" y="0" width="532" height="470" rx="16" fill="url(#cardGrad)" stroke="#334155" stroke-width="1" filter="url(#shadow)"/>
+
+    <!-- Dialogue Card Header -->
+    <g transform="translate(20, 20)">
+      <rect x="0" y="0" width="48" height="48" rx="14" fill="#f59e0b" opacity="0.2" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="11" y="32" font-size="24">🧔‍♂️</text>
+      <text x="60" y="24" fill="#fbbf24" font-size="16" font-weight="700">Matti Nikkari</text>
+      <text x="60" y="42" fill="#94a3b8" font-size="12">Pietarinkadun verstasveteraani • Hacklab Mikkeli</text>
+
+      <!-- Audio Playing Pill -->
+      <g transform="translate(340, 6)">
+        <rect width="140" height="32" rx="16" fill="#042f2e" stroke="#10b981" stroke-width="1.5"/>
+        <text x="12" y="20" fill="#10b981" font-size="11" font-weight="700">🔊 PUHUU ÄÄNEEN</text>
+      </g>
+    </g>
+
+    <!-- Audio Waveform Visualizer -->
+    <g transform="translate(20, 84)">
+      <rect width="492" height="44" rx="10" fill="#090d16" stroke="#1e293b" stroke-width="1"/>
+      <!-- Play button -->
+      <circle cx="26" cy="22" r="14" fill="#f59e0b"/>
+      <polygon points="23,16 32,22 23,28" fill="#090d16"/>
+      <!-- Soundwave Bars -->
+      <g transform="translate(56, 12)">
+        <rect x="0" y="6" width="3" height="8" rx="1.5" fill="#f59e0b"/>
+        <rect x="6" y="2" width="3" height="16" rx="1.5" fill="#f59e0b"/>
+        <rect x="12" y="0" width="3" height="20" rx="1.5" fill="#fbbf24"/>
+        <rect x="18" y="4" width="3" height="12" rx="1.5" fill="#f59e0b"/>
+        <rect x="24" y="1" width="3" height="18" rx="1.5" fill="#fbbf24"/>
+        <rect x="30" y="5" width="3" height="10" rx="1.5" fill="#f59e0b"/>
+        <rect x="36" y="2" width="3" height="16" rx="1.5" fill="#f59e0b"/>
+        <rect x="42" y="7" width="3" height="6" rx="1.5" fill="#d97706"/>
+      </g>
+      <text x="110" y="26" fill="#f8fafc" font-size="11" font-weight="600">ElevenLabs: Arnold (Deep Finnish Baritone)</text>
+      <text x="430" y="26" fill="#10b981" font-size="11" font-weight="700">0:04 / 0:12</text>
+    </g>
+
+    <!-- Spoken Quote Speech Bubble -->
+    <g transform="translate(20, 140)">
+      <rect width="492" height="130" rx="12" fill="#0b1120" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="18" y="32" fill="#fef08a" font-size="14" font-weight="500" font-style="italic">
+        "No niin... Katotaas tätä 3D-tulostetta. Kerrospaksuus heittää kyllä
+      </text>
+      <text x="18" y="56" fill="#fef08a" font-size="14" font-weight="500" font-style="italic">
+        enemmän kuin katiska syysmyrskyssä. Ota nyt ensin kuppi Juhla Mokkaa,
+      </text>
+      <text x="18" y="80" fill="#fef08a" font-size="14" font-weight="500" font-style="italic">
+        putsataan tuo alusta isopropanolilla ja kalibroidaan Z-offsetti kuntoon!"
+      </text>
+
+      <!-- Verdict Banner -->
+      <g transform="translate(12, 94)">
+        <rect width="468" height="26" rx="6" fill="#1e180a" stroke="#d97706" stroke-width="1"/>
+        <text x="10" y="17" fill="#fbbf24" font-size="11" font-weight="700">Verstasveteraanin tuomio: Tarvitsee lisää tinaa, kalibrointia ja kahvia.</text>
+      </g>
+    </g>
+
+    <!-- "Kysy kuvalta" / Ask specific question input -->
+    <g transform="translate(20, 282)">
+      <text x="2" y="16" fill="#cbd5e1" font-size="12" font-weight="600">💬 Kysy kuvalta suoraan:</text>
+      <rect x="0" y="24" width="390" height="38" rx="8" fill="#090d16" stroke="#334155" stroke-width="1"/>
+      <text x="14" y="48" fill="#94a3b8" font-size="12">Miksi tuo ensimmäinen kerros vääntyy nurkasta?</text>
+      <rect x="400" y="24" width="92" height="38" rx="8" fill="#f59e0b"/>
+      <text x="430" y="48" fill="#090d16" font-size="12" font-weight="700">Kysy ↵</text>
+
+      <!-- Quick chip questions -->
+      <g transform="translate(0, 70)">
+        <rect x="0" y="0" width="115" height="24" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="10" y="16" fill="#94a3b8" font-size="10">🔍 Mikä tämä on?</text>
+
+        <rect x="125" y="0" width="130" height="24" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="135" y="16" fill="#94a3b8" font-size="10">⚡ Miten korjataan?</text>
+
+        <rect x="265" y="0" width="125" height="24" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="275" y="16" fill="#94a3b8" font-size="10">☕ Kahvitauko arvio</text>
+      </g>
+    </g>
+
+    <!-- Detected Objects Chips -->
+    <g transform="translate(20, 396)">
+      <text x="2" y="14" fill="#94a3b8" font-size="11" font-weight="600">Tunnistetut kohteet (klikkaa kohdentaaksesi):</text>
+      <g transform="translate(0, 22)">
+        <rect x="0" y="0" width="156" height="38" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="10" y="18" fill="#f8fafc" font-size="11" font-weight="600">3D-tulostimen suutin</text>
+        <text x="10" y="30" fill="#64748b" font-size="9">Messinkisuutin 0.4mm</text>
+
+        <rect x="166" y="0" width="156" height="38" rx="8" fill="#1e180a" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="176" y="18" fill="#fbbf24" font-size="11" font-weight="600">Kerrospaksuus</text>
+        <text x="176" y="30" fill="#d97706" font-size="9">Havaittu epätasaisuus</text>
+
+        <rect x="332" y="0" width="156" height="38" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+        <text x="342" y="18" fill="#f8fafc" font-size="11" font-weight="600">Tulostusalusta</text>
+        <text x="342" y="30" fill="#64748b" font-size="9">Lämmitetty PEI-pinta</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Preset Selector Ribbon (12 realistic presets) -->
+  <g transform="translate(24, 646)">
+    <rect x="0" y="0" width="1232" height="134" rx="14" fill="#0b1120" stroke="#1e293b" stroke-width="1"/>
+    <!-- Preset Filter Tabs -->
+    <g transform="translate(18, 14)">
+      <text x="0" y="16" fill="#cbd5e1" font-size="12" font-weight="700">📸 Esimerkkikuvat &amp; Testikategoriat:</text>
+      
+      <rect x="230" y="0" width="60" height="24" rx="6" fill="#f59e0b"/>
+      <text x="242" y="16" fill="#090d16" font-size="11" font-weight="700">Kaikki</text>
+
+      <rect x="300" y="0" width="110" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="312" y="16" fill="#cbd5e1" font-size="11" font-weight="500">🎨 Taidegalleria</text>
+
+      <rect x="420" y="0" width="120" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="432" y="16" fill="#cbd5e1" font-size="11" font-weight="500">🔨 Hacklab Verstas</text>
+
+      <rect x="550" y="0" width="105" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="562" y="16" fill="#cbd5e1" font-size="11" font-weight="500">☕ Arki &amp; Luonto</text>
+    </g>
+
+    <!-- Preset Thumbnails Row -->
+    <g transform="translate(18, 48)">
+      <!-- Thumbnail 1 (3D Print - ACTIVE) -->
+      <rect x="0" y="0" width="186" height="72" rx="8" fill="#1e180a" stroke="#f59e0b" stroke-width="2"/>
+      <rect x="6" y="6" width="60" height="60" rx="6" fill="#f59e0b" opacity="0.3"/>
+      <text x="24" y="42" font-size="20">🖨️</text>
+      <text x="74" y="26" fill="#fbbf24" font-size="11" font-weight="700">3D-tulostus</text>
+      <text x="74" y="40" fill="#94a3b8" font-size="9">Ender-3 prototyyppi</text>
+      <rect x="74" y="48" width="54" height="14" rx="4" fill="#f59e0b" opacity="0.2"/>
+      <text x="78" y="58" fill="#f59e0b" font-size="8" font-weight="700">VALITTU</text>
+
+      <!-- Thumbnail 2 (Laser Cutter) -->
+      <rect x="198" y="0" width="186" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <rect x="204" y="6" width="60" height="60" rx="6" fill="#3b82f6" opacity="0.2"/>
+      <text x="222" y="42" font-size="20">⚡</text>
+      <text x="272" y="26" fill="#f8fafc" font-size="11" font-weight="600">Laserleikkuri</text>
+      <text x="272" y="40" fill="#64748b" font-size="9">FabLab vanerikaiverrus</text>
+
+      <!-- Thumbnail 3 (Oil Painting) -->
+      <rect x="396" y="0" width="186" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <rect x="402" y="6" width="60" height="60" rx="6" fill="#a855f7" opacity="0.2"/>
+      <text x="420" y="42" font-size="20">🖼️</text>
+      <text x="470" y="26" fill="#f8fafc" font-size="11" font-weight="600">Öljyvärimaalaus</text>
+      <text x="470" y="40" fill="#64748b" font-size="9">Kultakehystetty galleria</text>
+
+      <!-- Thumbnail 4 (Marble Sculpture) -->
+      <rect x="594" y="0" width="186" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <rect x="600" y="6" width="60" height="60" rx="6" fill="#ec4899" opacity="0.2"/>
+      <text x="618" y="42" font-size="20">🏛️</text>
+      <text x="668" y="26" fill="#f8fafc" font-size="11" font-weight="600">Marmoriveistos</text>
+      <text x="668" y="40" fill="#64748b" font-size="9">Klassinen museoantiikki</text>
+
+      <!-- Thumbnail 5 (Electronics SMD) -->
+      <rect x="792" y="0" width="186" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <rect x="798" y="6" width="60" height="60" rx="6" fill="#10b981" opacity="0.2"/>
+      <text x="816" y="42" font-size="20">🔬</text>
+      <text x="866" y="26" fill="#f8fafc" font-size="11" font-weight="600">SMD-juotospiste</text>
+      <text x="866" y="40" fill="#64748b" font-size="9">Stereomikroskooppi</text>
+
+      <!-- Thumbnail 6 (Coffee & Bun) -->
+      <rect x="990" y="0" width="194" height="72" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+      <rect x="996" y="6" width="60" height="60" rx="6" fill="#f97316" opacity="0.2"/>
+      <text x="1014" y="42" font-size="20">☕</text>
+      <text x="1064" y="26" fill="#f8fafc" font-size="11" font-weight="600">Aamukahvi &amp; pulla</text>
+      <text x="1064" y="40" fill="#64748b" font-size="9">Juhla Mokka &amp; leivos</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,211 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" width="100%" height="100%" style="background:#090d16; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+  <defs>
+    <linearGradient id="mBg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#090d16"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="mAmber" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="390" height="844" fill="url(#mBg)"/>
+
+  <!-- Phone Status Bar -->
+  <g transform="translate(16, 12)">
+    <text x="6" y="14" fill="#f8fafc" font-size="12" font-weight="600">9:41</text>
+    <g transform="translate(300, 4)">
+      <!-- Signal -->
+      <rect x="0" y="8" width="3" height="4" rx="1" fill="#f8fafc"/>
+      <rect x="5" y="6" width="3" height="6" rx="1" fill="#f8fafc"/>
+      <rect x="10" y="3" width="3" height="9" rx="1" fill="#f8fafc"/>
+      <rect x="15" y="0" width="3" height="12" rx="1" fill="#f8fafc"/>
+      <!-- Wifi -->
+      <circle cx="28" cy="6" r="4" fill="none" stroke="#f8fafc" stroke-width="1.5"/>
+      <!-- Battery -->
+      <rect x="38" y="2" width="18" height="9" rx="2" fill="none" stroke="#f8fafc" stroke-width="1.5"/>
+      <rect x="40" y="4" width="12" height="5" rx="1" fill="#10b981"/>
+    </g>
+  </g>
+
+  <!-- App Header -->
+  <g transform="translate(16, 38)">
+    <rect x="0" y="0" width="30" height="30" rx="8" fill="#f59e0b" opacity="0.15" stroke="#f59e0b" stroke-width="1"/>
+    <circle cx="15" cy="15" r="6" fill="#f59e0b"/>
+    <text x="38" y="20" fill="#f8fafc" font-size="16" font-weight="700">Pikseli Vision</text>
+    <text x="135" y="20" fill="#f59e0b" font-size="12" font-weight="600">ElevenLabs</text>
+
+    <!-- Language Toggle -->
+    <rect x="296" y="2" width="62" height="24" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <rect x="298" y="4" width="28" height="20" rx="4" fill="#f59e0b"/>
+    <text x="306" y="18" fill="#090d16" font-size="10" font-weight="700">FI</text>
+    <text x="334" y="18" fill="#94a3b8" font-size="10" font-weight="500">EN</text>
+  </g>
+
+  <!-- Character Picker Pills Horizontal Scroll -->
+  <g transform="translate(16, 76)">
+    <!-- Sofia -->
+    <rect x="0" y="0" width="94" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="8" y="26" font-size="14">👁️</text>
+    <text x="26" y="21" fill="#94a3b8" font-size="11" font-weight="600">Sofia</text>
+    <text x="26" y="33" fill="#64748b" font-size="8">Opas</text>
+
+    <!-- Matti (ACTIVE) -->
+    <rect x="102" y="0" width="102" height="42" rx="10" fill="#1e180a" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="110" y="26" font-size="14">🧔‍♂️</text>
+    <text x="130" y="21" fill="#fbbf24" font-size="11" font-weight="700">Matti</text>
+    <text x="130" y="33" fill="#f59e0b" font-size="8">Nikkari</text>
+
+    <!-- RoastBot -->
+    <rect x="212" y="0" width="100" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="220" y="26" font-size="14">🔥</text>
+    <text x="238" y="21" fill="#94a3b8" font-size="11" font-weight="600">RoastBot</text>
+    <text x="238" y="33" fill="#64748b" font-size="8">Paahtaja</text>
+
+    <!-- Art Critic -->
+    <rect x="320" y="0" width="38" height="42" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="328" y="26" font-size="14">🧐</text>
+  </g>
+
+  <!-- Camera / Inspection Viewport -->
+  <g transform="translate(16, 126)">
+    <rect width="358" height="230" rx="14" fill="#0b1120" stroke="#334155" stroke-width="1"/>
+
+    <!-- Simulated inspection content -->
+    <rect x="6" y="6" width="346" height="178" rx="10" fill="#111827"/>
+    <!-- Laser Cutter or 3D print scene -->
+    <circle cx="173" cy="95" r="50" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+    <path d="M 140 95 L 206 95 M 173 62 L 173 128" stroke="#38bdf8" stroke-width="1" stroke-dasharray="3,3"/>
+    <polygon points="173,75 188,110 158,110" fill="#f59e0b" opacity="0.8"/>
+
+    <!-- Crosshair bounding box -->
+    <rect x="130" y="55" width="86" height="80" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,2"/>
+    <rect x="130" y="38" width="86" height="16" rx="3" fill="#f59e0b"/>
+    <text x="134" y="49" fill="#090d16" font-size="8" font-weight="700">🎯 Työstöalue</text>
+
+    <!-- Top Viewport HUD -->
+    <rect x="12" y="12" width="82" height="18" rx="9" fill="#020617" opacity="0.85"/>
+    <circle cx="20" cy="21" r="3" fill="#ef4444"/>
+    <text x="27" y="24" fill="#f8fafc" font-size="8" font-weight="700">LIVE VISION</text>
+
+    <!-- Viewport Bottom Action Bar -->
+    <g transform="translate(12, 190)">
+      <rect x="0" y="0" width="100" height="32" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="14" y="20" fill="#f8fafc" font-size="10" font-weight="600">📹 Kamera</text>
+
+      <rect x="108" y="0" width="86" height="32" rx="8" fill="#1e293b" stroke="#475569" stroke-width="1"/>
+      <text x="120" y="20" fill="#cbd5e1" font-size="10" font-weight="500">📁 Lataa</text>
+
+      <rect x="202" y="0" width="132" height="32" rx="8" fill="url(#mAmber)"/>
+      <text x="226" y="20" fill="#090d16" font-size="11" font-weight="700">⚡ Tarkasta nyt</text>
+    </g>
+  </g>
+
+  <!-- Spoken Audio & Dialogue Card -->
+  <g transform="translate(16, 368)">
+    <rect width="358" height="236" rx="14" fill="#0f172a" stroke="#f59e0b" stroke-width="1.5"/>
+
+    <!-- Card Header -->
+    <g transform="translate(14, 12)">
+      <rect x="0" y="0" width="36" height="36" rx="10" fill="#f59e0b" opacity="0.2"/>
+      <text x="7" y="24" font-size="18">🧔‍♂️</text>
+      <text x="44" y="18" fill="#fbbf24" font-size="13" font-weight="700">Matti Nikkari</text>
+      <text x="44" y="30" fill="#94a3b8" font-size="10">Hacklab Mikkeli veteraani</text>
+
+      <!-- Speaking Pill -->
+      <g transform="translate(210, 4)">
+        <rect width="120" height="26" rx="13" fill="#042f2e" stroke="#10b981" stroke-width="1"/>
+        <text x="10" y="17" fill="#10b981" font-size="9" font-weight="700">🔊 PUHUU ÄÄNEEN</text>
+      </g>
+    </g>
+
+    <!-- Mini Soundwave -->
+    <g transform="translate(14, 54)">
+      <rect width="330" height="28" rx="8" fill="#090d16"/>
+      <circle cx="16" cy="14" r="9" fill="#f59e0b"/>
+      <polygon points="14,10 20,14 14,18" fill="#090d16"/>
+      <!-- Wave bars -->
+      <g transform="translate(36, 8)">
+        <rect x="0" y="4" width="2" height="6" fill="#f59e0b"/>
+        <rect x="5" y="1" width="2" height="11" fill="#f59e0b"/>
+        <rect x="10" y="0" width="2" height="13" fill="#fbbf24"/>
+        <rect x="15" y="3" width="2" height="8" fill="#f59e0b"/>
+        <rect x="20" y="1" width="2" height="12" fill="#fbbf24"/>
+      </g>
+      <text x="68" y="18" fill="#cbd5e1" font-size="9" font-weight="500">ElevenLabs Multilingual v2</text>
+      <text x="282" y="18" fill="#10b981" font-size="9" font-weight="700">0:04</text>
+    </g>
+
+    <!-- Speech Dialogue Text -->
+    <g transform="translate(14, 90)">
+      <rect width="330" height="92" rx="10" fill="#090d16" stroke="#1e293b" stroke-width="1"/>
+      <text x="12" y="24" fill="#fef08a" font-size="11" font-style="italic">
+        "No niin... Katotaas tätä viritelmää. Kerrospaksuus
+      </text>
+      <text x="12" y="42" fill="#fef08a" font-size="11" font-style="italic">
+        heittää kyllä enemmän kuin katiska myrskyssä. Ota
+      </text>
+      <text x="12" y="60" fill="#fef08a" font-size="11" font-style="italic">
+        nyt kuppi Juhla Mokkaa ja putsataan alusta kunnolla!"
+      </text>
+      <!-- Verdict -->
+      <text x="12" y="80" fill="#f59e0b" font-size="9" font-weight="700">
+        Verstasveteraanin tuomio: Tarvitsee lisää tinaa ja kahvia.
+      </text>
+    </g>
+
+    <!-- Replay Button -->
+    <g transform="translate(14, 192)">
+      <rect width="330" height="32" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="108" y="20" fill="#f8fafc" font-size="11" font-weight="600">🔊 Toista puhe uudelleen</text>
+    </g>
+  </g>
+
+  <!-- Ask Question Input & Chips -->
+  <g transform="translate(16, 614)">
+    <rect width="358" height="86" rx="14" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+    <text x="12" y="18" fill="#cbd5e1" font-size="10" font-weight="600">💬 Kysy kuvalta suoraan:</text>
+
+    <g transform="translate(12, 26)">
+      <rect width="254" height="30" rx="6" fill="#090d16" stroke="#334155" stroke-width="1"/>
+      <text x="10" y="19" fill="#94a3b8" font-size="10">Miten tämä korjataan?</text>
+
+      <rect x="262" y="0" width="72" height="30" rx="6" fill="#f59e0b"/>
+      <text x="282" y="19" fill="#090d16" font-size="11" font-weight="700">Kysy ↵</text>
+    </g>
+
+    <!-- Quick Chips -->
+    <g transform="translate(12, 62)">
+      <rect x="0" y="0" width="94" height="18" rx="9" fill="#1e293b"/>
+      <text x="8" y="12" fill="#94a3b8" font-size="8">🔍 Mikä tämä on?</text>
+
+      <rect x="102" y="0" width="102" height="18" rx="9" fill="#1e293b"/>
+      <text x="110" y="12" fill="#94a3b8" font-size="8">⚡ Onko turvallinen?</text>
+
+      <rect x="212" y="0" width="96" height="18" rx="9" fill="#1e293b"/>
+      <text x="220" y="12" fill="#94a3b8" font-size="8">☕ Kahviarvio</text>
+    </g>
+  </g>
+
+  <!-- Detected Tags Row -->
+  <g transform="translate(16, 710)">
+    <text x="2" y="12" fill="#94a3b8" font-size="10" font-weight="600">Tunnistetut kohteet:</text>
+    <g transform="translate(0, 20)">
+      <rect x="0" y="0" width="112" height="38" rx="8" fill="#1e180a" stroke="#f59e0b" stroke-width="1"/>
+      <text x="8" y="18" fill="#fbbf24" font-size="9" font-weight="700">3D-tulostin</text>
+      <text x="8" y="28" fill="#d97706" font-size="7">Ender-3 prototyyppi</text>
+
+      <rect x="120" y="0" width="112" height="38" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="128" y="18" fill="#f8fafc" font-size="9" font-weight="600">Juotosnäyte</text>
+      <text x="128" y="28" fill="#64748b" font-size="7">Tinakökkö liitos</text>
+
+      <rect x="240" y="0" width="118" height="38" rx="8" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+      <text x="248" y="18" fill="#f8fafc" font-size="9" font-weight="600">Juhla Mokka</text>
+      <text x="248" y="28" fill="#64748b" font-size="7">Mustaa suodatinkahvia</text>
+    </g>
+  </g>
+
+  <!-- Bottom Home Indicator -->
+  <rect x="125" y="830" width="140" height="4" rx="2" fill="#475569"/>
+</svg>

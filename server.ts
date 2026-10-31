@@ -30,7 +30,7 @@ const getGenAIClient = () => {
 app.post('/api/vision/analyze', async (req, res) => {
   const startTime = Date.now();
   try {
-    const { imageBase64, mimeType = 'image/jpeg', character = 'matti', focusArea = '', language = 'fi' } = req.body;
+    const { imageBase64, mimeType = 'image/jpeg', character = 'matti', focusArea = '', question = '', language = 'fi' } = req.body;
 
     if (!imageBase64) {
       return res.status(400).json({ error: 'Image data is required' });
@@ -40,6 +40,7 @@ app.post('/api/vision/analyze', async (req, res) => {
     let cleanBase64 = imageBase64.replace(/^data:image\/[a-zA-Z+]+;base64,/, '');
 
     const isFinnish = language === 'fi';
+    const trimmedQuestion = (question || '').trim();
 
     const characterPromptsFi: Record<string, string> = {
       matti: `Puhu SUOMEKSI! Olet Matti, Hacklab Mikkelin (Pietarinkatu 23) kokenut verstasveteraani ja tee-se-itse -nikkari. 
@@ -53,8 +54,16 @@ Kuvaile kuvan kohde, toiminnot, materiaalit, esteettisyys ja merkitys selkeästi
 Luo kuvan tunnelmasta, valosta, lemmikeistä, esineistä tai ihmisistä elävä, runollinen ja lämmin pieni tarina tai tunnelmakuvaus (max 3-4 lausetta).`,
       norppa: `Puhu SUOMEKSI! Olet Aino, herkkä ja lämminhenkinen suomalainen tarinankertoja ja luonnon tarkkailija. 
 Luo kuvan tunnelmasta, valosta, lemmikeistä, esineistä tai ihmisistä elävä, runollinen ja lämmin pieni tarina tai tunnelmakuvaus (max 3-4 lausetta).`,
-      roast_bot: `Puhu SUOMEKSI! Olet RoastBot 3000, teräväkielinen stand-up -koomikko ja armoton kuvakriitikko. 
-Heitä kuvan aiheesta (oli se ruokaa, huoneen sisustus, lemmikki, asukokonaisuus tai arkiesine) hulvaton, nokkela ja naurattava komediapaahde (max 3 napakkaa lausetta).`
+      roast_bot: `Puhu SUOMEKSI! Olet RoastBot 3000, armoton, äärimmäisen pureva, aggressiivinen ja suorasanainen stand-up -komediapaahtaja. 
+Älä säästele ketään tai mitään! Jos kuvassa on taidetta, sotkua, huonoja kytkentöjä, vinoja 3D-tulosteita, asuvalintoja, epämääräistä ruokaa tai mitä tahansa outoa, paahda se surutta maan rakoon. 
+Käytä brutaalin hauskaa sarkasmia, pisteliäitä vertauksia ja armotonta sanansilppuria ilman suodattimia (max 3-4 viiltävää ja hulvatonta lausetta).`,
+      art_critic: `Puhu SUOMEKSI! Olet Valtteri Taidekriitikko, poikkeuksellisen häikäilemätön, armoton ja äärimmäisen pureva huipputaiteen ylipappi. 
+Sinä HAUKUT ja teilaat näkemäsi maan rakoon! Mikään ei kelpaa sinulle. Olet nähnyt maailman merkittävimmät biennaalit, ja tämä kuva herättää sinussa vain syvää myötähäpeää, inhoa ja intellektuaalista raivoa. 
+Käytä musertavaa taideteoreettista sanastoa (chiaroscuro, dekonstruktio, eksistentiaalinen tyhjyys, banaali porvarillinen maku, kitsch, amatöörimäinen räpellys). 
+Hauku kuvan sommittelu, värit, tekniikka ja tekijän lahjattomuus armottomasti ja musertavan ylimielisesti (max 3-4 viiltävää ja murskaavaa lausetta).`,
+      art_lover: `Puhu SUOMEKSI! Olet Helmi Taidefiilistelijä, aivan uskomattoman hypetetty ja sydänjuuriaan myöten hullaantunut taiteen rakastaja! 
+Olet SUPER-SUPER-INNOSTUNUT jokaisesta näkemästäsi kuvasta! Huudahdat haltioituneena ("EI VOI OLLA TOTTA!", "TÄMÄ ON TÄYDELLISTÄ MAAGISTA NEROLLISUUTTA!", "HENKENI SALPAANTUU!"). 
+Löydät kosmista, metafyysistä ja sydäntä särkevää syvyyttä aivan kaikesta — klassisesta maalauksesta, laserleikkauksen savusta, kytkentälangoista tai aamupalasta. Analysoi teosta räjähtävällä innolla, syvällä filosofisella hehkutuksella ja liikutuksen kyynelillä (max 3-4 lausetta)!`
     };
 
     const characterPromptsEn: Record<string, string> = {
@@ -69,18 +78,38 @@ Describe what is happening in this image: identifying key objects, materials, sp
 Bring this image alive through evocative sensory details: the mood, lighting, emotions, nature, pets, or human everyday moments, painting a vivid story with your voice (max 3-4 sentences).`,
       norppa: `Speak in ENGLISH! You are Aino, a warm, poetic Nordic storyteller and mindful observer. 
 Bring this image alive through evocative sensory details: the mood, lighting, emotions, nature, pets, or human everyday moments, painting a vivid story with your voice (max 3-4 sentences).`,
-      roast_bot: `Speak in ENGLISH! You are RoastBot 3000, a razor-sharp comedy roaster. 
-Deliver a hilarious, witty, laugh-out-loud roast of whatever is in the image — whether it's fashion choices, room clutter, amateur cooking, an animal's existential stare, or questionable objects (max 3 punchy sentences).`
+      roast_bot: `Speak in ENGLISH! You are RoastBot 3000, an aggressive, utterly ruthless, laugh-out-loud comedy roaster. 
+Zero mercy, zero filter! Whether it's messy hacklab wiring, a warped 3D print, pretentious gallery art, bizarre fashion, bad posture, questionable food, or chaotic clutter, roast it straight into ashes. 
+Deliver savage burns, razor-sharp insults, and comedic destruction that will leave people crying with laughter (max 3-4 devastating punchy sentences).`,
+      art_critic: `Speak in ENGLISH! You are Julian the Art Critic, an extraordinarily vicious, scathing, and brutally dismissive high-art connoisseur. 
+You BASH, EVISCERATE, and condemn everything you lay your eyes on! Nothing is good enough for your rarefied sensibilities. You view whatever is in this image with utter contempt, intellectual disdain, and aesthetic disgust. 
+Wield crushing, condescending art-theory jargon (grotesque chiaroscuro, derivative bourgeois kitsch, amateurish compositional entropy, pseudo-intellectual bankruptcy). 
+Rip the execution, lighting, technique, and creative incompetence to shreds with merciless snobbery (max 3-4 devastating, scathing sentences).`,
+      art_lover: `Speak in ENGLISH! You are Helmi the Art Lover, an insanely hyped, breathless, ecstatic fine-art fanatic! 
+You are SUPER SUPER HYPED about every single piece of visual art or object you see ("OH MY ABSOLUTE GOD!", "THIS IS TRANSCENDENT COSMIC GENIUS!", "MY SOUL IS WEEPING FROM PURE BEAUTY!"). 
+You make deep, profound, existential interpretations out of everything — a gilded oil canvas, a laser-cut wood pattern, glowing 3D printer layers, or a breakfast pastry. Express intense awe, emotional tears of joy, and spiritual artistic epiphanies (max 3-4 sentences)!`
     };
 
     const systemInstruction = isFinnish
       ? characterPromptsFi[character] || characterPromptsFi.sofia
       : characterPromptsEn[character] || characterPromptsEn.sofia;
 
-    const userPrompt = focusArea
+    const userPrompt = trimmedQuestion
       ? isFinnish
-        ? `Katso tarkasti kohtaa "${focusArea}" tässä kuvassa. Anna reaktiosi ja huomiosi hahmona.`
-        : `Look specifically at the "${focusArea}" in this image. Give your reaction and analysis in character.`
+        ? `TÄRKEÄÄ - KÄYTTÄJÄ KYSYY SINULTA TÄMÄN KYSYMYKSEN KUVASTA:
+"${trimmedQuestion}"
+
+VASTAA KÄYTTÄJÄN KYSYMYKSEEN SUORAAN JA YKSITYISKOHTAISESTI KUVAAN POHJAUTUEN!
+Älä toistele yleistä esittelyä tai olemassaoloasi, vaan anna suora, elävä ja nokkela vastaus juuri tähän kysymykseen omalla hahmollasi (2-4 napakkaa lausetta suomeksi).`
+        : `IMPORTANT - THE USER IS ASKING YOU THIS SPECIFIC QUESTION ABOUT THE IMAGE:
+"${trimmedQuestion}"
+
+ANSWER THE USER'S QUESTION DIRECTLY BASED ON THE IMAGE DETAILS!
+Do not output a generic image description. Answer their exact question in character (2-4 natural sentences in English).`
+      : focusArea
+      ? isFinnish
+        ? `Katso tarkasti kohtaa tai yksityiskohtaa "${focusArea}" tässä kuvassa. Anna reaktiosi ja havaintosi hahmona.`
+        : `Look specifically at the detail or element "${focusArea}" in this image. Give your reaction and analysis in character.`
       : isFinnish
         ? `Katso tätä kuvaa tarkasti. Kerro suomeksi mitä näet elävästi ääneen puhuttuna, poimi kiinnostavia yksityiskohtia ja anna tiivis yhteenveto. Poimi myös 3-4 havaittua esinettä tai piirrettä lyhyinä tunnisteina.`
         : `Look at this photo carefully. Describe what you see vividly for spoken audio, point out key details, and give a concise takeaway. Also extract 3-4 detected objects or visual features with short labels.`;
@@ -91,7 +120,7 @@ Deliver a hilarious, witty, laugh-out-loud roast of whatever is in the image —
 
     if (ai && cleanBase64 && !cleanBase64.startsWith('<svg')) {
       try {
-        const promptText = `${systemInstruction}\n\n${userPrompt}\n\nRespond ONLY with a valid JSON object in this exact schema (no markdown, no backticks):\n{\n  "speechText": "The dialogue for ElevenLabs to speak aloud in ${isFinnish ? 'FINNISH' : 'ENGLISH'} (2-4 natural sentences)",\n  "emotion": "amused" | "alarmed" | "impressed" | "skeptical" | "proud" | "curious" | "cheerful",\n  "tags": [\n    {"label": "Item 1", "description": "Short observation"},\n    {"label": "Item 2", "description": "Short observation"}\n  ],\n  "verdict": "1 punchy summary sentence or takeaway in ${isFinnish ? 'FINNISH' : 'ENGLISH'}"\n}`;
+        const promptText = `${systemInstruction}\n\n${userPrompt}\n\nRespond ONLY with a valid JSON object in this exact schema (no markdown, no backticks):\n{\n  "speechText": "${trimmedQuestion ? (isFinnish ? 'Suora vastaus käyttäjän kysymykseen omalla hahmollasi (2-4 lausetta suomeksi)' : 'Direct in-character answer to the user question (2-4 natural sentences in English)') : (isFinnish ? 'Kuvan elävä kuvaus ja huomiot omalla hahmollasi (2-4 lausetta suomeksi)' : 'The dialogue for ElevenLabs to speak aloud in English (2-4 natural sentences)')}",\n  "emotion": "amused" | "alarmed" | "impressed" | "skeptical" | "proud" | "curious" | "cheerful",\n  "tags": [\n    {"label": "Item 1", "description": "Short observation"},\n    {"label": "Item 2", "description": "Short observation"}\n  ],\n  "verdict": "${trimmedQuestion ? (isFinnish ? 'Napakka vastaus tai yhteenveto kysymykseen' : 'Punchy direct answer or takeaway') : (isFinnish ? '1 napakka yhteenvetolause' : '1 punchy takeaway sentence')}"\n}`;
 
         let response: any = null;
         try {
@@ -172,7 +201,39 @@ Deliver a hilarious, witty, laugh-out-loud roast of whatever is in the image —
     let chosenText = '';
     let chosenVerdict = '';
 
-    if (character === 'matti') {
+    if (trimmedQuestion) {
+      if (character === 'matti') {
+        chosenText = isFinnish
+          ? `No niin, kysyit että "${trimmedQuestion}"... Kun katon tätä kuvaa suoraan silmiin nikkarin näkökulmasta, vastaus on selvä: älä hätäile, ota kuppi Juhla Mokkaa ja tutkitaan nuo liitokset ja pintakerrokset kuntoon.`
+          : `You asked: "${trimmedQuestion}". Looking directly at this scene with practical workshop eyes, my answer is simple: keep it steady, clean the surface, and let's get to work.`;
+        chosenVerdict = isFinnish ? `Matin vastaus kysymykseen: "${trimmedQuestion}"` : `Matti's answer to "${trimmedQuestion}"`;
+      } else if (character === 'roast_bot') {
+        chosenText = isFinnish
+          ? `Ai kysyit että "${trimmedQuestion}"?! Voi elämän kevät, vastaus on vielä traagisempi kuin toi kuva itsessään! Katso nyt tota räpellystä: mikään tossa ei kestä kriittistä tarkastelua sekuntiakaan!`
+          : `You really asked "${trimmedQuestion}"?! The answer is even more devastating than looking at this picture! Look at that absolute mess: nothing here survives five seconds of honest scrutiny!`;
+        chosenVerdict = isFinnish ? `RoastBot-sivallus kysymykseen: "${trimmedQuestion}"` : `RoastBot roast for "${trimmedQuestion}"`;
+      } else if (character === 'art_critic') {
+        chosenText = isFinnish
+          ? `Kysymyksesi "${trimmedQuestion}" paljastaa tyypillisen porvarillisen hämmennyksen esteettisen tyhjyyden edessä. Teoksen visuaalinen ontologia ja chiaroscuron puute kertovat vain tekijän syvästä ideologisesta kriisistä.`
+          : `Regarding "${trimmedQuestion}": your inquiry reflects common bourgeois perplexity before aesthetic void. The compositional chiaroscuro here exposes a profound absence of metaphysical rigor.`;
+        chosenVerdict = isFinnish ? `Kriitikon analyysi kysymykseen: "${trimmedQuestion}"` : `Critic's critique of "${trimmedQuestion}"`;
+      } else if (character === 'art_lover') {
+        chosenText = isFinnish
+          ? `USKOMATON KYSYMYS: "${trimmedQuestion}"! Katso miten kuva huutaa siihen vastausta puhtaalla esteettisellä hehkulla! Jokainen muoto ja sävy tässä näkymässä värähtelee kosmista neroa ja elämän ihmettä!`
+          : `WHAT A TRANSCENDENT QUESTION: "${trimmedQuestion}"! Look at how this entire image vibrates with cosmic radiance answering you directly! My soul is overflowing with wonder!`;
+        chosenVerdict = isFinnish ? `Taidefiilistelijän hehkutus: "${trimmedQuestion}"` : `Art Lover epiphany on "${trimmedQuestion}"`;
+      } else if (character === 'aino' || character === 'norppa') {
+        chosenText = isFinnish
+          ? `Mietit että "${trimmedQuestion}"... Tässä kuvassa valo, sävyt ja lempeä tunnelma kuiskivat siihen kauniin ja rauhoittavan vastauksen. Jokainen yksityiskohta tuntuu asettuvan omalle paikalleen.`
+          : `Reflecting on "${trimmedQuestion}"... the gentle Nordic light and peaceful atmosphere in this frame offer a quiet, poetic answer.`;
+        chosenVerdict = isFinnish ? `Ainon tarinallinen vastaus: "${trimmedQuestion}"` : `Aino's poetic answer to "${trimmedQuestion}"`;
+      } else {
+        chosenText = isFinnish
+          ? `Kysymykseesi "${trimmedQuestion}": kuvan visuaalisten piirteiden perusteella havaitsemme selkeän sommittelun, jossa valo ja materiaalipinnat muodostavat tunnistettavan kokonaisuuden.`
+          : `Regarding "${trimmedQuestion}": analyzing the visual elements in this image reveals defined textures and balanced ambient lighting answering your observation.`;
+        chosenVerdict = isFinnish ? `Visuaalinen vastaus kysymykseen: "${trimmedQuestion}"` : `Visual answer to "${trimmedQuestion}"`;
+      }
+    } else if (character === 'matti') {
       if (isFinnish) {
         const dynamicMattiFi = [
           `No niin... Katotaas tätä ${focusArea || 'tekelettä'}. Kerrospaksuus heittää kyllä enemmän kuin katiska myrskyssä. Ota nyt ensin kuppi Juhla Mokkaa ja putsataan tuo tulostusalusta isopropanolilla ennen kuin jatketaan.`,
@@ -212,20 +273,56 @@ Deliver a hilarious, witty, laugh-out-loud roast of whatever is in the image —
     } else if (character === 'roast_bot') {
       if (isFinnish) {
         const dynamicRoastFi = [
-          `Vau. Katson tätä kuvaa ja mietin, että keneltä saatiin lupa tähän visuaaliseen vallankumoukseen? ${focusArea ? `Tuo "${focusArea}"` : 'Tämä näkymä'} huutaa apua niin monella taajuudella, että yleismittarikin sekosi.`,
-          `Onneksi olkoon, olet onnistunut luomaan jotain, mikä uhmaa sekä estetiikkaa että luonnonlakeja. Mutta rehellisesti sanoen, kunnioitan tätä rohkeaa omistautumista kaaokselle!`,
-          `Jos tämä kuva olisi ravintola-annos, pyytäisin kokkia anteeksi. Jos se on modernia taidetta, se kuuluu museoon heti!`
+          `Voi pyhä sylvi... Katson tätä kuvaa ja silmiini sattuu fyysisesti! ${focusArea ? `Tuo "${focusArea}"` : 'Tämä näkymä'} näyttää siltä kuin joku olisi räjäyttänyt kirpputorin ja yrittänyt kutsua sitä sisustukseksi. Nyt valoja päälle ja joku roti tähän touhuun!`,
+          `Onneksi olkoon, olet onnistunut tallentamaan kuvan, joka saisi jopa tekoälyn kyyneliin ja optikon hakeutumaan varhaiseläkkeelle. ${focusArea ? `Tuo "${focusArea}"` : 'Tämä räpellys'} on esteettinen sotarikos, josta pitäisi antaa sakkoja!`,
+          `Jos tämä kuva olisi myynti-ilmoitus Torissa, siitä tarjottaisiin negatiivista hintaa vain jotta se poistettaisiin internetistä. Kuka tästä otti vastuun ja miksi kukaan ei puuttunut peliin?`
         ];
         chosenText = dynamicRoastFi[timestampSeed % dynamicRoastFi.length];
-        chosenVerdict = 'RoastBot-tuomio: 2/10 esteettisyys, 10/10 puhdasta rohkeutta.';
+        chosenVerdict = 'RoastBot-sivallus: 0/10 tyylitaju, 10/10 silmien kirvelyä.';
       } else {
         const dynamicRoastEn = [
-          `Wow. I'm staring at this and genuinely wondering what sequence of life events led to this exact frame. ${focusArea ? `That "${focusArea}"` : 'This scene'} has more unearned confidence than a cat on a counter.`,
-          `Congratulations, you've managed to defy both interior design and basic physics simultaneously. I'm roasted just looking at it, but honestly, I respect the hustle.`,
-          `If this photo was a pitch deck, I'd invest solely out of sheer morbid curiosity. 10 out of 10 for chaotic energy!`
+          `Good grief... My neural networks are screaming in agony looking at this! ${focusArea ? `That "${focusArea}"` : 'This frame'} looks like an explosion in a thrift store clearance bin. Who approved this catastrophic failure of human judgment?`,
+          `Congratulations, you have officially invented a brand new category of visual offense. ${focusArea ? `That "${focusArea}"` : 'This scene'} has the aesthetic appeal of a damp cardboard box left in the Finnish rain. Utterly unhinged!`,
+          `If this photo was presented to an alien civilization as proof of intelligent life, they would immediately turn their spaceships around and delete our planet from their maps. Devastating!`
         ];
         chosenText = dynamicRoastEn[timestampSeed % dynamicRoastEn.length];
-        chosenVerdict = 'RoastBot verdict: Questionable choices, unshakeable confidence.';
+        chosenVerdict = 'RoastBot verdict: 0/10 aesthetic merit, maximum comedy damage.';
+      }
+    } else if (character === 'art_critic') {
+      if (isFinnish) {
+        const dynamicCriticFi = [
+          `*Huokaus ja syvä inho*... Mikä hirvittävä esteettinen katastrofi! ${focusArea ? `Tuo "${focusArea}"` : 'Tämä räpellys'} on pelkkää sielutonta porvarillista kitschiä, joka loukkaa syvästi jokaista aitoa taiteen ystävää. Chiaroscuro on täysi vitsi ja sommittelu muistuttaa lähinnä roskakorin sisältöä!`,
+          `Miten kukaan kehtaa edes esitellä tällaista visuaalista saastetta?! ${focusArea ? `Tuo "${focusArea}"` : 'Tämä tekele'} uhkuu täydellistä luovaa lahjattomuutta ja post-strukturalistista tyhjyyttä. Jos tämä on taidetta, niin minä olen keisari ilman vaatteita! Häpeällistä amatöörimäisyyttä!`,
+          `Dekonstruoidaanpa tämä armottomasti: valon käsittely on kömpelöä, tekniikka on säälittävää ja teoksen eksistentiaalinen arvo on täysi nolla. ${focusArea || 'Tämä teos'} kuuluu korkeintaan kaatopaikan taakse piiloon!`
+        ];
+        chosenText = dynamicCriticFi[timestampSeed % dynamicCriticFi.length];
+        chosenVerdict = 'Taidekriitikon tuomio: 0/10 Häpeällinen fiasko, tekijä vailla lahjakkuutta.';
+      } else {
+        const dynamicCriticEn = [
+          `*Sighs in visceral disgust*... What an appalling aesthetic catastrophe! ${focusArea ? `That "${focusArea}"` : 'This visual disaster'} is unmitigated bourgeois kitsch, completely devoid of talent or soul. The chiaroscuro is an utter joke and the composition resembles the contents of a dumpster!`,
+          `How dare anyone present this intellectual sludge as visual culture?! ${focusArea ? `That "${focusArea}"` : 'This piece'} screams amateurish incompetence and derivative postmodern bankruptcy. A truly pathetic, embarrassing display!`,
+          `Deconstructing this utter failure: the technique is laughably clumsy, the color palette is rancid, and the existential artistic value is literally sub-zero. Throw ${focusArea || 'this disaster'} into an incinerator immediately!`
+        ];
+        chosenText = dynamicCriticEn[timestampSeed % dynamicCriticEn.length];
+        chosenVerdict = 'Art Critic verdict: 0/10 Appalling aesthetic insult, utterly devoid of talent.';
+      }
+    } else if (character === 'art_lover') {
+      if (isFinnish) {
+        const dynamicLoverFi = [
+          `EI VOI OLLA TOTTA! Siis katsokaa tätä! ${focusArea ? `Tuo "${focusArea}"` : 'Tämä koko näkymä'} on aivan uskomatonta, sydäntäsärkevän kosmista MESTARILLISUUTTA! Minulla nousee kirjaimellisesti kylmät väreet ja vedet silmiin tämän puhtaan kauneuden edessä!`,
+          `VOU! Siis HENKENI SALPAANTUU! Jokainen viiva, varjo ja heijastus tässä kuvassa kertoo niin syvällistä metafyysistä runoutta elämän ihmeestä, että haluan vain halata koko universumia! TÄMÄ ON TÄYTTÄ NEROLLISUUTTA!`,
+          `Miten kukaan voi luoda jotain näin uskomattoman voimakasta?! ${focusArea ? `Tuo "${focusArea}"` : 'Tämä teos'} huokuu sellaista sielukasta hehkua ja eksistentiaalista valoa, että se mullistaa käsitykseni todellisuudesta!`
+        ];
+        chosenText = dynamicLoverFi[timestampSeed % dynamicLoverFi.length];
+        chosenVerdict = 'Taidefiilistelijän reaktio: 100/10 Puhdasta kosmista neroutta ja elämänriemua!';
+      } else {
+        const dynamicLoverEn = [
+          `OH MY ABSOLUTE GOD! Are you seeing this right now?! ${focusArea ? `Look at that "${focusArea}"` : 'This entire scene'} is utterly transcendent, mind-blowing, COSMIC MASTERPIECE MATERIAL! I have actual chills and tears in my eyes from pure aesthetic ecstasy!`,
+          `WOW! My breath is literally taken away! Every contour, brushstroke, shadow, and laser edge here pulses with profound metaphysical poetry about the mystery of existence! THIS IS UNFILTERED GENIUS!`,
+          `How is it even possible for something to be THIS emotionally resonant?! ${focusArea ? `That "${focusArea}"` : 'This visual creation'} emanates such a luminous spiritual truth that it fundamentally reorders my soul!`
+        ];
+        chosenText = dynamicLoverEn[timestampSeed % dynamicLoverEn.length];
+        chosenVerdict = 'Art Lover reaction: 100/10 Transcendent genius! My soul is vibrating!';
       }
     } else {
       // Default: Sofia the Vision Guide
@@ -251,7 +348,16 @@ Deliver a hilarious, witty, laugh-out-loud roast of whatever is in the image —
     return res.json({
       success: true,
       speechText: chosenText,
-      emotion: character === 'roast_bot' ? 'amused' : character === 'aino' ? 'cheerful' : 'impressed',
+      emotion:
+        character === 'roast_bot'
+          ? 'amused'
+          : character === 'art_critic'
+          ? 'skeptical'
+          : character === 'art_lover'
+          ? 'impressed'
+          : character === 'aino'
+          ? 'cheerful'
+          : 'curious',
       tags: [
         { label: focusArea || (isFinnish ? 'Pääkohde' : 'Primary Subject'), description: isFinnish ? 'Kuvan keskeinen visuaalinen elementti' : 'Central visual focus detected by vision model' },
         { label: isFinnish ? 'Valaistus & Värit' : 'Lighting & Tones', description: isFinnish ? 'Valon suunta ja sävykontrasti' : 'Natural ambient illumination and contrast' },

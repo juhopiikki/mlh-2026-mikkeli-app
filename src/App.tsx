@@ -1042,7 +1042,7 @@ export default function App() {
 - Slide 1: Makers can't look at screens with a soldering iron in hand.
 - Slide 2: Gemma inspects the image live.
 - Slide 3: ElevenLabs speaks in fluent Finnish or English, guiding the repair.
-- Slide 4: Open source on GitHub under MIT license!`;
+- Slide 4: Open source on GitHub under Apache-2.0 license!`;
 
     navigator.clipboard.writeText(text);
     setCopiedPitch(true);

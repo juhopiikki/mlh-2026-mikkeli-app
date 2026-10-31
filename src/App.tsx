@@ -216,6 +216,12 @@ export default function App() {
   const [emotion, setEmotion] = useState<string>('skeptical');
   const [customPrompt, setCustomPrompt] = useState<string>('');
   const [lastModelSource, setLastModelSource] = useState<string>('Gemma Vision (gemini-3.5-flash)');
+  const [activeFocusTag, setActiveFocusTag] = useState<string | null>(null);
+
+  // References for cancellation and audio synchronization
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const ttsAbortControllerRef = useRef<AbortController | null>(null);
+  const currentSpeechIdRef = useRef<number>(0);
 
   // ElevenLabs Voice State
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -270,11 +276,22 @@ export default function App() {
 
   // Trigger speech playback (ElevenLabs Multilingual v2 or Browser Speech)
   const speakDialogue = async (text: string, overrideVoiceId?: string) => {
+    // Increment speech sequence ID to invalidate any prior pending audio
+    const thisSpeechId = ++currentSpeechIdRef.current;
+
+    // Abort prior in-flight ElevenLabs network request
+    if (ttsAbortControllerRef.current) {
+      ttsAbortControllerRef.current.abort();
+    }
+    const ttsController = new AbortController();
+    ttsAbortControllerRef.current = ttsController;
+
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
     if (audioRef.current) {
       audioRef.current.pause();
+      audioRef.current.src = '';
     }
 
     setIsSpeaking(true);
@@ -286,6 +303,7 @@ export default function App() {
         const res = await fetch('/api/elevenlabs/tts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: ttsController.signal,
           body: JSON.stringify({
             text,
             voiceId: targetVoiceId,
@@ -296,33 +314,47 @@ export default function App() {
           })
         });
 
+        // Ensure no newer speech was triggered while waiting for network audio
+        if (thisSpeechId !== currentSpeechIdRef.current) {
+          return;
+        }
+
         if (res.ok) {
           const blob = await res.blob();
+          if (thisSpeechId !== currentSpeechIdRef.current) return;
+
           const audioUrl = URL.createObjectURL(blob);
           const audio = new Audio(audioUrl);
           audioRef.current = audio;
 
           audio.onended = () => {
-            setIsSpeaking(false);
+            if (thisSpeechId === currentSpeechIdRef.current) {
+              setIsSpeaking(false);
+            }
           };
           audio.onerror = () => {
-            fallbackBrowserSpeech(text);
+            if (thisSpeechId === currentSpeechIdRef.current) {
+              fallbackBrowserSpeech(text, thisSpeechId);
+            }
           };
 
           setVoiceSource('elevenlabs');
           await audio.play();
           return;
         }
-      } catch (err) {
+      } catch (err: any) {
+        if (err.name === 'AbortError') return;
         console.warn('ElevenLabs API request failed, falling back to browser speech:', err);
       }
     }
 
     // Fallback: Browser Native Web Speech API
-    fallbackBrowserSpeech(text);
+    if (thisSpeechId === currentSpeechIdRef.current) {
+      fallbackBrowserSpeech(text, thisSpeechId);
+    }
   };
 
-  const fallbackBrowserSpeech = (text: string) => {
+  const fallbackBrowserSpeech = (text: string, speechId?: number) => {
     if (!('speechSynthesis' in window)) {
       setIsSpeaking(false);
       return;
@@ -343,21 +375,31 @@ export default function App() {
     }
 
     utterance.onend = () => {
-      setIsSpeaking(false);
+      if (!speechId || speechId === currentSpeechIdRef.current) {
+        setIsSpeaking(false);
+      }
     };
     utterance.onerror = () => {
-      setIsSpeaking(false);
+      if (!speechId || speechId === currentSpeechIdRef.current) {
+        setIsSpeaking(false);
+      }
     };
 
     window.speechSynthesis.speak(utterance);
   };
 
   const stopSpeaking = () => {
+    // Invalidate any in-flight audio downloads
+    currentSpeechIdRef.current++;
+    if (ttsAbortControllerRef.current) {
+      ttsAbortControllerRef.current.abort();
+    }
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
     if (audioRef.current) {
       audioRef.current.pause();
+      audioRef.current.src = '';
     }
     setIsSpeaking(false);
   };
@@ -373,12 +415,32 @@ export default function App() {
     setTimeout(() => setTestVoiceStatus(null), 3000);
   };
 
-  // Run Multimodal Vision Analysis on Current Image
+  // Run Multimodal Vision Analysis on Current Image (With Abort & Instant Feedback)
   const analyzeCurrentImage = async (focusItem?: string) => {
-    setIsAnalyzing(true);
+    // Cancel any previous in-flight request
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+    }
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
+    // Immediately stop previous speech and invalidate pending audio
     stopSpeaking();
 
     const targetFocus = focusItem || customPrompt.trim();
+
+    if (focusItem) {
+      setActiveFocusTag(focusItem);
+      setSpokenText(
+        language === 'fi'
+          ? `Tutkitaan kohdetta "${focusItem}"... Hetki pieni!`
+          : `Examining "${focusItem}"... One moment!`
+      );
+    } else {
+      setActiveFocusTag(null);
+    }
+
+    setIsAnalyzing(true);
 
     try {
       const validJpegBase64 = await getJpegBase64(currentImage);
@@ -386,6 +448,7 @@ export default function App() {
       const res = await fetch('/api/vision/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           imageBase64: validJpegBase64,
           character: selectedCharacter.id,
@@ -403,13 +466,18 @@ export default function App() {
         if (data.hacklabVerdict) setVerdict(data.hacklabVerdict);
         if (data.modelUsed) setLastModelSource(`Live: ${data.modelUsed} (${data.durationMs}ms)`);
 
-        // Speak aloud immediately!
+        // Speak aloud the fresh response!
         speakDialogue(data.speechText);
       }
-    } catch (err) {
+    } catch (err: any) {
+      if (err.name === 'AbortError') {
+        // Normal cancellation when user switched selection
+        return;
+      }
       console.error('Vision analysis error:', err);
     } finally {
       setIsAnalyzing(false);
+      setActiveFocusTag(null);
     }
   };
 
@@ -676,12 +744,18 @@ export default function App() {
 
               {/* Scanning Overlay Animation when Analyzing */}
               {isAnalyzing && (
-                <div className="absolute inset-0 bg-slate-950/60 backdrop-blur-[2px] flex flex-col items-center justify-center space-y-3">
-                  <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 animate-pulse">
+                <div className="absolute inset-0 bg-slate-950/70 backdrop-blur-[2px] flex flex-col items-center justify-center space-y-3 z-20">
+                  <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/40 animate-pulse shadow-lg shadow-amber-950">
                     <Sparkles className="w-6 h-6 animate-spin" />
                   </div>
-                  <p className="text-xs font-mono text-amber-300 tracking-wider uppercase">
-                    {language === 'fi' ? 'Gemma Vision tutkii kuvan pikseleitä...' : 'Gemma Vision Scanning Image Pixels...'}
+                  <p className="text-xs font-mono text-amber-300 tracking-wider uppercase text-center px-4 font-semibold">
+                    {activeFocusTag
+                      ? (language === 'fi'
+                          ? `Gemma tutkii kohdetta: "${activeFocusTag}"...`
+                          : `Gemma inspecting focus element: "${activeFocusTag}"...`)
+                      : (language === 'fi'
+                          ? 'Gemma Vision tutkii kuvan pikseleitä...'
+                          : 'Gemma Vision Scanning Image Pixels...')}
                   </p>
                 </div>
               )}
@@ -847,33 +921,65 @@ export default function App() {
 
             {/* Interactive Detected Items / Bounding Tags */}
             <div className="space-y-2">
-              <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
-                <Tag className="w-3.5 h-3.5 text-cyan-400" />
-                <span>
-                  {language === 'fi'
-                    ? 'Havaitut kohteet kuvasta (Klikkaa kysyäksesi):'
-                    : 'Detected Visual Elements (Click to Ask Character):'}
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
+                  <Tag className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>
+                    {language === 'fi'
+                      ? 'Havaitut kohteet kuvasta (Klikkaa kysyäksesi):'
+                      : 'Detected Visual Elements (Click to Ask Character):'}
+                  </span>
                 </span>
-              </span>
+                {activeFocusTag && (
+                  <span className="text-[10px] font-mono text-amber-400 flex items-center space-x-1 animate-pulse">
+                    <RefreshCw className="w-2.5 h-2.5 animate-spin" />
+                    <span>{language === 'fi' ? 'Käsitellään valintaa...' : 'Processing element...'}</span>
+                  </span>
+                )}
+              </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {detectedTags.map((tag, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => analyzeCurrentImage(tag.label)}
-                    className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 text-left transition group"
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-semibold text-slate-200 group-hover:text-amber-300">
-                        {tag.label}
-                      </span>
-                      <span className="text-[10px] text-slate-500 font-mono">
-                        {language === 'fi' ? 'Kysy →' : 'Ask →'}
-                      </span>
-                    </div>
-                    <p className="text-[10px] text-slate-400 line-clamp-1 mt-0.5">{tag.description}</p>
-                  </button>
-                ))}
+                {detectedTags.map((tag, idx) => {
+                  const isActive = activeFocusTag === tag.label;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        // Prevent spamming clicks on the exact element that is already being analyzed
+                        if (isActive && isAnalyzing) return;
+                        analyzeCurrentImage(tag.label);
+                      }}
+                      className={`p-2.5 rounded-xl border text-left transition relative overflow-hidden group ${
+                        isActive
+                          ? 'bg-amber-950/50 border-amber-500 ring-2 ring-amber-500/50 shadow-lg shadow-amber-950/60'
+                          : isAnalyzing
+                          ? 'bg-slate-950/70 border-slate-800 text-slate-400 hover:border-slate-700 hover:text-slate-200'
+                          : 'bg-slate-950 border-slate-800 hover:border-amber-500/50 hover:bg-slate-900/60 text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className={`text-xs font-semibold flex items-center space-x-1.5 ${
+                          isActive ? 'text-amber-300 font-bold' : 'text-slate-200 group-hover:text-amber-300'
+                        }`}>
+                          {isActive && <RefreshCw className="w-3 h-3 text-amber-400 animate-spin shrink-0" />}
+                          <span>{tag.label}</span>
+                        </span>
+                        <span className={`text-[10px] font-mono px-1.5 py-0.5 rounded transition ${
+                          isActive
+                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40 animate-pulse font-semibold'
+                            : 'text-slate-500 group-hover:text-amber-300'
+                        }`}>
+                          {isActive
+                            ? (language === 'fi' ? 'Tutkitaan...' : 'Analyzing...')
+                            : (language === 'fi' ? 'Kysy →' : 'Ask →')}
+                        </span>
+                      </div>
+                      <p className={`text-[10px] line-clamp-1 mt-0.5 ${isActive ? 'text-amber-200/90 font-medium' : 'text-slate-400'}`}>
+                        {tag.description}
+                      </p>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

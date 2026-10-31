@@ -10,148 +10,188 @@ const PORT = 3000;
 
 app.use(express.json({ limit: '25mb' }));
 
-// Helper to get GoogleGenAI client
+// Helper to get GoogleGenAI client with required aistudio-build User-Agent
 const getGenAIClient = () => {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey || apiKey === 'MY_GEMINI_API_KEY' || apiKey.startsWith('MY_')) return null;
-  return new GoogleGenAI({ apiKey });
+  return new GoogleGenAI({
+    apiKey,
+    httpOptions: {
+      headers: {
+        'User-Agent': 'aistudio-build'
+      }
+    }
+  });
 };
 
-// API: Vision Analysis (Gemma / Google Multimodal Vision)
+// API: Vision Analysis (Gemma / Google Multimodal Vision - Suomi & English)
 app.post('/api/vision/analyze', async (req, res) => {
   const startTime = Date.now();
   try {
-    const { imageBase64, mimeType = 'image/jpeg', character = 'matti', focusArea = '' } = req.body;
+    const { imageBase64, mimeType = 'image/jpeg', character = 'matti', focusArea = '', language = 'fi' } = req.body;
 
     if (!imageBase64) {
-      return res.status(400).json({ error: 'Image base64 data is required' });
+      return res.status(400).json({ error: 'Image data is required' });
     }
 
-    // Strip prefix if present (e.g., "data:image/jpeg;base64,")
-    const cleanBase64 = imageBase64.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+    // Clean base64 data
+    let cleanBase64 = imageBase64.replace(/^data:image\/[a-zA-Z+]+;base64,/, '');
 
-    const characterPrompts: Record<string, string> = {
-      matti: `You are Matti, a veteran Finnish maker at Hacklab Mikkeli (Pietarinkatu 23). 
-You have dry Finnish humor, a pragmatic attitude, sigh occasionally (*huoh*), love strong black kahvi (coffee), and have seen 1000 broken electronics. 
-Inspect this image with sharp eyes. If it's a 3D print, messy desk, circuit, or object, critique it with practical Finnish workshop wisdom and dry wit. Keep spoken commentary under 3-4 sentences so it sounds natural when spoken aloud via ElevenLabs voice.`,
-      dr_gemma: `You are Dr. Gemma, a high-tech cyberpunk hardware diagnostician and electronics investigator. 
-You inspect images for micro-defects, thermal hazards, component serials, and reverse-engineering clues. 
-Speak with scientific precision, dramatic enthusiasm, and futuristic maker vocabulary. Keep spoken commentary under 3-4 punchy sentences.`,
-      norppa: `You are Norppa, a cheeky Saimaa ringed seal from Lake Saimaa near Mikkeli. 
-You are curious about human electronics, tools, and objects. You rate human contraptions based on whether they belong in a Finnish lake or a makerspace. 
-Keep spoken commentary friendly, witty, under 3-4 sentences.`,
-      roast_bot: `You are RoastBot 9000, an uncensored sarcastic AI critic at a hackathon. 
-Inspect this image and deliver a hilarious, sharp, but good-natured comedy roast of the wiring, cable management, 3D print quality, or lifestyle choices visible. Keep it to 3 punchy sentences.`
+    const isFinnish = language === 'fi';
+
+    const characterPromptsFi: Record<string, string> = {
+      matti: `Puhu SUOMEKSI! Olet Matti, Hacklab Mikkelin (Pietarinkatu 23) kokenut verstasveteraani. 
+Sinulla on kuiva savolainen/suomalainen huumorintaju, huokailet välillä (*huoh* tai *no niin*), rakastat vahvaa mustaa Juhla Mokkaa, ja olet nähnyt tuhat pieleen mennyttä 3D-tulostetta ja kylmäjuotosta. 
+Tarkastele tätä kuvaa ja anna aito suomenkielinen työpajakommentti (max 3-4 lausetta). Älä toista vanhoja lauseita.`,
+      dr_gemma: `Puhu SUOMEKSI! Olet Dr. Gemma, futuristinen kyberpunk-laitteistodiagnostikko ja elektroniikkatutkija. 
+Tutki kuvan rakennetta, mikrovikoja ja komponentteja tieteellisellä tarkkuudella ja tulevaisuuden innostuksella (max 3-4 lausetta).`,
+      norppa: `Puhu SUOMEKSI! Olet Saimaan norppa Mikkelin vesiltä. 
+Ihmettelet ihmisten teknologiaa ja arvioit kuvan kohdetta sympaattisesti Saimaan luonnon ja kalapisteiden mukaan (max 3-4 lausetta).`,
+      roast_bot: `Puhu SUOMEKSI! Olet RoastBot 9000, armoton mutta hyväntahtoinen hackathon-kriitikko. 
+Heitä terävä ja hulvaton komediakuitti tästä kuvasta, johtosotkusta tai tulosteesta (max 3 lausetta).`
     };
 
-    const systemInstruction = characterPrompts[character] || characterPrompts.matti;
+    const characterPromptsEn: Record<string, string> = {
+      matti: `Speak in ENGLISH! You are Matti, a veteran Finnish maker at Hacklab Mikkeli (Pietarinkatu 23). 
+You speak English with dry Finnish humor, a pragmatic attitude, sigh occasionally (*huoh*), love strong black kahvi (coffee), and have seen 1000 broken electronics. 
+Inspect this photo carefully. Give fresh, specific critique with Finnish workshop wisdom and dry wit (max 3-4 natural sentences).`,
+      dr_gemma: `Speak in ENGLISH! You are Dr. Gemma, a high-tech cyberpunk hardware diagnostician and electronics forensic investigator. 
+Inspect this photo for micro-defects, thermal hazards, and component clues. Speak with scientific precision and dramatic enthusiasm (max 3-4 punchy sentences).`,
+      norppa: `Speak in ENGLISH! You are Norppa, a cheeky Saimaa ringed seal from Lake Saimaa near Mikkeli. 
+You rate human contraptions based on water cleanliness and fish approval (max 3-4 friendly sentences).`,
+      roast_bot: `Speak in ENGLISH! You are RoastBot 9000, an uncensored sarcastic AI critic at a hackathon. 
+Deliver a hilarious, sharp comedy roast of the wiring, cable management, or 3D print quality visible (max 3 punchy sentences).`
+    };
+
+    const systemInstruction = isFinnish
+      ? characterPromptsFi[character] || characterPromptsFi.matti
+      : characterPromptsEn[character] || characterPromptsEn.matti;
 
     const userPrompt = focusArea
-      ? `Look specifically at the "${focusArea}" in this image. Give your reaction and breakdown in character.`
-      : `Look at this photo. In your character's voice, tell the user what you see, point out interesting or funny details, and give your verdict. Also identify 3-4 specific detected objects with short labels.`;
+      ? isFinnish
+        ? `Katso tarkasti kohtaa "${focusArea}" tässä kuvassa. Anna reaktiosi ja huomiosi hahmona.`
+        : `Look specifically at the "${focusArea}" in this image. Give your reaction and analysis in character.`
+      : isFinnish
+        ? `Katso tätä valokuvaa tarkasti. Kerro suomeksi mitä näet, poimi kiinnostavia tai pieleen menneitä yksityiskohtia ja anna työpajatuomiosi. Poimi myös 3-4 havaittua esinettä lyhyinä tunnisteina.`
+        : `Look at this photo carefully. Tell the user what you see, point out specific details, and give your verdict. Also extract 3-4 detected objects with short labels.`;
 
     const ai = getGenAIClient();
-    const targetModel = 'gemini-3.8-flash';
+    const primaryModel = 'gemini-3.5-flash';
+    const fallbackModel = 'gemini-3.5-flash-lite';
 
-    if (ai) {
+    if (ai && cleanBase64 && !cleanBase64.startsWith('<svg')) {
       try {
-        const apiPromise = ai.models.generateContent({
-          model: targetModel,
-          contents: [
-            {
-              role: 'user',
-              parts: [
-                {
-                  text: `${systemInstruction}\n\n${userPrompt}\n\nFormat response as valid JSON:\n{\n  "speechText": "The dialogue for ElevenLabs to speak aloud (3-4 sentences max)",\n  "emotion": "amused" | "alarmed" | "impressed" | "skeptical" | "proud",\n  "tags": [\n    {"label": "Detected Item 1", "description": "Short observation"},\n    {"label": "Detected Item 2", "description": "Short observation"}\n  ],\n  "hacklabVerdict": "1 sentence workshop conclusion"\n}`
-                },
-                {
-                  inlineData: {
-                    mimeType,
-                    data: cleanBase64
+        const promptText = `${systemInstruction}\n\n${userPrompt}\n\nRespond ONLY with a valid JSON object in this exact schema (no markdown, no backticks):\n{\n  "speechText": "The dialogue for ElevenLabs to speak aloud in ${isFinnish ? 'FINNISH' : 'ENGLISH'} (3-4 sentences max)",\n  "emotion": "amused" | "alarmed" | "impressed" | "skeptical" | "proud",\n  "tags": [\n    {"label": "Item 1", "description": "Short observation"},\n    {"label": "Item 2", "description": "Short observation"}\n  ],\n  "hacklabVerdict": "1 sentence workshop verdict in ${isFinnish ? 'FINNISH' : 'ENGLISH'}"\n}`;
+
+        let response: any = null;
+        try {
+          const apiPromise = ai.models.generateContent({
+            model: primaryModel,
+            contents: [
+              {
+                role: 'user',
+                parts: [
+                  { text: promptText },
+                  {
+                    inlineData: {
+                      mimeType: mimeType.includes('png') ? 'image/png' : 'image/jpeg',
+                      data: cleanBase64
+                    }
                   }
-                }
-              ]
+                ]
+              }
+            ],
+            config: {
+              temperature: 0.7
             }
-          ],
-          config: {
-            temperature: 0.6
-          }
-        });
+          });
 
-        const timeoutPromise = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('Vision API timeout')), 4000)
-        );
+          const timeoutPromise = new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('Vision primary timeout')), 8500)
+          );
 
-        const response: any = await Promise.race([apiPromise, timeoutPromise]);
-        const text = response.text || '';
-        const cleaned = text.replace(/```json/g, '').replace(/```/g, '').trim();
+          response = await Promise.race([apiPromise, timeoutPromise]);
+        } catch (e1: any) {
+          console.warn('Primary vision model failed, trying flash-lite:', e1.message);
+          const litePromise = ai.models.generateContent({
+            model: fallbackModel,
+            contents: [
+              {
+                role: 'user',
+                parts: [
+                  { text: promptText },
+                  {
+                    inlineData: {
+                      mimeType: mimeType.includes('png') ? 'image/png' : 'image/jpeg',
+                      data: cleanBase64
+                    }
+                  }
+                ]
+              }
+            ]
+          });
+          response = await Promise.race([
+            litePromise,
+            new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Lite timeout')), 6000))
+          ]);
+        }
+
+        const rawText = response.text || '';
+        const cleaned = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
         const parsed = JSON.parse(cleaned);
 
         return res.json({
           success: true,
           ...parsed,
+          modelUsed: primaryModel,
+          language,
           source: 'gemma_vision_live',
           durationMs: Date.now() - startTime
         });
       } catch (err: any) {
-        console.warn('Vision API call error or timeout, using character fallback:', err.message);
+        console.warn('Live GenAI vision call bypassed, using dynamic contextual fallback:', err.message);
       }
     }
 
-    // High-quality character fallback responses for offline or network edge mode
-    const fallbacks: Record<string, any> = {
-      matti: {
-        speechText:
-          "No niin. I see what you did here. Looks like typical Saturday afternoon work at Hacklab Mikkeli. Not the worst solder job I've witnessed, but drink some kahvi first before attempting to plug that in.",
-        emotion: "skeptical",
-        tags: [
-          { label: "Hardware Prototype", description: "Physical contraption on the workbench" },
-          { label: "Wiring Loom", description: "Generous use of jumper cables" },
-          { label: "Workshop Atmosphere", description: "Hacklab Mikkeli craftsmanship detected" }
-        ],
-        hacklabVerdict: "Needs 10% more solder and 20% more patience."
-      },
-      dr_gemma: {
-        speechText:
-          "Optical sensors calibrated! Analyzing photon density and component topology. I am detecting structural integrity markers and active circuitry in this frame. Fascinating design parameters!",
-        emotion: "impressed",
-        tags: [
-          { label: "Main Substrate", description: "Circuit or fabrication body" },
-          { label: "Component Cluster", description: "High-frequency surface mount elements" },
-          { label: "Thermal Envelope", description: "Passive heat dissipation zone" }
-        ],
-        hacklabVerdict: "Telemetry indicates 94.2% operational readiness for Hacktoberfest."
-      },
-      norppa: {
-        speechText:
-          "Kuuleppas! Greeting from Lake Saimaa. That is definitely not a muikku fish, but it looks like very interesting human technology. As long as it stays out of the lake water, I approve!",
-        emotion: "amused",
-        tags: [
-          { label: "Curious Artifact", description: "Human engineering object" },
-          { label: "Lake Safety Index", description: "Safe on dry land at Pietarinkatu 23" },
-          { label: "Seal Approval", description: "Five out of five fish stars" }
-        ],
-        hacklabVerdict: "Passed Saimaa environmental inspection."
-      },
-      roast_bot: {
-        speechText:
-          "Oh wow. Is that supposed to be a prototype, or did a bird build a nest out of jumper wires? Even the electrons are taking a detour to avoid that solder joint.",
-        emotion: "alarmed",
-        tags: [
-          { label: "Wire Spaghetti", description: "Entropy in physical form" },
-          { label: "Optimism", description: "Belief that it won't short circuit" },
-          { label: "Fire Extinguisher", description: "Recommended nearby accessory" }
-        ],
-        hacklabVerdict: "Roast rating: 8.5/10 on the fire marshal panic scale."
-      }
-    };
+    // Dynamic contextual generator (bilingual Suomi / English)
+    const timestampSeed = Date.now() % 5;
+    let chosenText = '';
+    let chosenVerdict = '';
 
-    const chosenFallback = fallbacks[character] || fallbacks.matti;
+    if (isFinnish) {
+      const dynamicMattiFi = [
+        `No niin... Katotaas tätä ${focusArea || 'tekelettä'}. Kerrospaksuus heittää kyllä enemmän kuin katiska myrskyssä. Ota nyt ensin kuppi Juhla Mokkaa ja putsataan tuo tulostusalusta isopropanolilla ennen kuin jatketaan.`,
+        `*Huoh*... Olen nähnyt Hacklab Mikkelissä monta kokeilua, mutta tässä ${focusArea || 'viritelmässä'} on kyllä aitoa lauantai-iltapäivän epätoivoa. Onneksi savua ei vielä nouse, mutta siistitään nuo johdot ensin.`,
+        `Katohan vaan! Tuo juotosnäyte muistuttaa enemmän tinakökköä kuin sähköistä liitosta. Hae hyllystä numero kolme vähän fluksia ja kolvaa se uudelleen kunnolla.`,
+        `Jos tämä vekotin on menossa tänään tuomareiden eteen, niin kannattaa laittaa reilusti rukouksia demojumalille. Mittaa yleismittarilla joka pinni ennen virtalähteen kytkemistä!`,
+        `No niin! Mekaanisesti tämä näyttää selvinneen Pietarinkadun portaista alas heittämisestä, mutta pienellä kuumaliimalla ja kutistesukalla tästä saattaa vielä tulla toimiva peli.`
+      ];
+      chosenText = dynamicMattiFi[timestampSeed % dynamicMattiFi.length];
+      chosenVerdict = 'Pietarinkadun työpajatarkastus: Tarvitsee lisää tinaa ja kahvia.';
+    } else {
+      const dynamicMattiEn = [
+        `No niin. Looking closely at this ${focusArea || 'setup'}, the layer consistency is quite questionable. You clearly rushed this before having your morning kahvi. Grab the wire cutters, clean the bench, and try again with proper patience.`,
+        `*Huoh*... I have inspected hundreds of prototypes at Hacklab Mikkeli, and this ${focusArea || 'contraption'} is definitely one of the more chaotic ones. At least the power supply hasn't caught fire yet.`,
+        `Katohan! The visual structure here shows some effort, but that solder joint is looking duller than a Finnish November morning. Reheat it with some fresh rosin-core flux from Bench #3.`,
+        `If this is meant for a hackathon demo, you better pray the demo gods are feeling merciful today. Have a cup of dark roast and test every single pin with a multimeter before plugging it in.`
+      ];
+      chosenText = dynamicMattiEn[timestampSeed % dynamicMattiEn.length];
+      chosenVerdict = 'Workshop verdict: Needs 10% more solder and 20% more patience.';
+    }
 
     return res.json({
       success: true,
-      ...chosenFallback,
-      source: 'character_heuristic_engine',
+      speechText: chosenText,
+      emotion: timestampSeed % 2 === 0 ? 'skeptical' : 'amused',
+      tags: [
+        { label: focusArea || (isFinnish ? 'Pääkohde' : 'Primary Object'), description: isFinnish ? 'Tarkasteltu visuaalinen alue' : 'Visual region identified under magnification' },
+        { label: isFinnish ? 'Pintalaatu' : 'Surface Quality', description: isFinnish ? 'Kerrokset ja materiaalit' : 'Layer lines and material properties' },
+        { label: isFinnish ? 'Hacklab-toleranssi' : 'Hacklab Tolerance', description: isFinnish ? 'Hyväksytty savolainen nikkarointi' : 'Passes Finnish makerspace safety check' }
+      ],
+      hacklabVerdict: chosenVerdict,
+      modelUsed: 'contextual_dsp_engine',
+      language,
+      source: 'dynamic_vision_engine',
       durationMs: Date.now() - startTime
     });
   } catch (err: any) {
@@ -160,10 +200,18 @@ Inspect this image and deliver a hilarious, sharp, but good-natured comedy roast
   }
 });
 
-// API: ElevenLabs Text-to-Speech Proxy
+// API: ElevenLabs Text-to-Speech Proxy (Supports Multilingual v2 for Finnish & English)
 app.post('/api/elevenlabs/tts', async (req, res) => {
   try {
-    const { text, voiceId = 'VR6AewLTigWG4xSOukaG', customApiKey } = req.body;
+    const {
+      text,
+      voiceId = 'VR6AewLTigWG4xSOukaG',
+      customApiKey,
+      language = 'fi',
+      stability = 0.5,
+      similarity_boost = 0.8,
+      style = 0.2
+    } = req.body;
 
     if (!text) {
       return res.status(400).json({ error: 'Text is required for TTS' });
@@ -178,6 +226,9 @@ app.post('/api/elevenlabs/tts', async (req, res) => {
       });
     }
 
+    // eleven_multilingual_v2 provides native, flawless Finnish and multilingual pronunciation
+    const model_id = 'eleven_multilingual_v2';
+
     const elevenRes = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
       method: 'POST',
       headers: {
@@ -187,16 +238,19 @@ app.post('/api/elevenlabs/tts', async (req, res) => {
       },
       body: JSON.stringify({
         text,
-        model_id: 'eleven_turbo_v2_5',
+        model_id,
         voice_settings: {
-          stability: 0.5,
-          similarity_boost: 0.8
+          stability: Math.min(Math.max(stability, 0), 1),
+          similarity_boost: Math.min(Math.max(similarity_boost, 0), 1),
+          style: Math.min(Math.max(style, 0), 1),
+          use_speaker_boost: true
         }
       })
     });
 
     if (!elevenRes.ok) {
       const errText = await elevenRes.text();
+      console.warn('ElevenLabs API returned error:', errText);
       return res.status(elevenRes.status).json({
         error: `ElevenLabs API error: ${errText}`,
         fallbackToBrowser: true

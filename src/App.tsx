@@ -29,16 +29,24 @@ import {
   Key,
   Flame,
   CheckCircle2,
-  FileText
+  FileText,
+  Languages,
+  Mic,
+  Settings,
+  ChevronDown,
+  RefreshCw
 } from 'lucide-react';
 
 interface Character {
   id: string;
   name: string;
+  nameFi: string;
   title: string;
+  titleFi: string;
   avatarEmoji: string;
   tagline: string;
-  voiceId: string;
+  taglineFi: string;
+  defaultVoiceId: string;
   defaultPitch: number;
   defaultRate: number;
   colorTheme: {
@@ -49,14 +57,37 @@ interface Character {
   };
 }
 
+interface VoiceOption {
+  id: string;
+  name: string;
+  gender: 'male' | 'female';
+  tone: string;
+  recommendedFor: string;
+}
+
+const VOICE_OPTIONS: VoiceOption[] = [
+  { id: 'VR6AewLTigWG4xSOukaG', name: 'Arnold (Deep Grumpy / Matti)', gender: 'male', tone: 'Deep, rugged baritone', recommendedFor: 'Matti the Maker' },
+  { id: 'JBFqnCBsd6RMkjVDRZzb', name: 'George (Raspy / Finnish Craftsman)', gender: 'male', tone: 'Raspy, authentic older maker', recommendedFor: 'Matti / Jari' },
+  { id: '21m00Tcm4TlvDq8ikWAM', name: 'Rachel (Clear Tech / Dr. Gemma)', gender: 'female', tone: 'Analytical, calm, articulate', recommendedFor: 'Dr. Gemma' },
+  { id: 'XB0fDUnXU5powFXDhCwa', name: 'Charlotte (Nordic Expressive / Aino)', gender: 'female', tone: 'Soft Scandinavian warmth', recommendedFor: 'Aino / Nordic Guide' },
+  { id: 'IKne3meq5aSn9XLyUdCD', name: 'Charlie (Natural Friendly / Norppa)', gender: 'male', tone: 'Casual, friendly, youthful', recommendedFor: 'Norppa the Seal' },
+  { id: 'jsCqWAovK2LkecY7zXl4', name: 'Freya (Energetic / Mimmi)', gender: 'female', tone: 'Expressive and playful', recommendedFor: 'Playful Nature' },
+  { id: 'pNInz6obpgDQGcFmaJgB', name: 'Adam (Sarcastic Narrator / RoastBot)', gender: 'male', tone: 'Crisp, dramatic comedic delivery', recommendedFor: 'RoastBot 9000' },
+  { id: 'onwK4e9ZLuTAKqWW03F9', name: 'Daniel (Deep Sage / Ukko)', gender: 'male', tone: 'Epic, authoritative resonance', recommendedFor: 'Väinämöinen / Ukko' },
+  { id: 'D38z5RcWu1voky8WS1ja', name: 'Fin (Punchy Android / Kone)', gender: 'male', tone: 'Upbeat and sharp', recommendedFor: 'Cyberpunk Drone' }
+];
+
 const CHARACTERS: Character[] = [
   {
     id: 'matti',
     name: 'Matti the Maker',
+    nameFi: 'Matti Nikkari',
     title: 'Veteran Finnish Hacklab Craftsman',
+    titleFi: 'Hacklab Mikkelin verstasveteraani',
     avatarEmoji: '🧔‍♂️',
     tagline: 'Dry Finnish humor, sighs (*huoh*), loves black kahvi, and knows every soldering flaw.',
-    voiceId: 'VR6AewLTigWG4xSOukaG', // Arnold / Grumpy
+    taglineFi: 'Kuiva savolainen huumori, huokailua (*huoh*), mustaa Juhla Mokkaa ja armoton tinakritiikki.',
+    defaultVoiceId: 'VR6AewLTigWG4xSOukaG',
     defaultPitch: 0.85,
     defaultRate: 0.95,
     colorTheme: {
@@ -69,10 +100,13 @@ const CHARACTERS: Character[] = [
   {
     id: 'dr_gemma',
     name: 'Dr. Gemma',
+    nameFi: 'Dr. Gemma',
     title: 'Cyberpunk Hardware Diagnostician',
+    titleFi: 'Kyberpunk-laitteistodiagnostikko',
     avatarEmoji: '🔬',
     tagline: 'High-tech forensic analysis, micro-defect scanning, and enthusiastic futuristic engineering.',
-    voiceId: '21m00Tcm4TlvDq8ikWAM', // Rachel
+    taglineFi: 'Huipputekninen mikroskooppianalyysi, lämpökuvaus ja tulevaisuuden komponenttietsintä.',
+    defaultVoiceId: '21m00Tcm4TlvDq8ikWAM',
     defaultPitch: 1.1,
     defaultRate: 1.05,
     colorTheme: {
@@ -85,11 +119,14 @@ const CHARACTERS: Character[] = [
   {
     id: 'norppa',
     name: 'Norppa the Seal',
+    nameFi: 'Saimaan Norppa',
     title: 'Lake Saimaa Wildlife Inspector',
+    titleFi: 'Saimaan vesistö- ja kalatarkastaja',
     avatarEmoji: '🦭',
     tagline: 'Endangered Saimaa seal who rates human contraptions based on water cleanliness and fish.',
-    voiceId: 'AZnzlk1XvdvUeBnXmlld', // Domi / friendly
-    defaultPitch: 1.25,
+    taglineFi: 'Ihmettelee ihmisten vempaimia ja antaa pisteitä kalojen ja puhtaan Saimaan mukaan.',
+    defaultVoiceId: 'IKne3meq5aSn9XLyUdCD',
+    defaultPitch: 1.2,
     defaultRate: 1.0,
     colorTheme: {
       badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
@@ -101,10 +138,13 @@ const CHARACTERS: Character[] = [
   {
     id: 'roast_bot',
     name: 'RoastBot 9000',
+    nameFi: 'RoastBot 9000',
     title: 'Sarcastic AI Workshop Critic',
+    titleFi: 'Sarkastinen Hackathon-kriitikko',
     avatarEmoji: '🔥',
     tagline: 'Unfiltered comedy roast of your messy desk, cable nests, and optimistic solder bridges.',
-    voiceId: 'pNInz6obpgDQGcFmaJgB', // Adam
+    taglineFi: 'Armotonta huumorikuittailua johtohässäköistä, tinasilloista ja 3D-tulosteen laadusta.',
+    defaultVoiceId: 'pNInz6obpgDQGcFmaJgB',
     defaultPitch: 0.95,
     defaultRate: 1.1,
     colorTheme: {
@@ -120,15 +160,16 @@ const SAMPLE_PRESETS = [
   {
     id: 'spaghetti',
     name: '3D Print Spaghetti Failure',
+    nameFi: '3D-tulosteen spagettikatastrofi',
     category: '3D Printing',
     description: 'Catastrophic detached first-layer nest of PLA filament on a heated build plate.',
-    // Stylized SVG base64 representation
     imageUrl:
       'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%231e293b"/><rect x="80" y="240" width="440" height="24" rx="4" fill="%23334155"/><rect x="100" y="220" width="400" height="20" rx="2" fill="%2364748b"/><path d="M140,220 Q200,80 260,210 Q320,60 380,220 Q440,90 480,210" fill="none" stroke="%23f97316" stroke-width="14" stroke-linecap="round"/><path d="M180,210 Q240,110 300,190 Q360,70 420,200" fill="none" stroke="%23fb923c" stroke-width="10"/><path d="M220,180 Q290,120 340,200 Q400,130 450,190" fill="none" stroke="%23fdba74" stroke-width="8"/><circle cx="280" cy="110" r="15" fill="%23ef4444"/><text x="305" y="115" fill="%23ffffff" font-family="monospace" font-size="14">Detached Extrusion</text><text x="300" y="320" text-anchor="middle" fill="%2394a3b8" font-family="sans-serif" font-size="16">PRUSA MK4 BED #2 • FAILED PRINT</text></svg>'
   },
   {
     id: 'breadboard',
     name: 'Messy Arduino Breadboard',
+    nameFi: 'Sotkuinen koekytkentälevy',
     category: 'Electronics',
     description: 'Tangled jumper wires, NE555 timer chip, LEDs and a suspicious 9V battery clip.',
     imageUrl:
@@ -137,6 +178,7 @@ const SAMPLE_PRESETS = [
   {
     id: 'pulla',
     name: 'Finnish Kahvi & Korvapuusti',
+    nameFi: 'Musta Juhla Mokka & Korvapuusti',
     category: 'Workshop Fuel',
     description: 'Essential Hacklab fuel: A steaming mug of black filter coffee and cinnamon bun.',
     imageUrl:
@@ -145,6 +187,7 @@ const SAMPLE_PRESETS = [
   {
     id: 'saimaa_seal',
     name: 'Lake Saimaa Ringed Seal',
+    nameFi: 'Saimaan Norppa rantakalliolla',
     category: 'Nature',
     description: 'A cute Saimaa ringed seal sunbathing on a smooth granite rock near Mikkeli.',
     imageUrl:
@@ -153,38 +196,80 @@ const SAMPLE_PRESETS = [
 ];
 
 export default function App() {
+  const [language, setLanguage] = useState<'fi' | 'en'>('fi');
   const [selectedCharacter, setSelectedCharacter] = useState<Character>(CHARACTERS[0]);
+  const [selectedVoiceId, setSelectedVoiceId] = useState<string>(CHARACTERS[0].defaultVoiceId);
   const [currentImage, setCurrentImage] = useState<string>(SAMPLE_PRESETS[0].imageUrl);
-  const [currentImageName, setCurrentImageName] = useState<string>(SAMPLE_PRESETS[0].name);
+  const [currentImageName, setCurrentImageName] = useState<string>(SAMPLE_PRESETS[0].nameFi);
 
   // Vision Analysis State
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [spokenText, setSpokenText] = useState<string>(
-    "No niin! Look at this catastrophe. That first layer peeled right off the heatbed like cheap birch bark. Grab the 99% isopropanol from Bench #2, scrub that PEI sheet, and drink some kahvi while the bed cools down."
+    "No niin! Katotaas mitä täältä löytyy. Tuo ensimmäinen kerros on irronnut pediltä kuin liisteri paperista. Hae pöydältä kaksi purkki isopropanolia ja pyyhitään tuo PEI-alusta ennen seuraavaa yritystä."
   );
   const [detectedTags, setDetectedTags] = useState<Array<{ label: string; description: string }>>([
-    { label: 'Detached Extrusion', description: 'Plastic pulled off build surface' },
-    { label: 'Layer Spaghetti', description: 'Tangled PLA filament mess' },
-    { label: 'Bed Leveling Error', description: 'Z-offset too high by approx 0.08mm' }
+    { label: 'Irronnut pursotus', description: 'Muovi irronnut tulostusalustalta' },
+    { label: 'Spagettilangat', description: 'Sotkeutunutta PLA-filamenttia' },
+    { label: 'Z-korkeuden virhe', description: 'Suutin liian korkealla alustasta' }
   ]);
-  const [verdict, setVerdict] = useState<string>('Emergency stop required before nozzle clogs completely.');
+  const [verdict, setVerdict] = useState<string>('Pietarinkadun työpajatarkastus: Tarvitsee lisää tinaa ja kahvia.');
   const [emotion, setEmotion] = useState<string>('skeptical');
+  const [customPrompt, setCustomPrompt] = useState<string>('');
+  const [lastModelSource, setLastModelSource] = useState<string>('Gemma Vision (gemini-3.5-flash)');
 
   // ElevenLabs Voice State
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [elevenLabsApiKey, setElevenLabsApiKey] = useState('');
+  const [elevenLabsApiKey, setElevenLabsApiKey] = useState(() => {
+    return localStorage.getItem('elevenlabs_api_key') || '';
+  });
   const [voiceSource, setVoiceSource] = useState<'elevenlabs' | 'browser'>('browser');
-  const [showKeySettings, setShowKeySettings] = useState(false);
+  const [showVoiceModal, setShowVoiceModal] = useState(false);
   const [copiedPitch, setCopiedPitch] = useState(false);
+  const [voiceStability, setVoiceStability] = useState(0.5);
+  const [voiceClarity, setVoiceClarity] = useState(0.8);
+  const [testVoiceStatus, setTestVoiceStatus] = useState<string | null>(null);
 
   // Webcam State
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Trigger speech playback
-  const speakDialogue = async (text: string) => {
-    // Stop any active speech
+  // Persist ElevenLabs API Key
+  const handleSaveApiKey = (key: string) => {
+    setElevenLabsApiKey(key);
+    localStorage.setItem('elevenlabs_api_key', key);
+  };
+
+  // Convert any image or SVG to clean JPEG base64 data
+  const getJpegBase64 = (imageSrc: string): Promise<string> => {
+    return new Promise((resolve) => {
+      if (imageSrc.startsWith('data:image/jpeg;base64,') || imageSrc.startsWith('data:image/png;base64,')) {
+        resolve(imageSrc);
+        return;
+      }
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.naturalWidth || 600;
+        canvas.height = img.naturalHeight || 400;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.fillStyle = '#0f172a';
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, 0, 0);
+          resolve(canvas.toDataURL('image/jpeg', 0.85));
+          return;
+        }
+        resolve(imageSrc);
+      };
+      img.onerror = () => resolve(imageSrc);
+      img.src = imageSrc;
+    });
+  };
+
+  // Trigger speech playback (ElevenLabs Multilingual v2 or Browser Speech)
+  const speakDialogue = async (text: string, overrideVoiceId?: string) => {
     if (window.speechSynthesis) {
       window.speechSynthesis.cancel();
     }
@@ -193,8 +278,9 @@ export default function App() {
     }
 
     setIsSpeaking(true);
+    const targetVoiceId = overrideVoiceId || selectedVoiceId || selectedCharacter.defaultVoiceId;
 
-    // Try ElevenLabs proxy first if key is available
+    // Check if ElevenLabs key is available
     if (elevenLabsApiKey.trim()) {
       try {
         const res = await fetch('/api/elevenlabs/tts', {
@@ -202,8 +288,11 @@ export default function App() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             text,
-            voiceId: selectedCharacter.voiceId,
-            customApiKey: elevenLabsApiKey.trim()
+            voiceId: targetVoiceId,
+            customApiKey: elevenLabsApiKey.trim(),
+            language,
+            stability: voiceStability,
+            similarity_boost: voiceClarity
           })
         });
 
@@ -243,11 +332,11 @@ export default function App() {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.pitch = selectedCharacter.defaultPitch;
     utterance.rate = selectedCharacter.defaultRate;
+    utterance.lang = language === 'fi' ? 'fi-FI' : 'en-US';
 
-    // Pick English or Finnish voice if available
     const voices = window.speechSynthesis.getVoices();
     const preferredVoice =
-      voices.find((v) => v.name.includes('Male') || v.name.includes('David') || v.name.includes('Natural')) ||
+      voices.find((v) => (language === 'fi' ? v.lang.startsWith('fi') : v.lang.startsWith('en'))) ||
       voices[0];
     if (preferredVoice) {
       utterance.voice = preferredVoice;
@@ -273,19 +362,36 @@ export default function App() {
     setIsSpeaking(false);
   };
 
+  // Test an ElevenLabs voice directly
+  const handleTestVoice = async (voiceId: string) => {
+    setTestVoiceStatus(`Puhutaan äänellä ${voiceId.slice(0, 6)}...`);
+    const sampleText =
+      language === 'fi'
+        ? 'Terve Hacklab Mikkeli! Tämä ääni toimii sujuvasti ElevenLabs-moottorilla.'
+        : 'Hello from Hacklab Mikkeli! This voice is working smoothly on ElevenLabs.';
+    await speakDialogue(sampleText, voiceId);
+    setTimeout(() => setTestVoiceStatus(null), 3000);
+  };
+
   // Run Multimodal Vision Analysis on Current Image
   const analyzeCurrentImage = async (focusItem?: string) => {
     setIsAnalyzing(true);
     stopSpeaking();
 
+    const targetFocus = focusItem || customPrompt.trim();
+
     try {
+      const validJpegBase64 = await getJpegBase64(currentImage);
+
       const res = await fetch('/api/vision/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          imageBase64: currentImage,
+          imageBase64: validJpegBase64,
           character: selectedCharacter.id,
-          focusArea: focusItem || ''
+          focusArea: targetFocus,
+          language,
+          mimeType: 'image/jpeg'
         })
       });
 
@@ -293,8 +399,9 @@ export default function App() {
       if (data.speechText) {
         setSpokenText(data.speechText);
         setEmotion(data.emotion || 'amused');
-        if (data.tags) setDetectedTags(data.tags);
+        if (data.tags && data.tags.length > 0) setDetectedTags(data.tags);
         if (data.hacklabVerdict) setVerdict(data.hacklabVerdict);
+        if (data.modelUsed) setLastModelSource(`Live: ${data.modelUsed} (${data.durationMs}ms)`);
 
         // Speak aloud immediately!
         speakDialogue(data.speechText);
@@ -349,9 +456,8 @@ export default function App() {
     ctx.drawImage(videoRef.current, 0, 0, 640, 480);
     const base64 = canvas.toDataURL('image/jpeg');
     setCurrentImage(base64);
-    setCurrentImageName('Webcam Snapshot');
+    setCurrentImageName(language === 'fi' ? 'Webkamera-kuva' : 'Webcam Snapshot');
 
-    // Stop camera stream
     const stream = videoRef.current.srcObject as MediaStream;
     stream?.getTracks().forEach((track) => track.stop());
     setIsWebcamOpen(false);
@@ -363,21 +469,21 @@ export default function App() {
 
   const handleCopyPitchDeck = () => {
     const text = `# Pikseli: Multimodal Vision × ElevenLabs Voice Companion
-## Built for Hacktoberfest Hack Day Mikkeli × Hacklab Mikkeli ry
+## Hacktoberfest Hack Day Mikkeli × Hacklab Mikkeli ry
 
 ### Dual MLH Track Qualification:
 1. Best Use of Gemma (Google Multimodal Vision):
-   - Inspects physical workbench artifacts, 3D print flaws, and circuits.
-   - Detects component defects, calculates Z-offsets, and identifies hazard areas.
-2. Best Use of ElevenLabs (Expressive Voice AI):
-   - Speaks out loud with custom persona voices (Matti the Finnish Maker, Dr. Gemma, Norppa, RoastBot).
-   - Generates responsive speech directly connected to vision tags.
+   - Real-time inspection of 3D prints, circuits, and workbench tools.
+   - Detects Z-offset errors, cold solder joints, resistor color bands, and lake turbidity.
+2. Best Use of ElevenLabs (Multilingual Neural Voice AI):
+   - Bilingual Suomi / English voice synthesis with eleven_multilingual_v2.
+   - Character personas (Matti the Maker, Dr. Gemma, Norppa, RoastBot).
 
-### Live Demo Flow (3 Minutes):
-- Slide 1 (Hook): Makers get their hands dirty with soldering irons and 3D printers; they can't stop to read text chats.
-- Slide 2 (Vision): You hold up a broken board or failed print. Gemma inspects it instantly.
-- Slide 3 (Voice): Matti or Dr. Gemma speaks out loud via ElevenLabs, guiding the maker verbally!
-- Slide 4 (Open Source): Code is on GitHub under MIT License for Hacktoberfest.`;
+### 3-Minute Hackathon Presentation:
+- Slide 1: Makers can't look at screens with a soldering iron in hand.
+- Slide 2: Gemma inspects the image live.
+- Slide 3: ElevenLabs speaks in fluent Finnish or English, guiding the repair.
+- Slide 4: Open source on GitHub under MIT license!`;
 
     navigator.clipboard.writeText(text);
     setCopiedPitch(true);
@@ -391,12 +497,44 @@ export default function App() {
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           <div className="flex items-center space-x-2 font-medium">
             <span className="bg-slate-950 text-amber-300 font-bold px-2 py-0.5 rounded text-[10px] tracking-wide">
-              DUAL MLH TRACK
+              MLH HACK DAY
             </span>
-            <span>Gemma Multimodal Vision × ElevenLabs Voice Companion</span>
+            <span>Hacktoberfest Hack Day Mikkeli × Hacklab Mikkeli ry</span>
+            <span className="hidden sm:inline-block bg-orange-950/60 px-2 py-0.5 rounded text-[10px] text-amber-200 border border-orange-400/30">
+              Gemma + ElevenLabs
+            </span>
           </div>
+
           <div className="flex items-center space-x-3 text-amber-100 text-[11px]">
-            <span>Hacklab Mikkeli ry • Pietarinkatu 23</span>
+            {/* Suomi / English Toggle */}
+            <div className="flex items-center space-x-1 bg-slate-950/60 rounded-lg p-0.5 border border-amber-300/30">
+              <button
+                onClick={() => {
+                  setLanguage('fi');
+                  setTimeout(() => analyzeCurrentImage(), 50);
+                }}
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center space-x-1 ${
+                  language === 'fi' ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                <span>🇫🇮</span>
+                <span>Suomi</span>
+              </button>
+              <button
+                onClick={() => {
+                  setLanguage('en');
+                  setTimeout(() => analyzeCurrentImage(), 50);
+                }}
+                className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center space-x-1 ${
+                  language === 'en' ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:text-white'
+                }`}
+              >
+                <span>🇬🇧</span>
+                <span>English</span>
+              </button>
+            </div>
+
+            <span className="hidden md:inline">Pietarinkatu 23</span>
           </div>
         </div>
       </div>
@@ -411,28 +549,26 @@ export default function App() {
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-extrabold text-base tracking-tight text-white">Pikseli Voiced Vision</span>
-                <span className="text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded-full bg-orange-500/20 text-orange-400 border border-orange-500/30">
-                  Gemma + ElevenLabs
+                <span className={`text-[10px] font-semibold tracking-wider px-2 py-0.5 rounded-full border ${
+                  elevenLabsApiKey ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'
+                }`}>
+                  {elevenLabsApiKey ? 'ElevenLabs Active' : 'Browser Audio'}
                 </span>
               </div>
               <p className="text-xs text-slate-400 hidden sm:block">
-                Hold up an object or upload a photo — your AI companion speaks what it sees!
+                {language === 'fi' ? 'Osoita esinettä tai lataa kuva — hahmo kertoo ääneen mitä näkee!' : 'Hold up an object or upload a photo — your AI companion speaks what it sees!'}
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
+            {/* Voice & ElevenLabs Settings Button */}
             <button
-              onClick={() => setShowKeySettings(!showKeySettings)}
-              className={`p-2 rounded-xl border text-xs font-medium transition flex items-center space-x-1.5 ${
-                showKeySettings || elevenLabsApiKey
-                  ? 'bg-amber-500/20 border-amber-500 text-amber-300'
-                  : 'bg-slate-900 border-slate-800 text-slate-400 hover:text-white'
-              }`}
-              title="ElevenLabs Voice Settings"
+              onClick={() => setShowVoiceModal(true)}
+              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition text-xs flex items-center space-x-1.5"
             >
-              <Key className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">ElevenLabs Key</span>
+              <Mic className="w-3.5 h-3.5 text-amber-400" />
+              <span>{language === 'fi' ? 'Ääni & Key' : 'Voice & Key'}</span>
             </button>
 
             <button
@@ -447,48 +583,17 @@ export default function App() {
         </div>
       </header>
 
-      {/* ElevenLabs API Key Drawer (Optional) */}
-      {showKeySettings && (
-        <div className="border-b border-slate-800 bg-slate-900/95 px-4 py-4 backdrop-blur">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-xs">
-            <div className="space-y-1 max-w-xl">
-              <span className="font-bold text-amber-400 flex items-center space-x-1.5">
-                <Radio className="w-4 h-4" />
-                <span>ElevenLabs API Integration (MLH Partner Track)</span>
-              </span>
-              <p className="text-slate-300 text-[11px] leading-relaxed">
-                Enter your ElevenLabs API Key here to stream high-definition cloned voices. If left blank, the app uses free browser speech synthesis automatically!
-              </p>
-            </div>
-
-            <div className="flex items-center space-x-2 w-full md:w-auto">
-              <input
-                type="password"
-                value={elevenLabsApiKey}
-                onChange={(e) => setElevenLabsApiKey(e.target.value)}
-                placeholder="Paste ElevenLabs xi-api-key here..."
-                className="p-2 px-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-200 font-mono focus:border-amber-500 focus:outline-none w-full md:w-72"
-              />
-              <button
-                onClick={() => setShowKeySettings(false)}
-                className="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shrink-0"
-              >
-                Save
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Main Studio Viewport */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 flex flex-col space-y-6">
         {/* Character Persona Selector Cards */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
-              <span>Choose Your Voiced Character Persona</span>
+              <span>{language === 'fi' ? 'Valitse puhuva työpajahahmo' : 'Choose Your Voiced Character Persona'}</span>
             </h3>
-            <span className="text-[10px] text-slate-500">Each character speaks with distinct voice & humor</span>
+            <span className="text-[10px] text-slate-500">
+              {language === 'fi' ? 'Kieli: Suomi (ElevenLabs Multilingual v2)' : 'Language: English'}
+            </span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -499,6 +604,7 @@ export default function App() {
                   key={char.id}
                   onClick={() => {
                     setSelectedCharacter(char);
+                    setSelectedVoiceId(char.defaultVoiceId);
                     setTimeout(() => analyzeCurrentImage(), 50);
                   }}
                   className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between relative group ${
@@ -511,14 +617,20 @@ export default function App() {
                     <div className="flex items-center justify-between">
                       <span className="text-2xl">{char.avatarEmoji}</span>
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${char.colorTheme.badge}`}>
-                        {char.id === 'matti' ? 'Finnish' : char.id === 'dr_gemma' ? 'Cyberpunk' : char.id === 'norppa' ? 'Saimaa' : 'Comedy'}
+                        {char.id === 'matti' ? 'Mikkeli' : char.id === 'dr_gemma' ? 'Cyberpunk' : char.id === 'norppa' ? 'Saimaa' : 'Comedy'}
                       </span>
                     </div>
 
                     <div>
-                      <h4 className="font-bold text-sm text-white">{char.name}</h4>
-                      <p className="text-[11px] text-slate-400 font-medium">{char.title}</p>
-                      <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">{char.tagline}</p>
+                      <h4 className="font-bold text-sm text-white">
+                        {language === 'fi' ? char.nameFi : char.name}
+                      </h4>
+                      <p className="text-[11px] text-slate-400 font-medium">
+                        {language === 'fi' ? char.titleFi : char.title}
+                      </p>
+                      <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                        {language === 'fi' ? char.taglineFi : char.tagline}
+                      </p>
                     </div>
                   </div>
                 </button>
@@ -535,7 +647,7 @@ export default function App() {
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span className="text-xs font-bold text-slate-200 uppercase tracking-wider font-mono">
-                  Visual Input Feed
+                  {language === 'fi' ? 'Kuvalähde & Webkamera' : 'Visual Input Feed'}
                 </span>
               </div>
               <span className="text-xs font-mono text-slate-400 truncate max-w-[200px]">{currentImageName}</span>
@@ -551,7 +663,7 @@ export default function App() {
                     className="absolute bottom-3 px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center space-x-2 shadow-lg"
                   >
                     <Camera className="w-4 h-4" />
-                    <span>Capture Snapshot</span>
+                    <span>{language === 'fi' ? 'Ota valokuva' : 'Capture Snapshot'}</span>
                   </button>
                 </div>
               ) : (
@@ -569,7 +681,7 @@ export default function App() {
                     <Sparkles className="w-6 h-6 animate-spin" />
                   </div>
                   <p className="text-xs font-mono text-amber-300 tracking-wider uppercase">
-                    Gemma Vision Scanning Image Pixels...
+                    {language === 'fi' ? 'Gemma Vision tutkii kuvan pikseleitä...' : 'Gemma Vision Scanning Image Pixels...'}
                   </p>
                 </div>
               )}
@@ -580,7 +692,7 @@ export default function App() {
               {/* File upload */}
               <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-2">
                 <Upload className="w-4 h-4 text-amber-400" />
-                <span>Upload Photo</span>
+                <span>{language === 'fi' ? 'Lataa kuva' : 'Upload Photo'}</span>
                 <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
               </label>
 
@@ -590,7 +702,7 @@ export default function App() {
                 className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition text-xs flex items-center justify-center space-x-2"
               >
                 <Camera className="w-4 h-4 text-cyan-400" />
-                <span>{isWebcamOpen ? 'Webcam Active' : 'Live Webcam'}</span>
+                <span>{isWebcamOpen ? 'Kamera auki' : language === 'fi' ? 'Live Webkamera' : 'Live Webcam'}</span>
               </button>
 
               {/* Re-Analyze Button */}
@@ -600,26 +712,53 @@ export default function App() {
                 className="col-span-2 sm:col-span-1 p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-xs flex items-center justify-center space-x-1.5 shadow-md shadow-amber-950/40"
               >
                 <Sparkles className="w-4 h-4 text-slate-950" />
-                <span>Inspect Now</span>
+                <span>{isAnalyzing ? (language === 'fi' ? 'Tutkitaan...' : 'Inspecting...') : language === 'fi' ? 'Tarkasta kuva' : 'Inspect Now'}</span>
+              </button>
+            </div>
+
+            {/* Custom Question / Focus Input */}
+            <div className="flex items-center space-x-2 bg-slate-950 p-1.5 rounded-xl border border-slate-800 focus-within:border-amber-500/60 transition">
+              <input
+                type="text"
+                value={customPrompt}
+                onChange={(e) => setCustomPrompt(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') analyzeCurrentImage();
+                }}
+                placeholder={
+                  language === 'fi'
+                    ? `Kysy Matilta jotain tästä kuvasta (esim. 'Mikä tuo vika on?')...`
+                    : `Ask ${selectedCharacter.name} specifically (e.g. 'What is that flaw?')...`
+                }
+                className="w-full bg-transparent text-xs text-slate-200 placeholder-slate-500 px-2 py-1 focus:outline-none"
+              />
+              <button
+                onClick={() => analyzeCurrentImage()}
+                disabled={isAnalyzing}
+                className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs shrink-0 transition"
+              >
+                {language === 'fi' ? 'Kysy' : 'Ask'}
               </button>
             </div>
 
             {/* Preset Samples */}
             <div className="space-y-1.5 pt-1">
-              <span className="text-[11px] text-slate-400 font-medium">Or test with Hacklab test photos:</span>
+              <span className="text-[11px] text-slate-400 font-medium">
+                {language === 'fi' ? 'Tai testaa valmiilla Hacklab-kuvilla:' : 'Or test with Hacklab test photos:'}
+              </span>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {SAMPLE_PRESETS.map((preset) => (
                   <button
                     key={preset.id}
                     onClick={() => {
                       setCurrentImage(preset.imageUrl);
-                      setCurrentImageName(preset.name);
+                      setCurrentImageName(language === 'fi' ? preset.nameFi : preset.name);
                       setIsWebcamOpen(false);
                       setTimeout(() => analyzeCurrentImage(), 50);
                     }}
                     className="p-2 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-left transition text-[11px] text-slate-300 hover:text-white truncate"
                   >
-                    {preset.name}
+                    {language === 'fi' ? preset.nameFi : preset.name}
                   </button>
                 ))}
               </div>
@@ -634,13 +773,17 @@ export default function App() {
                 <span className="text-3xl">{selectedCharacter.avatarEmoji}</span>
                 <div>
                   <h4 className="font-bold text-sm text-white flex items-center space-x-1.5">
-                    <span>{selectedCharacter.name}</span>
+                    <span>{language === 'fi' ? selectedCharacter.nameFi : selectedCharacter.name}</span>
                     <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">
-                      Mood: {emotion}
+                      {emotion}
                     </span>
                   </h4>
-                  <p className="text-[11px] text-slate-400">
-                    Voice: {voiceSource === 'elevenlabs' ? 'ElevenLabs Audio Stream' : 'Browser Web Speech'}
+                  <p className="text-[11px] text-slate-400 flex items-center space-x-1.5">
+                    <span className={elevenLabsApiKey ? 'text-emerald-400 font-semibold' : 'text-slate-400'}>
+                      {elevenLabsApiKey ? '🎙️ ElevenLabs Multilingual' : '🔊 Browser Speech'}
+                    </span>
+                    <span>•</span>
+                    <span className="text-emerald-400 font-mono text-[10px]">{lastModelSource}</span>
                   </p>
                 </div>
               </div>
@@ -657,12 +800,12 @@ export default function App() {
                   }}
                   className={`px-3 py-1.5 rounded-xl border text-xs font-semibold transition flex items-center space-x-1.5 ${
                     isSpeaking
-                      ? 'bg-amber-500 text-slate-950 border-amber-400 animate-pulse'
+                      ? 'bg-amber-500 text-slate-950 border-amber-400 animate-pulse shadow-md shadow-amber-950/50'
                       : 'bg-slate-950 border-slate-800 text-slate-300 hover:text-white'
                   }`}
                 >
                   {isSpeaking ? <VolumeX className="w-3.5 h-3.5" /> : <Volume2 className="w-3.5 h-3.5" />}
-                  <span>{isSpeaking ? 'Stop Voice' : 'Speak Out Loud'}</span>
+                  <span>{isSpeaking ? (language === 'fi' ? 'Pysäytä ääni' : 'Stop Voice') : language === 'fi' ? 'Puhu ääneen' : 'Speak Out Loud'}</span>
                 </button>
               </div>
             </div>
@@ -675,7 +818,7 @@ export default function App() {
                   className="w-1.5 rounded-full bg-gradient-to-t from-amber-500 to-orange-400 transition-all duration-150"
                   style={{
                     height: isSpeaking ? `${Math.max(15, h * (i % 2 === 0 ? 1 : 0.75))}%` : '15%',
-                    opacity: isSpeaking ? 0.9 : 0.25
+                    opacity: isSpeaking ? 0.95 : 0.2
                   }}
                 />
               ))}
@@ -684,7 +827,7 @@ export default function App() {
             {/* Spoken Dialogue Box */}
             <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs space-y-3 relative">
               <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
-                Spoken Commentary:
+                {language === 'fi' ? 'Puhuttu kommentti (ElevenLabs / Gemma):' : 'Spoken Commentary:'}
               </span>
               <p className="text-slate-100 text-sm leading-relaxed font-sans select-all">
                 "{spokenText}"
@@ -697,7 +840,7 @@ export default function App() {
                   className="text-amber-400 hover:underline flex items-center space-x-1"
                 >
                   <Play className="w-3 h-3" />
-                  <span>Replay Voice</span>
+                  <span>{language === 'fi' ? 'Toista uudelleen' : 'Replay Voice'}</span>
                 </button>
               </div>
             </div>
@@ -706,7 +849,11 @@ export default function App() {
             <div className="space-y-2">
               <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
                 <Tag className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Detected Visual Elements (Click to Ask Character):</span>
+                <span>
+                  {language === 'fi'
+                    ? 'Havaitut kohteet kuvasta (Klikkaa kysyäksesi):'
+                    : 'Detected Visual Elements (Click to Ask Character):'}
+                </span>
               </span>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -720,7 +867,9 @@ export default function App() {
                       <span className="text-xs font-semibold text-slate-200 group-hover:text-amber-300">
                         {tag.label}
                       </span>
-                      <span className="text-[10px] text-slate-500 font-mono">Ask →</span>
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        {language === 'fi' ? 'Kysy →' : 'Ask →'}
+                      </span>
                     </div>
                     <p className="text-[10px] text-slate-400 line-clamp-1 mt-0.5">{tag.description}</p>
                   </button>
@@ -738,27 +887,210 @@ export default function App() {
               <span>Track 1: Best Use of Gemma (Google Multimodal Vision)</span>
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Processes the raw pixels of your camera feed or uploaded photo. Unlike standard text bots, it segments physical electronics, identifies 3D print failures, counts resistor bands, and spots environmental lake conditions.
+              {language === 'fi'
+                ? 'Gemma Vision tarkastaa todellisen kamerakuvan tai valokuvan pikselit. Se tunnistaa elektroniikan, juotosvirheet, 3D-tulosteen kerrosongelmat ja työpajan esineet aidoista kuvista.'
+                : 'Processes the raw pixels of your camera feed or uploaded photo. Unlike standard text bots, it segments physical electronics, identifies 3D print failures, counts resistor bands, and spots environmental lake conditions.'}
             </p>
           </div>
 
           <div className="space-y-2">
             <h4 className="font-bold text-sm text-white flex items-center space-x-2">
               <Radio className="w-4 h-4 text-cyan-400" />
-              <span>Track 2: Best Use of ElevenLabs (Expressive Voice AI)</span>
+              <span>Track 2: Best Use of ElevenLabs (Multilingual v2 Voice AI)</span>
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Brings the analysis alive with personality-driven character voices. Makers in physical workshops can’t stop to read screens — they listen to Matti or Dr. Gemma guide them through repairs hands-free!
+              {language === 'fi'
+                ? 'ElevenLabs multilingual v2 tuo Matin ja muut hahmot eloon aidolla suomen kielellä. Nikkari voi kuunnella neuvoja työpöydän äärellä kädet vapaina kolvia ja työkaluja varten!'
+                : 'Brings the analysis alive with personality-driven character voices in both Finnish and English. Makers in physical workshops can listen to Matti or Dr. Gemma guide them through repairs hands-free!'}
             </p>
           </div>
         </div>
       </main>
 
+      {/* Voice Selection & Settings Modal */}
+      {showVoiceModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-slate-900 border border-slate-800 rounded-3xl max-w-2xl w-full p-6 space-y-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center space-x-3">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center border border-amber-500/30">
+                  <Mic className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-base text-white">
+                    {language === 'fi' ? 'ElevenLabs Ääniasetukset & Äänikirjasto' : 'ElevenLabs Voice Library & Settings'}
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    {language === 'fi' ? 'Valitse ääni tai syötä oma Voice ID ja API Key' : 'Pick a voice or provide custom Voice ID'}
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowVoiceModal(false)}
+                className="text-slate-400 hover:text-white text-xs px-2.5 py-1 rounded-lg bg-slate-800"
+              >
+                {language === 'fi' ? 'Sulje' : 'Close'}
+              </button>
+            </div>
+
+            {/* API Key Input */}
+            <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+              <label className="text-xs font-semibold text-slate-200 block flex items-center space-x-1.5">
+                <Key className="w-3.5 h-3.5 text-amber-400" />
+                <span>{language === 'fi' ? 'ElevenLabs API-avain (xi-api-key)' : 'ElevenLabs API Key'}</span>
+              </label>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="password"
+                  value={elevenLabsApiKey}
+                  onChange={(e) => handleSaveApiKey(e.target.value)}
+                  placeholder="Paste ElevenLabs key here (e.g. sk_... or hex key)"
+                  className="w-full p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-200 font-mono focus:border-amber-500 focus:outline-none"
+                />
+                {elevenLabsApiKey && (
+                  <span className="text-emerald-400 text-xs font-bold px-2 py-1 rounded bg-emerald-950/40 border border-emerald-900/40 shrink-0">
+                    ✓ Tallennettu
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-slate-500">
+                {language === 'fi'
+                  ? 'Avain tallentuu selaimesi muistiin (localStorage). Tyhjänä sovellus käyttää selaimen perusääntä.'
+                  : 'Saved locally in your browser. Leave blank to use browser speech synthesis.'}
+              </p>
+            </div>
+
+            {/* Voice Options Grid */}
+            <div className="space-y-2">
+              <label className="text-xs font-semibold text-slate-200 block">
+                {language === 'fi' ? 'Valitse ElevenLabs-ääni hahmolle:' : 'Select ElevenLabs Voice:'}
+              </label>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-56 overflow-y-auto p-1">
+                {VOICE_OPTIONS.map((v) => {
+                  const isSelected = selectedVoiceId === v.id;
+                  return (
+                    <div
+                      key={v.id}
+                      className={`p-3 rounded-xl border text-left transition flex flex-col justify-between ${
+                        isSelected
+                          ? 'bg-amber-500/10 border-amber-500 ring-1 ring-amber-500/50'
+                          : 'bg-slate-950 border-slate-800 hover:border-slate-700'
+                      }`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs font-bold text-white">{v.name}</span>
+                          <span className="text-[10px] text-slate-500 font-mono capitalize">{v.gender}</span>
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-0.5">{v.tone}</p>
+                        <p className="text-[10px] text-amber-400/90 mt-1 font-mono">{v.recommendedFor}</p>
+                      </div>
+
+                      <div className="mt-3 pt-2 border-t border-slate-900 flex items-center justify-between">
+                        <button
+                          onClick={() => setSelectedVoiceId(v.id)}
+                          className={`text-[11px] font-semibold px-2.5 py-1 rounded-lg transition ${
+                            isSelected
+                              ? 'bg-amber-500 text-slate-950 font-bold'
+                              : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                          }`}
+                        >
+                          {isSelected ? '✓ Valittu' : 'Valitse'}
+                        </button>
+
+                        <button
+                          onClick={() => handleTestVoice(v.id)}
+                          className="text-[11px] text-slate-400 hover:text-white flex items-center space-x-1"
+                        >
+                          <Volume2 className="w-3.5 h-3.5 text-cyan-400" />
+                          <span>Testaa</span>
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Custom Voice ID Input */}
+            <div className="p-3 bg-slate-950 rounded-xl border border-slate-800 space-y-1.5 text-xs">
+              <label className="text-slate-300 font-semibold block">
+                {language === 'fi' ? 'Tai käytä omaa Voice ID:tä ElevenLabs VoiceLabista:' : 'Or use custom ElevenLabs Voice ID:'}
+              </label>
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  value={selectedVoiceId}
+                  onChange={(e) => setSelectedVoiceId(e.target.value.trim())}
+                  placeholder="Paste any custom Voice ID (e.g. 21m00Tcm4TlvDq8ikWAM)..."
+                  className="w-full p-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-200 font-mono"
+                />
+                <button
+                  onClick={() => handleTestVoice(selectedVoiceId)}
+                  className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs shrink-0"
+                >
+                  Testaa
+                </button>
+              </div>
+            </div>
+
+            {/* Voice Tuning Sliders */}
+            <div className="grid grid-cols-2 gap-4 pt-1 text-xs">
+              <div className="space-y-1">
+                <div className="flex justify-between items-center text-slate-400">
+                  <span>Stability ({voiceStability})</span>
+                  <span className="text-[10px]">{voiceStability < 0.5 ? 'Ilmeikäs' : 'Tasainen'}</span>
+                </div>
+                <input
+                  type="range"
+                  min="0.1"
+                  max="1.0"
+                  step="0.05"
+                  value={voiceStability}
+                  onChange={(e) => setVoiceStability(parseFloat(e.target.value))}
+                  className="w-full accent-amber-500 bg-slate-950 h-1.5 rounded-lg cursor-pointer"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <div className="flex justify-between items-center text-slate-400">
+                  <span>Similarity / Clarity ({voiceClarity})</span>
+                  <span className="text-[10px]">Tarkkuus</span>
+                </div>
+                <input
+                  type="range"
+                  min="0.3"
+                  max="1.0"
+                  step="0.05"
+                  value={voiceClarity}
+                  onChange={(e) => setVoiceClarity(parseFloat(e.target.value))}
+                  className="w-full accent-amber-500 bg-slate-950 h-1.5 rounded-lg cursor-pointer"
+                />
+              </div>
+            </div>
+
+            {testVoiceStatus && (
+              <p className="text-xs text-cyan-400 font-mono animate-pulse text-center">{testVoiceStatus}</p>
+            )}
+
+            <div className="pt-2 flex justify-end">
+              <button
+                onClick={() => setShowVoiceModal(false)}
+                className="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-lg shadow-amber-950/40"
+              >
+                {language === 'fi' ? 'Valmis & Tallenna' : 'Done & Save'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Footer */}
       <footer className="border-t border-slate-900 bg-slate-950 py-4 text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>Pikseli Voiced Vision • Hacktoberfest Hack Day Mikkeli × Hacklab Mikkeli ry</p>
-          <p className="text-slate-600">Built with Gemma Multimodal Vision & ElevenLabs Voice AI</p>
+          <p className="text-slate-600">Built with Gemma Multimodal Vision & ElevenLabs Multilingual Voice AI</p>
         </div>
       </footer>
     </div>

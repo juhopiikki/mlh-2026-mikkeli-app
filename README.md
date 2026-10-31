@@ -3,6 +3,10 @@
 > **Multimodal AI Companion for Makers, Hacklabs & Art Lovers**  
 > *Real-time Visual Intelligence meets Expressive Conversational Voices*
 
+Capture an image and Pikseli Vision talks back out loud in character.
+
+Demo video: https://youtu.be/5vVASyXvEJM
+
 ---
 
 ## 📸 Application Screenshots

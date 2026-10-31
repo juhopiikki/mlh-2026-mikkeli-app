@@ -115,8 +115,8 @@ Do not output a generic image description. Answer their exact question in charac
         : `Look at this photo carefully. Describe what you see vividly for spoken audio, point out key details, and give a concise takeaway. Also extract 3-4 detected objects or visual features with short labels.`;
 
     const ai = getGenAIClient();
-    const primaryModel = 'gemini-3.5-flash';
-    const fallbackModel = 'gemini-3.5-flash-lite';
+    const primaryModel = 'gemma-4-26b-a4b-it';
+    const fallbackModel = 'gemma-4-31b-it';
 
     if (ai && cleanBase64 && !cleanBase64.startsWith('<svg')) {
       try {

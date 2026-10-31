@@ -25,8 +25,6 @@ In a real-world workshop or maker lab, your hands are frequently occupied: holdi
 
 ---
 
-## 🎯 Hackathon Tracks & Alignment
-
 ## 🎯 Hackathon Categories & Alignment
 
 We are entering three prize categories.

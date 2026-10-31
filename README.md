@@ -8,10 +8,10 @@
 ## 📸 Application Screenshots
 
 ### Desktop Viewport
-![Pikseli Vision Desktop UI](public/screenshots/desktop_preview.svg)
+![Pikseli Vision Desktop UI](public/screenshots/desktop.png)
 
 ### Mobile Viewport
-![Pikseli Vision Mobile UI](public/screenshots/mobile_preview.svg)
+![Pikseli Vision Mobile UI](public/screenshots/phone.png)
 
 ---
 

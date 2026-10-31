@@ -34,7 +34,9 @@ import {
   Mic,
   Settings,
   ChevronDown,
-  RefreshCw
+  RefreshCw,
+  Maximize,
+  Minimize
 } from 'lucide-react';
 
 interface Character {
@@ -79,13 +81,32 @@ const VOICE_OPTIONS: VoiceOption[] = [
 
 const CHARACTERS: Character[] = [
   {
+    id: 'sofia',
+    name: 'Sofia the Vision Guide',
+    nameFi: 'Sofia Analyytikko',
+    title: 'Observant Vision Guide & Explainer',
+    titleFi: 'Tarkkanäköinen Kuva-avustaja & Opas',
+    avatarEmoji: '👁️',
+    tagline: 'Clear, articulate visual guide: describes objects, art, documents, people, and daily surroundings.',
+    taglineFi: 'Selkeä ja rauhallinen opas: kuvailee esineet, taiteen, asiakirjat, ihmiset ja arjen ympäristön elävästi.',
+    defaultVoiceId: '21m00Tcm4TlvDq8ikWAM',
+    defaultPitch: 1.0,
+    defaultRate: 1.0,
+    colorTheme: {
+      badge: 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+      border: 'border-blue-500/40',
+      glow: 'shadow-blue-950/40',
+      accent: 'text-blue-400'
+    }
+  },
+  {
     id: 'matti',
     name: 'Matti the Maker',
     nameFi: 'Matti Nikkari',
     title: 'Veteran Finnish Hacklab Craftsman',
     titleFi: 'Hacklab Mikkelin verstasveteraani',
     avatarEmoji: '🧔‍♂️',
-    tagline: 'Dry Finnish humor, sighs (*huoh*), loves black kahvi, and knows every soldering flaw.',
+    tagline: 'Dry Finnish humor, sighs (*huoh*), loves black kahvi, and knows every soldering & 3D print flaw.',
     taglineFi: 'Kuiva savolainen huumori, huokailua (*huoh*), mustaa Juhla Mokkaa ja armoton tinakritiikki.',
     defaultVoiceId: 'VR6AewLTigWG4xSOukaG',
     defaultPitch: 0.85,
@@ -98,36 +119,17 @@ const CHARACTERS: Character[] = [
     }
   },
   {
-    id: 'dr_gemma',
-    name: 'Dr. Gemma',
-    nameFi: 'Dr. Gemma',
-    title: 'Cyberpunk Hardware Diagnostician',
-    titleFi: 'Kyberpunk-laitteistodiagnostikko',
-    avatarEmoji: '🔬',
-    tagline: 'High-tech forensic analysis, micro-defect scanning, and enthusiastic futuristic engineering.',
-    taglineFi: 'Huipputekninen mikroskooppianalyysi, lämpökuvaus ja tulevaisuuden komponenttietsintä.',
-    defaultVoiceId: '21m00Tcm4TlvDq8ikWAM',
-    defaultPitch: 1.1,
-    defaultRate: 1.05,
-    colorTheme: {
-      badge: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/20',
-      border: 'border-cyan-500/40',
-      glow: 'shadow-cyan-950/40',
-      accent: 'text-cyan-400'
-    }
-  },
-  {
-    id: 'norppa',
-    name: 'Norppa the Seal',
-    nameFi: 'Saimaan Norppa',
-    title: 'Lake Saimaa Wildlife Inspector',
-    titleFi: 'Saimaan vesistö- ja kalatarkastaja',
-    avatarEmoji: '🦭',
-    tagline: 'Endangered Saimaa seal who rates human contraptions based on water cleanliness and fish.',
-    taglineFi: 'Ihmettelee ihmisten vempaimia ja antaa pisteitä kalojen ja puhtaan Saimaan mukaan.',
-    defaultVoiceId: 'IKne3meq5aSn9XLyUdCD',
-    defaultPitch: 1.2,
-    defaultRate: 1.0,
+    id: 'aino',
+    name: 'Aino the Storyteller',
+    nameFi: 'Aino Tarinankertoja',
+    title: 'Poetic Scenery & Life Observer',
+    titleFi: 'Runollinen Elämän & Luonnon Tarkkailija',
+    avatarEmoji: '🌿',
+    tagline: 'Warm Nordic observer: brings nature, pets, scenery, food, and quiet moments alive with storytelling.',
+    taglineFi: 'Lämminhenkinen havaitsija: herättää kuvat, maisemat, lemmikit, ihmiset ja arjen kauneuden eloon tarinana.',
+    defaultVoiceId: 'XB0fDUnXU5powFXDhCwa',
+    defaultPitch: 1.05,
+    defaultRate: 0.98,
     colorTheme: {
       badge: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20',
       border: 'border-emerald-500/40',
@@ -137,13 +139,13 @@ const CHARACTERS: Character[] = [
   },
   {
     id: 'roast_bot',
-    name: 'RoastBot 9000',
-    nameFi: 'RoastBot 9000',
-    title: 'Sarcastic AI Workshop Critic',
-    titleFi: 'Sarkastinen Hackathon-kriitikko',
+    name: 'RoastBot 3000',
+    nameFi: 'RoastBot 3000',
+    title: 'Witty Comedy Roaster',
+    titleFi: 'Teräväkielinen Kuvakriitikko',
     avatarEmoji: '🔥',
-    tagline: 'Unfiltered comedy roast of your messy desk, cable nests, and optimistic solder bridges.',
-    taglineFi: 'Armotonta huumorikuittailua johtohässäköistä, tinasilloista ja 3D-tulosteen laadusta.',
+    tagline: 'Unfiltered comedy roast of questionable outfits, room clutter, amateur cooking, and everyday awkwardness.',
+    taglineFi: 'Armoton ja nokkela komediapaahde asuvalinnoista, huoneen sotkusta, lemmikeistä ja ruoka-annoksista.',
     defaultVoiceId: 'pNInz6obpgDQGcFmaJgB',
     defaultPitch: 0.95,
     defaultRate: 1.1,
@@ -158,40 +160,58 @@ const CHARACTERS: Character[] = [
 
 const SAMPLE_PRESETS = [
   {
-    id: 'spaghetti',
-    name: '3D Print Spaghetti Failure',
-    nameFi: '3D-tulosteen spagettikatastrofi',
-    category: '3D Printing',
-    description: 'Catastrophic detached first-layer nest of PLA filament on a heated build plate.',
+    id: 'coffee',
+    name: 'Morning Coffee & Cinnamon Bun',
+    nameFi: 'Aamukahvi & Korvapuusti',
+    category: 'Food & Life',
+    description: 'Fresh steaming mug of dark roast filter coffee and warm cinnamon pastry.',
     imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%231e293b"/><rect x="80" y="240" width="440" height="24" rx="4" fill="%23334155"/><rect x="100" y="220" width="400" height="20" rx="2" fill="%2364748b"/><path d="M140,220 Q200,80 260,210 Q320,60 380,220 Q440,90 480,210" fill="none" stroke="%23f97316" stroke-width="14" stroke-linecap="round"/><path d="M180,210 Q240,110 300,190 Q360,70 420,200" fill="none" stroke="%23fb923c" stroke-width="10"/><path d="M220,180 Q290,120 340,200 Q400,130 450,190" fill="none" stroke="%23fdba74" stroke-width="8"/><circle cx="280" cy="110" r="15" fill="%23ef4444"/><text x="305" y="115" fill="%23ffffff" font-family="monospace" font-size="14">Detached Extrusion</text><text x="300" y="320" text-anchor="middle" fill="%2394a3b8" font-family="sans-serif" font-size="16">PRUSA MK4 BED #2 • FAILED PRINT</text></svg>'
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23271c19"/><rect x="0" y="240" width="600" height="160" fill="%23452216"/><circle cx="200" cy="220" r="80" fill="%23f5ebe0"/><circle cx="200" cy="220" r="66" fill="%232c1810"/><path d="M265,200 C295,200 295,240 265,240" fill="none" stroke="%23f5ebe0" stroke-width="12" stroke-linecap="round"/><path d="M190,130 Q180,100 200,70 M210,130 Q220,95 205,65" fill="none" stroke="%23ffffff" stroke-width="3" opacity="0.4" stroke-linecap="round"/><ellipse cx="390" cy="225" rx="85" ry="65" fill="%23c27838"/><ellipse cx="390" cy="225" rx="70" ry="50" fill="%23d98e48"/><path d="M330,215 Q390,175 450,215 Q390,265 330,235" fill="none" stroke="%238a4413" stroke-width="8"/><circle cx="360" cy="205" r="3" fill="%23ffffff"/><circle cx="400" cy="235" r="3" fill="%23ffffff"/><circle cx="420" cy="210" r="3.5" fill="%23ffffff"/><circle cx="380" cy="200" r="2.5" fill="%23ffffff"/><text x="300" y="370" text-anchor="middle" fill="%23d6a27e" font-family="sans-serif" font-size="15">NORDIC MORNING • FRESH COFFEE &amp; KORVAPUUSTI</text></svg>'
+  },
+  {
+    id: 'dog',
+    name: 'Golden Retriever in Garden',
+    nameFi: 'Kultainennoutaja puutarhassa',
+    category: 'Pets & Animals',
+    description: 'Happy puppy sitting on a sunny lawn with blooming garden flowers.',
+    imageUrl:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%2338bdf8"/><rect x="0" y="220" width="600" height="180" fill="%2322c55e"/><circle cx="100" cy="80" r="45" fill="%23fde047"/><circle cx="80" cy="290" r="14" fill="%23ec4899"/><circle cx="500" cy="280" r="16" fill="%23eab308"/><circle cx="530" cy="300" r="12" fill="%23f43f5e"/><ellipse cx="300" cy="240" rx="95" ry="85" fill="%23eab308"/><ellipse cx="230" cy="210" rx="30" ry="50" fill="%23ca8a04"/><ellipse cx="370" cy="210" rx="30" ry="50" fill="%23ca8a04"/><circle cx="265" cy="215" r="10" fill="%231e293b"/><circle cx="335" cy="215" r="10" fill="%231e293b"/><circle cx="268" cy="212" r="3" fill="%23ffffff"/><circle cx="338" cy="212" r="3" fill="%23ffffff"/><ellipse cx="300" cy="255" rx="22" ry="16" fill="%231e293b"/><path d="M290,265 Q300,285 310,265" fill="%23f43f5e"/><text x="300" y="370" text-anchor="middle" fill="%23ffffff" font-family="sans-serif" font-size="15" font-weight="bold">SPRING GARDEN • HAPPY GOLDEN RETRIEVER</text></svg>'
+  },
+  {
+    id: 'saimaa',
+    name: 'Nordic Lake Sunset & Wooden Pier',
+    nameFi: 'Laituri & Syysjärvi',
+    category: 'Nature & Scenery',
+    description: 'Tranquil wooden pier extending into calm lake water under a colorful Nordic sky.',
+    imageUrl:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="%23ea580c"/><stop offset="50%" stop-color="%23f97316"/><stop offset="100%" stop-color="%2338bdf8"/></linearGradient></defs><rect width="600" height="400" fill="url(%23g1)"/><circle cx="300" cy="190" r="50" fill="%23fed7aa"/><rect x="0" y="220" width="600" height="180" fill="%230369a1"/><polygon points="40,220 80,140 120,220" fill="%230f172a"/><polygon points="90,220 130,130 170,220" fill="%230f172a"/><polygon points="460,220 500,120 540,220" fill="%230f172a"/><polygon points="510,220 545,145 580,220" fill="%230f172a"/><polygon points="260,400 340,400 320,230 280,230" fill="%2378350f"/><line x1="260" y1="260" x2="340" y2="260" stroke="%23451a03" stroke-width="4"/><line x1="260" y1="310" x2="340" y2="310" stroke="%23451a03" stroke-width="5"/><line x1="260" y1="360" x2="340" y2="360" stroke="%23451a03" stroke-width="6"/><text x="300" y="385" text-anchor="middle" fill="%23bae6fd" font-family="sans-serif" font-size="14">LAKE SAIMAA • SERENE WOODEN PIER AT SUNSET</text></svg>'
+  },
+  {
+    id: 'room',
+    name: 'Modern Nordic Living Space',
+    nameFi: 'Skandinaavinen olohuone',
+    category: 'Design & Living',
+    description: 'Minimalist living room with green armchair, monstera plant, and ambient lamp.',
+    imageUrl:
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%23f1f5f9"/><rect x="0" y="270" width="600" height="130" fill="%23cbd5e1"/><rect x="180" y="60" width="120" height="150" fill="%23ffffff" stroke="%23334155" stroke-width="4"/><circle cx="240" cy="135" r="35" fill="%23f97316"/><line x1="480" y1="90" x2="480" y2="320" stroke="%23334155" stroke-width="6"/><polygon points="450,110 510,110 495,80 465,80" fill="%23fde047"/><rect x="300" y="190" width="130" height="100" rx="16" fill="%230d9488"/><rect x="285" y="240" width="160" height="50" rx="10" fill="%23115e59"/><circle cx="100" cy="270" r="40" fill="%2315803d"/><circle cx="80" cy="240" r="30" fill="%2316a34a"/><rect x="85" y="280" width="30" height="50" fill="%23ea580c"/><text x="300" y="380" text-anchor="middle" fill="%23475569" font-family="sans-serif" font-size="14">NORDIC INTERIOR • MODERN SCANDINAVIAN LIVING ROOM</text></svg>'
   },
   {
     id: 'breadboard',
-    name: 'Messy Arduino Breadboard',
-    nameFi: 'Sotkuinen koekytkentälevy',
-    category: 'Electronics',
-    description: 'Tangled jumper wires, NE555 timer chip, LEDs and a suspicious 9V battery clip.',
+    name: 'Hacklab Electronics Bench (Matti)',
+    nameFi: 'Hacklab-prototyyppi & kolvi',
+    category: 'Workshop & Maker',
+    description: 'Tangled jumper wires, NE555 timer chip, LEDs and prototype electronics.',
     imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%230f172a"/><rect x="120" y="80" width="360" height="240" rx="8" fill="%23f8fafc"/><rect x="250" y="150" width="100" height="40" rx="4" fill="%231e293b"/><text x="300" y="175" text-anchor="middle" fill="%23ffffff" font-family="monospace" font-size="12">NE555P</text><path d="M150,100 C150,220 220,160 250,160" fill="none" stroke="%23ef4444" stroke-width="6"/><path d="M200,280 C280,220 300,280 340,170" fill="none" stroke="%233b82f6" stroke-width="6"/><path d="M350,160 C420,130 400,260 450,260" fill="none" stroke="%2310b981" stroke-width="6"/><circle cx="430" cy="120" r="8" fill="%23eab308"/><text x="300" y="360" text-anchor="middle" fill="%23cbd5e1" font-family="sans-serif" font-size="16">HACKLAB BENCH #1 • PROTOTYPE RIG</text></svg>'
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%230f172a"/><rect x="110" y="70" width="380" height="250" rx="8" fill="%23f8fafc"/><rect x="250" y="145" width="100" height="40" rx="4" fill="%231e293b"/><text x="300" y="170" text-anchor="middle" fill="%23ffffff" font-family="monospace" font-size="12">NE555P</text><path d="M150,95 C150,225 220,155 250,155" fill="none" stroke="%23ef4444" stroke-width="6"/><path d="M200,285 C280,225 300,285 340,165" fill="none" stroke="%233b82f6" stroke-width="6"/><path d="M350,155 C420,125 400,265 450,265" fill="none" stroke="%2310b981" stroke-width="6"/><circle cx="430" cy="115" r="8" fill="%23eab308"/><text x="300" y="365" text-anchor="middle" fill="%23cbd5e1" font-family="sans-serif" font-size="15">HACKLAB MIKKELI BENCH • ELECTRONICS PROTOTYPE</text></svg>'
   },
   {
-    id: 'pulla',
-    name: 'Finnish Kahvi & Korvapuusti',
-    nameFi: 'Musta Juhla Mokka & Korvapuusti',
-    category: 'Workshop Fuel',
-    description: 'Essential Hacklab fuel: A steaming mug of black filter coffee and cinnamon bun.',
+    id: 'fashion',
+    name: 'Autumn Coat & Urban Style',
+    nameFi: 'Syystakki & Katutyyli',
+    category: 'Fashion & People',
+    description: 'Warm mustard wool coat, red knitted scarf, and takeaway coffee on a city walk.',
     imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%2318181b"/><circle cx="220" cy="200" r="80" fill="%23f4f4f5"/><circle cx="220" cy="200" r="65" fill="%233f200c"/><path d="M285,180 C315,180 315,220 285,220" fill="none" stroke="%23f4f4f5" stroke-width="12" stroke-linecap="round"/><ellipse cx="380" cy="210" rx="75" ry="60" fill="%23b45309"/><path d="M330,200 Q380,170 430,200 Q380,240 330,220" fill="none" stroke="%2378350f" stroke-width="8"/><circle cx="360" cy="190" r="3" fill="%23ffffff"/><circle cx="390" cy="220" r="3" fill="%23ffffff"/><circle cx="410" cy="195" r="3" fill="%23ffffff"/><text x="300" y="340" text-anchor="middle" fill="%23e4e4e7" font-family="sans-serif" font-size="16">HACKLAB BREAK AREA • MIKKELI KAHVI</text></svg>'
-  },
-  {
-    id: 'saimaa_seal',
-    name: 'Lake Saimaa Ringed Seal',
-    nameFi: 'Saimaan Norppa rantakalliolla',
-    category: 'Nature',
-    description: 'A cute Saimaa ringed seal sunbathing on a smooth granite rock near Mikkeli.',
-    imageUrl:
-      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%230c4a6e"/><path d="M0,260 Q150,230 300,260 T600,250 L600,400 L0,400 Z" fill="%230369a1"/><ellipse cx="320" cy="260" rx="180" ry="70" fill="%23334155"/><ellipse cx="320" cy="245" rx="120" ry="50" fill="%23475569"/><circle cx="410" cy="225" r="35" fill="%23334155"/><circle cx="425" cy="220" r="5" fill="%23000000"/><circle cx="435" cy="228" r="3" fill="%23000000"/><ellipse cx="250" cy="245" rx="10" ry="6" fill="%231e293b"/><ellipse cx="300" cy="255" rx="8" ry="5" fill="%231e293b"/><ellipse cx="350" cy="240" rx="9" ry="6" fill="%231e293b"/><text x="300" y="370" text-anchor="middle" fill="%23bae6fd" font-family="sans-serif" font-size="16">LAKE SAIMAA • SAIMAANNORPPA HABITAT</text></svg>'
+      'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><rect width="600" height="400" fill="%231e293b"/><circle cx="120" cy="100" r="50" fill="%23f59e0b" opacity="0.3"/><circle cx="480" cy="140" r="70" fill="%2306b6d4" opacity="0.2"/><ellipse cx="300" cy="100" rx="40" ry="45" fill="%23fcd34d"/><path d="M260,110 Q300,135 340,110 L350,150 Q300,165 250,150 Z" fill="%23b91c1c"/><path d="M240,150 L210,320 L390,320 L360,150 Z" fill="%23d97706"/><rect x="285" y="170" width="30" height="150" fill="%23b45309"/><rect x="360" y="240" width="22" height="35" rx="4" fill="%23ffffff"/><polygon points="360,240 382,240 378,245 364,245" fill="%231e293b"/><text x="300" y="370" text-anchor="middle" fill="%23f1f5f9" font-family="sans-serif" font-size="14">AUTUMN STREETWEAR • COAT &amp; SCARF URBAN STYLE</text></svg>'
   }
 ];
 
@@ -205,15 +225,15 @@ export default function App() {
   // Vision Analysis State
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [spokenText, setSpokenText] = useState<string>(
-    "No niin! Katotaas mitä täältä löytyy. Tuo ensimmäinen kerros on irronnut pediltä kuin liisteri paperista. Hae pöydältä kaksi purkki isopropanolia ja pyyhitään tuo PEI-alusta ennen seuraavaa yritystä."
+    "Tervehdys! Olen Sofia, visuaalinen kuvaoppaasi. Tässä kuvassa näemme lämpimän aamiaiskattauksen: höyryävän kupin tummapaahtoista suodatinkahvia ja vastapaistetun korvapuustin. Pehmeä valo luo tilaan rauhallisen ja kotoisan tunnelman."
   );
   const [detectedTags, setDetectedTags] = useState<Array<{ label: string; description: string }>>([
-    { label: 'Irronnut pursotus', description: 'Muovi irronnut tulostusalustalta' },
-    { label: 'Spagettilangat', description: 'Sotkeutunutta PLA-filamenttia' },
-    { label: 'Z-korkeuden virhe', description: 'Suutin liian korkealla alustasta' }
+    { label: 'Höyryävä aamukahvi', description: 'Tuore tummapaahtoinen suodatinkahvi keramiikkamukissa' },
+    { label: 'Korvapuusti', description: 'Perinteinen kardemummalla ja raesokerilla maustettu leivonnainen' },
+    { label: 'Aamiaispöytä', description: 'Luonnonvalo lämpimällä puupinnalla' }
   ]);
-  const [verdict, setVerdict] = useState<string>('Pietarinkadun työpajatarkastus: Tarvitsee lisää tinaa ja kahvia.');
-  const [emotion, setEmotion] = useState<string>('skeptical');
+  const [verdict, setVerdict] = useState<string>('Visuaalinen havainto: Tasapainoinen sommittelu ja houkutteleva arkinen aamuhetki.');
+  const [emotion, setEmotion] = useState<string>('cheerful');
   const [customPrompt, setCustomPrompt] = useState<string>('');
   const [lastModelSource, setLastModelSource] = useState<string>('Gemma Vision (gemini-3.5-flash)');
   const [activeFocusTag, setActiveFocusTag] = useState<string | null>(null);
@@ -222,6 +242,12 @@ export default function App() {
   const abortControllerRef = useRef<AbortController | null>(null);
   const ttsAbortControllerRef = useRef<AbortController | null>(null);
   const currentSpeechIdRef = useRef<number>(0);
+
+  // Synchronization refs to prevent React state closure staleness
+  const languageRef = useRef<'fi' | 'en'>('fi');
+  const selectedCharacterRef = useRef<Character>(CHARACTERS[0]);
+  const selectedVoiceIdRef = useRef<string>(CHARACTERS[0].defaultVoiceId);
+  const currentImageRef = useRef<string>(SAMPLE_PRESETS[0].imageUrl);
 
   // ElevenLabs Voice State
   const [isSpeaking, setIsSpeaking] = useState(false);
@@ -237,8 +263,28 @@ export default function App() {
 
   // Webcam State
   const [isWebcamOpen, setIsWebcamOpen] = useState(false);
+  const [cameraError, setCameraError] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Fullscreen State
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen().catch(() => {});
+    }
+  };
 
   // Persist ElevenLabs API Key
   const handleSaveApiKey = (key: string) => {
@@ -246,24 +292,41 @@ export default function App() {
     localStorage.setItem('elevenlabs_api_key', key);
   };
 
-  // Convert any image or SVG to clean JPEG base64 data
+  // Convert any image or SVG to clean JPEG base64 data (resizing if oversized)
   const getJpegBase64 = (imageSrc: string): Promise<string> => {
     return new Promise((resolve) => {
-      if (imageSrc.startsWith('data:image/jpeg;base64,') || imageSrc.startsWith('data:image/png;base64,')) {
+      // If already a compact base64 JPEG/PNG, use directly
+      if (
+        (imageSrc.startsWith('data:image/jpeg;base64,') || imageSrc.startsWith('data:image/png;base64,')) &&
+        imageSrc.length < 500000
+      ) {
         resolve(imageSrc);
         return;
       }
+
       const img = new Image();
       img.crossOrigin = 'anonymous';
       img.onload = () => {
+        const maxDim = 1200;
+        let w = img.naturalWidth || 600;
+        let h = img.naturalHeight || 400;
+        if (w > maxDim || h > maxDim) {
+          if (w > h) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          } else {
+            w = Math.round((w * maxDim) / h);
+            h = maxDim;
+          }
+        }
         const canvas = document.createElement('canvas');
-        canvas.width = img.naturalWidth || 600;
-        canvas.height = img.naturalHeight || 400;
+        canvas.width = w;
+        canvas.height = h;
         const ctx = canvas.getContext('2d');
         if (ctx) {
           ctx.fillStyle = '#0f172a';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, 0, 0);
+          ctx.fillRect(0, 0, w, h);
+          ctx.drawImage(img, 0, 0, w, h);
           resolve(canvas.toDataURL('image/jpeg', 0.85));
           return;
         }
@@ -295,7 +358,9 @@ export default function App() {
     }
 
     setIsSpeaking(true);
-    const targetVoiceId = overrideVoiceId || selectedVoiceId || selectedCharacter.defaultVoiceId;
+    const activeChar = selectedCharacterRef.current || selectedCharacter;
+    const targetVoiceId = overrideVoiceId || selectedVoiceIdRef.current || selectedVoiceId || activeChar.defaultVoiceId;
+    const targetLanguage = languageRef.current || language;
 
     // Check if ElevenLabs key is available
     if (elevenLabsApiKey.trim()) {
@@ -308,7 +373,7 @@ export default function App() {
             text,
             voiceId: targetVoiceId,
             customApiKey: elevenLabsApiKey.trim(),
-            language,
+            language: targetLanguage,
             stability: voiceStability,
             similarity_boost: voiceClarity
           })
@@ -334,7 +399,7 @@ export default function App() {
           };
           audio.onerror = () => {
             if (thisSpeechId === currentSpeechIdRef.current) {
-              fallbackBrowserSpeech(text, thisSpeechId);
+              fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
             }
           };
 
@@ -350,11 +415,11 @@ export default function App() {
 
     // Fallback: Browser Native Web Speech API
     if (thisSpeechId === currentSpeechIdRef.current) {
-      fallbackBrowserSpeech(text, thisSpeechId);
+      fallbackBrowserSpeech(text, thisSpeechId, targetVoiceId);
     }
   };
 
-  const fallbackBrowserSpeech = (text: string, speechId?: number) => {
+  const fallbackBrowserSpeech = (text: string, speechId?: number, _voiceId?: string) => {
     if (!('speechSynthesis' in window)) {
       setIsSpeaking(false);
       return;
@@ -362,13 +427,15 @@ export default function App() {
 
     setVoiceSource('browser');
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.pitch = selectedCharacter.defaultPitch;
-    utterance.rate = selectedCharacter.defaultRate;
-    utterance.lang = language === 'fi' ? 'fi-FI' : 'en-US';
+    const activeChar = selectedCharacterRef.current || selectedCharacter;
+    const targetLang = languageRef.current || language;
+    utterance.pitch = activeChar.defaultPitch;
+    utterance.rate = activeChar.defaultRate;
+    utterance.lang = targetLang === 'fi' ? 'fi-FI' : 'en-US';
 
     const voices = window.speechSynthesis.getVoices();
     const preferredVoice =
-      voices.find((v) => (language === 'fi' ? v.lang.startsWith('fi') : v.lang.startsWith('en'))) ||
+      voices.find((v) => (targetLang === 'fi' ? v.lang.startsWith('fi') : v.lang.startsWith('en'))) ||
       voices[0];
     if (preferredVoice) {
       utterance.voice = preferredVoice;
@@ -415,8 +482,14 @@ export default function App() {
     setTimeout(() => setTestVoiceStatus(null), 3000);
   };
 
-  // Run Multimodal Vision Analysis on Current Image (With Abort & Instant Feedback)
-  const analyzeCurrentImage = async (focusItem?: string) => {
+  // Run Multimodal Vision Analysis on Current Image (With Abort & Instant Feedback & Direct Parameter Passing)
+  const analyzeCurrentImage = async (
+    focusItem?: string,
+    overrideImage?: string,
+    overrideCharacter?: Character,
+    overrideVoiceId?: string,
+    overrideLanguage?: 'fi' | 'en'
+  ) => {
     // Cancel any previous in-flight request
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
@@ -427,12 +500,18 @@ export default function App() {
     // Immediately stop previous speech and invalidate pending audio
     stopSpeaking();
 
+    const targetImage = overrideImage || currentImageRef.current || currentImage;
+    const targetChar = overrideCharacter || selectedCharacterRef.current || selectedCharacter;
+    const targetVoiceId =
+      overrideVoiceId ||
+      (overrideCharacter ? overrideCharacter.defaultVoiceId : selectedVoiceIdRef.current || targetChar.defaultVoiceId);
+    const targetLang = overrideLanguage || languageRef.current || language;
     const targetFocus = focusItem || customPrompt.trim();
 
     if (focusItem) {
       setActiveFocusTag(focusItem);
       setSpokenText(
-        language === 'fi'
+        targetLang === 'fi'
           ? `Tutkitaan kohdetta "${focusItem}"... Hetki pieni!`
           : `Examining "${focusItem}"... One moment!`
       );
@@ -443,7 +522,7 @@ export default function App() {
     setIsAnalyzing(true);
 
     try {
-      const validJpegBase64 = await getJpegBase64(currentImage);
+      const validJpegBase64 = await getJpegBase64(targetImage);
 
       const res = await fetch('/api/vision/analyze', {
         method: 'POST',
@@ -451,9 +530,9 @@ export default function App() {
         signal: controller.signal,
         body: JSON.stringify({
           imageBase64: validJpegBase64,
-          character: selectedCharacter.id,
+          character: targetChar.id,
           focusArea: targetFocus,
-          language,
+          language: targetLang,
           mimeType: 'image/jpeg'
         })
       });
@@ -463,11 +542,11 @@ export default function App() {
         setSpokenText(data.speechText);
         setEmotion(data.emotion || 'amused');
         if (data.tags && data.tags.length > 0) setDetectedTags(data.tags);
-        if (data.hacklabVerdict) setVerdict(data.hacklabVerdict);
+        if (data.verdict || data.hacklabVerdict) setVerdict(data.verdict || data.hacklabVerdict);
         if (data.modelUsed) setLastModelSource(`Live: ${data.modelUsed} (${data.durationMs}ms)`);
 
-        // Speak aloud the fresh response!
-        speakDialogue(data.speechText);
+        // Speak aloud the fresh response with the active character's voice!
+        speakDialogue(data.speechText, targetVoiceId);
       }
     } catch (err: any) {
       if (err.name === 'AbortError') {
@@ -481,7 +560,23 @@ export default function App() {
     }
   };
 
-  // Image Upload handler
+  // Character Selection handler with immediate sync
+  const handleSelectCharacter = (char: Character) => {
+    selectedCharacterRef.current = char;
+    selectedVoiceIdRef.current = char.defaultVoiceId;
+    setSelectedCharacter(char);
+    setSelectedVoiceId(char.defaultVoiceId);
+    stopSpeaking();
+    const currentLang = languageRef.current;
+    setSpokenText(
+      currentLang === 'fi'
+        ? `${char.nameFi} arvioi kuvaa omalla tyylillään...`
+        : `${char.name} is evaluating the photo...`
+    );
+    analyzeCurrentImage(undefined, undefined, char, char.defaultVoiceId);
+  };
+
+  // Image Upload handler with immediate sync
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -490,26 +585,80 @@ export default function App() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const base64 = event.target?.result as string;
+      if (!base64) return;
+      currentImageRef.current = base64;
       setCurrentImage(base64);
-      setTimeout(() => {
-        analyzeCurrentImage();
-      }, 100);
+      stopSpeaking();
+      const currentLang = languageRef.current;
+      setSpokenText(
+        currentLang === 'fi'
+          ? `Tutkitaan ladattua kuvaa "${file.name}"... Hetki pieni!`
+          : `Analyzing uploaded image "${file.name}"... One moment!`
+      );
+      analyzeCurrentImage(undefined, base64);
     };
     reader.readAsDataURL(file);
+    e.target.value = '';
+  };
+
+  // Preset Selection handler with immediate sync
+  const handleSelectPreset = (preset: (typeof SAMPLE_PRESETS)[0]) => {
+    currentImageRef.current = preset.imageUrl;
+    setCurrentImage(preset.imageUrl);
+    setCurrentImageName(languageRef.current === 'fi' ? preset.nameFi : preset.name);
+    setIsWebcamOpen(false);
+    stopSpeaking();
+    const currentLang = languageRef.current;
+    setSpokenText(
+      currentLang === 'fi'
+        ? `Avataan "${preset.nameFi}"...`
+        : `Opening "${preset.name}"...`
+    );
+    analyzeCurrentImage(undefined, preset.imageUrl);
+  };
+
+  // Language toggle handler with immediate sync
+  const handleToggleLanguage = (newLang: 'fi' | 'en') => {
+    languageRef.current = newLang;
+    setLanguage(newLang);
+    stopSpeaking();
+    analyzeCurrentImage(undefined, undefined, undefined, undefined, newLang);
   };
 
   // Webcam Controls
   const startWebcam = async () => {
+    setCameraError(null);
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      setCameraError(
+        languageRef.current === 'fi'
+          ? 'Selaimesi ei tue suoraa videovirtaa tässä näkymässä. Käytä "Ota kamerakuva" -painiketta!'
+          : 'Browser camera stream not supported in this frame. Please use the "Take Camera Photo" button!'
+      );
+      return;
+    }
+
     setIsWebcamOpen(true);
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 480 } });
+      let stream: MediaStream;
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: 'environment' } }
+        });
+      } catch {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      }
+
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
       }
     } catch (err) {
-      console.error('Webcam access error:', err);
+      console.warn('Webcam access error:', err);
       setIsWebcamOpen(false);
-      alert('Could not access camera. Please allow camera permissions or upload an image.');
+      setCameraError(
+        languageRef.current === 'fi'
+          ? 'Kameraan ei saatu suoraa videoyhteyttä tässä selaimessa. Ota kuva puhelimellasi painamalla "Ota kamerakuva"!'
+          : 'Could not open live stream. Tap "Take Camera Photo" to snap directly with your phone!'
+      );
     }
   };
 
@@ -522,17 +671,22 @@ export default function App() {
     if (!ctx) return;
 
     ctx.drawImage(videoRef.current, 0, 0, 640, 480);
-    const base64 = canvas.toDataURL('image/jpeg');
+    const base64 = canvas.toDataURL('image/jpeg', 0.85);
+    currentImageRef.current = base64;
     setCurrentImage(base64);
-    setCurrentImageName(language === 'fi' ? 'Webkamera-kuva' : 'Webcam Snapshot');
+    setCurrentImageName(languageRef.current === 'fi' ? 'Webkamera-kuva' : 'Webcam Snapshot');
 
     const stream = videoRef.current.srcObject as MediaStream;
     stream?.getTracks().forEach((track) => track.stop());
     setIsWebcamOpen(false);
 
-    setTimeout(() => {
-      analyzeCurrentImage();
-    }, 150);
+    stopSpeaking();
+    setSpokenText(
+      languageRef.current === 'fi'
+        ? 'Tutkitaan webkameran ottamaa valokuvaa...'
+        : 'Inspecting webcam snapshot...'
+    );
+    analyzeCurrentImage(undefined, base64);
   };
 
   const handleCopyPitchDeck = () => {
@@ -577,10 +731,7 @@ export default function App() {
             {/* Suomi / English Toggle */}
             <div className="flex items-center space-x-1 bg-slate-950/60 rounded-lg p-0.5 border border-amber-300/30">
               <button
-                onClick={() => {
-                  setLanguage('fi');
-                  setTimeout(() => analyzeCurrentImage(), 50);
-                }}
+                onClick={() => handleToggleLanguage('fi')}
                 className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center space-x-1 ${
                   language === 'fi' ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:text-white'
                 }`}
@@ -589,10 +740,7 @@ export default function App() {
                 <span>Suomi</span>
               </button>
               <button
-                onClick={() => {
-                  setLanguage('en');
-                  setTimeout(() => analyzeCurrentImage(), 50);
-                }}
+                onClick={() => handleToggleLanguage('en')}
                 className={`px-2 py-0.5 rounded text-[11px] font-bold transition flex items-center space-x-1 ${
                   language === 'en' ? 'bg-amber-500 text-slate-950' : 'text-slate-300 hover:text-white'
                 }`}
@@ -647,6 +795,18 @@ export default function App() {
               {copiedPitch ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <FileText className="w-3.5 h-3.5" />}
               <span className="hidden sm:inline">Pitch Script</span>
             </button>
+
+            {/* In-app Fullscreen Toggle */}
+            <button
+              onClick={toggleFullscreen}
+              className="p-2 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition text-xs flex items-center space-x-1.5"
+              title={isFullscreen ? (language === 'fi' ? 'Poistu koko ruudusta (Esc)' : 'Exit Fullscreen (Esc)') : (language === 'fi' ? 'Koko ruutu' : 'Fullscreen')}
+            >
+              {isFullscreen ? <Minimize className="w-3.5 h-3.5 text-cyan-400" /> : <Maximize className="w-3.5 h-3.5 text-slate-400" />}
+              <span className="hidden sm:inline">
+                {isFullscreen ? (language === 'fi' ? 'Pikkuruutu' : 'Exit') : (language === 'fi' ? 'Koko näyttö' : 'Full Screen')}
+              </span>
+            </button>
           </div>
         </div>
       </header>
@@ -657,7 +817,7 @@ export default function App() {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center space-x-1.5">
-              <span>{language === 'fi' ? 'Valitse puhuva työpajahahmo' : 'Choose Your Voiced Character Persona'}</span>
+              <span>{language === 'fi' ? 'Valitse puhuva tekoälyhahmo' : 'Choose Your Voiced AI Persona'}</span>
             </h3>
             <span className="text-[10px] text-slate-500">
               {language === 'fi' ? 'Kieli: Suomi (ElevenLabs Multilingual v2)' : 'Language: English'}
@@ -670,11 +830,7 @@ export default function App() {
               return (
                 <button
                   key={char.id}
-                  onClick={() => {
-                    setSelectedCharacter(char);
-                    setSelectedVoiceId(char.defaultVoiceId);
-                    setTimeout(() => analyzeCurrentImage(), 50);
-                  }}
+                  onClick={() => handleSelectCharacter(char)}
                   className={`p-3.5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between relative group ${
                     isSelected
                       ? `bg-slate-900 ${char.colorTheme.border} ring-1 ring-amber-500/40 shadow-lg ${char.colorTheme.glow}`
@@ -685,7 +841,7 @@ export default function App() {
                     <div className="flex items-center justify-between">
                       <span className="text-2xl">{char.avatarEmoji}</span>
                       <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${char.colorTheme.badge}`}>
-                        {char.id === 'matti' ? 'Mikkeli' : char.id === 'dr_gemma' ? 'Cyberpunk' : char.id === 'norppa' ? 'Saimaa' : 'Comedy'}
+                        {char.id === 'matti' ? (language === 'fi' ? 'Hacklab Nikkari' : 'Makerspace') : char.id === 'sofia' ? (language === 'fi' ? 'Kuvaopas' : 'Vision Guide') : char.id === 'aino' ? (language === 'fi' ? 'Tarinankertoja' : 'Storyteller') : (language === 'fi' ? 'Komedia' : 'Comedy')}
                       </span>
                     </div>
 
@@ -761,32 +917,69 @@ export default function App() {
               )}
             </div>
 
+            {/* Inline Camera Error Notice */}
+            {cameraError && (
+              <div className="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-start justify-between space-x-2">
+                <div className="flex items-start space-x-2">
+                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                  <span>{cameraError}</span>
+                </div>
+                <button
+                  onClick={() => setCameraError(null)}
+                  className="text-amber-400 hover:text-white text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 border border-amber-800"
+                >
+                  OK
+                </button>
+              </div>
+            )}
+
             {/* Input Action Controls */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {/* File upload */}
-              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-2">
-                <Upload className="w-4 h-4 text-amber-400" />
-                <span>{language === 'fi' ? 'Lataa kuva' : 'Upload Photo'}</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {/* Native Mobile Camera Snap (100% reliable on phones) */}
+              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-cyan-500/50 text-slate-200 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-2 group">
+                <Camera className="w-4 h-4 text-cyan-400 group-hover:scale-110 transition" />
+                <span>{language === 'fi' ? 'Ota kamerakuva' : 'Snap Photo'}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  capture="environment"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                />
+              </label>
+
+              {/* File upload from gallery/files */}
+              <label className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-amber-500/50 text-slate-300 hover:text-white transition cursor-pointer text-xs flex items-center justify-center space-x-2 group">
+                <Upload className="w-4 h-4 text-amber-400 group-hover:scale-110 transition" />
+                <span>{language === 'fi' ? 'Lataa tiedosto' : 'Choose File'}</span>
                 <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
               </label>
 
-              {/* Webcam Snapshot */}
+              {/* Webcam Live Stream (for desktop or when supported) */}
               <button
-                onClick={startWebcam}
+                onClick={() => {
+                  if (isWebcamOpen) {
+                    const stream = videoRef.current?.srcObject as MediaStream;
+                    stream?.getTracks().forEach((track) => track.stop());
+                    setIsWebcamOpen(false);
+                  } else {
+                    startWebcam();
+                  }
+                }}
                 className="p-2.5 rounded-xl bg-slate-950 border border-slate-800 hover:border-slate-700 text-slate-300 hover:text-white transition text-xs flex items-center justify-center space-x-2"
               >
-                <Camera className="w-4 h-4 text-cyan-400" />
-                <span>{isWebcamOpen ? 'Kamera auki' : language === 'fi' ? 'Live Webkamera' : 'Live Webcam'}</span>
+                <Radio className={`w-4 h-4 ${isWebcamOpen ? 'text-red-400 animate-pulse' : 'text-emerald-400'}`} />
+                <span>{isWebcamOpen ? (language === 'fi' ? 'Sulje kamera' : 'Close Video') : (language === 'fi' ? 'Live Webkamera' : 'Live Stream')}</span>
               </button>
 
               {/* Re-Analyze Button */}
               <button
                 onClick={() => analyzeCurrentImage()}
                 disabled={isAnalyzing}
-                className="col-span-2 sm:col-span-1 p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-xs flex items-center justify-center space-x-1.5 shadow-md shadow-amber-950/40"
+                className="p-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition text-xs flex items-center justify-center space-x-1.5 shadow-md shadow-amber-950/40"
               >
                 <Sparkles className="w-4 h-4 text-slate-950" />
-                <span>{isAnalyzing ? (language === 'fi' ? 'Tutkitaan...' : 'Inspecting...') : language === 'fi' ? 'Tarkasta kuva' : 'Inspect Now'}</span>
+                <span>{isAnalyzing ? (language === 'fi' ? 'Tutkitaan...' : 'Inspecting...') : (language === 'fi' ? 'Tarkasta kuva' : 'Inspect Now')}</span>
               </button>
             </div>
 
@@ -801,8 +994,8 @@ export default function App() {
                 }}
                 placeholder={
                   language === 'fi'
-                    ? `Kysy Matilta jotain tästä kuvasta (esim. 'Mikä tuo vika on?')...`
-                    : `Ask ${selectedCharacter.name} specifically (e.g. 'What is that flaw?')...`
+                    ? `Kysy ${selectedCharacter.nameFi}ltä mitä tahansa kuvasta (esim. 'Mitä tässä tapahtuu?')...`
+                    : `Ask ${selectedCharacter.name} anything about this image (e.g. 'What is happening here?')...`
                 }
                 className="w-full bg-transparent text-xs text-slate-200 placeholder-slate-500 px-2 py-1 focus:outline-none"
               />
@@ -818,21 +1011,21 @@ export default function App() {
             {/* Preset Samples */}
             <div className="space-y-1.5 pt-1">
               <span className="text-[11px] text-slate-400 font-medium">
-                {language === 'fi' ? 'Tai testaa valmiilla Hacklab-kuvilla:' : 'Or test with Hacklab test photos:'}
+                {language === 'fi' ? 'Tai kokeile valmiilla esimerkkikuvilla:' : 'Or test with diverse sample images:'}
               </span>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {SAMPLE_PRESETS.map((preset) => (
                   <button
                     key={preset.id}
-                    onClick={() => {
-                      setCurrentImage(preset.imageUrl);
-                      setCurrentImageName(language === 'fi' ? preset.nameFi : preset.name);
-                      setIsWebcamOpen(false);
-                      setTimeout(() => analyzeCurrentImage(), 50);
-                    }}
-                    className="p-2 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-left transition text-[11px] text-slate-300 hover:text-white truncate"
+                    onClick={() => handleSelectPreset(preset)}
+                    className="p-2 rounded-xl bg-slate-950/80 border border-slate-800 hover:border-slate-700 text-left transition text-[11px] text-slate-300 hover:text-white group flex flex-col justify-between"
                   >
-                    {language === 'fi' ? preset.nameFi : preset.name}
+                    <span className="font-medium text-slate-200 group-hover:text-amber-300 truncate">
+                      {language === 'fi' ? preset.nameFi : preset.name}
+                    </span>
+                    <span className="text-[9px] text-slate-500 font-mono mt-0.5 truncate">
+                      {preset.category}
+                    </span>
                   </button>
                 ))}
               </div>
@@ -901,17 +1094,22 @@ export default function App() {
             {/* Spoken Dialogue Box */}
             <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 text-xs space-y-3 relative">
               <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider block">
-                {language === 'fi' ? 'Puhuttu kommentti (ElevenLabs / Gemma):' : 'Spoken Commentary:'}
+                {language === 'fi' ? 'Puhuttu havainto (Gemma Vision × ElevenLabs):' : 'Spoken Observation (Gemma Vision × ElevenLabs):'}
               </span>
               <p className="text-slate-100 text-sm leading-relaxed font-sans select-all">
                 "{spokenText}"
               </p>
 
               <div className="pt-2 border-t border-slate-900 flex items-center justify-between text-[11px] text-slate-400">
-                <span className="italic text-amber-300/80">"{verdict}"</span>
+                <span className="italic text-amber-300/90">
+                  <span className="font-semibold text-slate-400 not-italic mr-1.5">
+                    {language === 'fi' ? 'Yhteenveto:' : 'Takeaway:'}
+                  </span>
+                  "{verdict}"
+                </span>
                 <button
                   onClick={() => speakDialogue(spokenText)}
-                  className="text-amber-400 hover:underline flex items-center space-x-1"
+                  className="text-amber-400 hover:underline flex items-center space-x-1 shrink-0 ml-3"
                 >
                   <Play className="w-3 h-3" />
                   <span>{language === 'fi' ? 'Toista uudelleen' : 'Replay Voice'}</span>
@@ -994,8 +1192,8 @@ export default function App() {
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               {language === 'fi'
-                ? 'Gemma Vision tarkastaa todellisen kamerakuvan tai valokuvan pikselit. Se tunnistaa elektroniikan, juotosvirheet, 3D-tulosteen kerrosongelmat ja työpajan esineet aidoista kuvista.'
-                : 'Processes the raw pixels of your camera feed or uploaded photo. Unlike standard text bots, it segments physical electronics, identifies 3D print failures, counts resistor bands, and spots environmental lake conditions.'}
+                ? 'Gemma Vision tarkastaa kamerakuvan tai ladatun kuvan todelliset pikselit. Se tunnistaa arkiesineet, lemmikit, ruoka-annokset, luontokohteet, asukokonaisuudet sekä Hacklabin verstasviritelmät ilman valmiita tekstipohjia.'
+                : 'Processes the raw pixels of your camera feed or uploaded photo. Unlike standard text bots, it visually identifies everyday objects, pets, food dishes, nature scenes, fashion, and physical workshop prototypes.'}
             </p>
           </div>
 
@@ -1006,8 +1204,8 @@ export default function App() {
             </h4>
             <p className="text-xs text-slate-400 leading-relaxed">
               {language === 'fi'
-                ? 'ElevenLabs multilingual v2 tuo Matin ja muut hahmot eloon aidolla suomen kielellä. Nikkari voi kuunnella neuvoja työpöydän äärellä kädet vapaina kolvia ja työkaluja varten!'
-                : 'Brings the analysis alive with personality-driven character voices in both Finnish and English. Makers in physical workshops can listen to Matti or Dr. Gemma guide them through repairs hands-free!'}
+                ? 'ElevenLabs Multilingual v2 herättää hahmot eloon aidolla suomen ja englannin kielellä. Kuuntele Sofian rauhallista opastusta, Ainon tarinoita, RoastBotin komediapaahtoa tai Matin nikkarointineuvoja kädet vapaina!'
+                : 'Brings each persona alive with natural voice delivery in Finnish and English. Listen to Sofia\'s clear visual guidance, Aino\'s stories, RoastBot\'s comedy roasts, or Matti\'s maker advice completely hands-free!'}
             </p>
           </div>
         </div>
